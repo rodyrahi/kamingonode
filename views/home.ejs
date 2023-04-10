@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+  <div class="container shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand bold fw-bold text-primary" href="#" style="font-family: 'Poppins', sans-serif;"><img src="kamingo_favicon.png" width="35rem" alt=""> Kamingo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto ">
+            <li class="nav-item d-flex ">
+              <a class="nav-link me-2" href="#"><i class="fa-solid fa-address-book " style=" font-size: 1.4rem; color: cornflowerblue"></i></a>
+              <a class="nav-link me-2" href="#"><i class="fa-solid fa-circle-plus" style="  font-size: 1.4rem; color: cornflowerblue"></i></a>
+              <a class="nav-link me-2" href="#"><i class="fa-solid fa-user" style=" font-size: 1.4rem; color: cornflowerblue"></i></a>
+              <a class="nav-link me-2" href="#"><i class="fa-solid fa-house" style=" font-size: 1.4rem; color: cornflowerblue"></i></a>
+
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </nav>
+
+
+
+
+
+  </div>
+
+
+  </div>
+  <div class="container">
+    <div class="phone hide">
+
+
+      <nav class="navbar bg-light">
+        <div class="container-fluid p-0">
+          <form class="d-flex" role="search">
+            <div class="d-flex border p-1 rounded">
+              <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i>
+              <input class="form-control me-2" style="border: none; background-color: gainsboro;" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-primary" style="border-radius: 2rem;" type="submit">Search</button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </nav>
+      <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
+
+      <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
+      <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Laundary</button>
+      <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Clothing</button>
+    </div>
+    <div class="row my-3">
+      <div class="col-8 list ">
+        <div class="row justify-content-center d-flex ">
+
+          <%- include('./profiles/post.ejs') %>
+          <%- include('./profiles/post.ejs') %>
+          <%- include('./profiles/post.ejs') %>
+          <%- include('./profiles/post.ejs') %>
+
+        </div>
+
+
+      </div>
+      <div class="col-4 sidebar  " style=" position: fixed;
+      top: 5rem;
+      right: 2.5rem;">
+        <nav class="navbar bg-light">
+          <div class="container-fluid p-0">
+            <form class="d-flex" role="search">
+              <div class="d-flex border p-1 rounded">
+                <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i>
+                <input class="form-control me-2" style="border: none; background-color: gainsboro;" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" style="border-radius: 2rem;" type="submit">Search</button>
+              </div>
+
+            </form>
+
+          </div>
+
+        </nav>
+        <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
+
+        <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
+        <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Laundary</button>
+        <button class="btn btn-outline-secondary" style="border-radius: 2rem; background-color: black; color: aliceblue;" type="submit">Clothing</button>
+
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <script>
+    // Check the viewport size
+    var mq = window.matchMedia('(max-width: 600px)');
+
+    // Function to handle changes to the viewport size
+    function handleViewportChange(mq) {
+      if (mq.matches) {
+        // If viewport is less than 600px wide, add the new-class
+        document.querySelector('.sidebar').classList.add('hide');
+        document.querySelector('.sidebar').classList.remove('col-4');
+        document.querySelector('.list').classList.add('col');
+        document.querySelector('.list').classList.remove('col-8');
+        document.querySelector('.phone').classList.remove('hide');
+
+      } else {
+        // If viewport is greater than 600px wide, remove the new-class
+        document.querySelector('.sidebar').classList.remove('hide');
+        document.querySelector('.sidebar').classList.add('col-4');
+        document.querySelector('.list').classList.remove('col');
+        document.querySelector('.list').classList.add('col-8');
+        document.querySelector('.phone').classList.add('hide');
+
+
+      }
+    }
+
+    // Call the function on load and when the viewport size changes
+    handleViewportChange(mq);
+    mq.addListener(handleViewportChange);
+  </script>
+
+</body>
+
+</html>
