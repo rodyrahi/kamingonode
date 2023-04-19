@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/header.ejs') %>
+</head>
+
+<body>
+  <style>
+
+    .image-container img{
+        opacity: 0.8;
+    }
+    .image-container:hover img {
+    opacity: 1;
+    cursor: pointer;
+     /* change opacity to 1 on hover */
+    }
+
+  </style>
+
+
+  <%- include('../partials/nav.ejs') %>
+
+  <div class="container">
+
+    <form class="border p-2 rounded my-3" action="" method="POST">
+      <div class="text-center my-2">
+        <h4>Edit Profile</h4>
+
+      </div>
+
+
+      <div class="row justify-content-center">
+        <div class="col-md-3 ">
+            <!-- <a href="" onclick="getfile()">
+                <i class="fa-solid fa-user"></i>
+            </a> -->
+
+            <!-- <i class="fa-solid fa-user" onclick="getfile()"></i> -->
+            <input type="file" class="hide" id="fileInput">
+            <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
+            <div class="border rounded justify-content-center d-flex p-3 image-container " >
+
+           
+            <img src="kamingo_favicon.png" alt="" id="previewImage" srcset="" width="200rem"  onclick="getfile()"  >
+        </div>
+        </div>
+      </div>
+      <div class="mb-3 ">
+        <label for="nameinput" class="form-label">Name</label>
+        <input type="text" class="form-control" id="nameinput" placeholder="rajesh">
+      </div>
+      <div class="mb-3 ">
+        <label for="nameinput" class="form-label">Shop Name [optional]</label>
+        <input type="text" class="form-control" id="nameinput" placeholder="rajesh paint shop">
+      </div>
+      <div class="mb-3 ">
+        <label for="nameinput" class="form-label">Service</label>
+        <select name="service" id=""></select>
+      </div>
+      <div class="mb-3">
+        <label for="phoneinput" class="form-label">Phone</label>
+        <input type="tel" class="form-control" id="phoneinput" placeholder="+9199999999">
+      </div>
+      <div class="mb-3 ">
+        <label for="nameinput" class="form-label">Address</label>
+        <input type="text" class="form-control" id="nameinput" placeholder="">
+      </div>
+     
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <button class=" btn btn-outline-primary" style="border-radius: 2rem;" type="submit">Save Profile</button>
+      </div>
+  </div>
+  </form>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const previewImage = document.getElementById("previewImage");
+    
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+    
+      reader.addEventListener("load", () => {
+        previewImage.setAttribute("src", reader.result);
+      });
+    
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function getfile() {
+        fileInput.click()
+    }
+    
+    </script>
+</body>
+
+</html>
