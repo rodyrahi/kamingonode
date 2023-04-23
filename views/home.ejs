@@ -43,10 +43,41 @@
       <div class="col-lg-8 col-md-7 list ">
         <div class="row justify-content-center d-flex ">
 
-          <%- include('./profiles/post.ejs') %>
-          <%- include('./profiles/post.ejs') %>
-          <%- include('./profiles/post.ejs') %>
-          <%- include('./profiles/post.ejs') %>
+          <% data.forEach(element => { %>
+           
+  <div class="col-md-6 m-1 border rounded shadow " style="max-width: 26rem;">
+
+
+    <div class="d-flex">
+      <div class="row ">
+
+        <div class="col-5">
+          <div class="border my-2 rounded d-flex" style="object-fit: scale-down;">
+            <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="m-2" style="max-width: 10rem; width: 100%;  ">
+          </div>
+        </div>
+        <div class="col-7 my-2">
+            <p class="fw-bold m-0" style="font-size: 1.4rem;"  ><%= element["name"] %>  </p>
+            <p class="" > <%= element["service"] %></p>
+            <p style="font-size: 0.8rem; margin: 0 0.1rem 0.2rem 0.2rem;" class="fw-bold"><i class="fa-solid fa-location-dot" style="font-size: 1rem; color: black;" ></i> <%= element["address"] %></p>
+            <p style="font-size: 0.8rem;" class="fw-bold m-0" ><i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> 5.0</p>
+            <div class="d-flex justify-content-end">
+              <button class="btn-sm btn btn-outline-primary" style="border-radius: 2rem;" type="submit">View Profile</button>
+
+            </div>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+             
+          <% }) %>
+         
+  
 
         </div>
 
