@@ -86,6 +86,38 @@ app.get('/editprofile', function (req, res) {
 
 
 })
+app.post('/editprofile', function (req, res) {
+  const file = req.files.image;
+  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+  const {name, service ,  contact , address , description , shopname } = req.body
+  console.log(req.body);
+  
+  file.mv('public/uploads/profiles/' + file.name, (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    })
+
+    if (file) {
+      con.query(
+        `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
+      
+        function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(result);
+        }
+      );
+    }
+
+
+
+
+    res.redirect("/")
+  
+})
 
 
 

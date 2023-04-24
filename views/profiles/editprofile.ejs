@@ -37,7 +37,7 @@
             </a> -->
 
           <!-- <i class="fa-solid fa-user" onclick="getfile()"></i> -->
-          <input type="file" class="hide" name="image" id="image">
+          <input type="file" class="hide"  accept="image/png, image/jpg" name="image" id="image">
           <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
           <div class="border rounded justify-content-center d-flex p-3 image-container ">
 
@@ -87,6 +87,7 @@
     const fileInput = document.getElementById("image");
     const previewImage = document.getElementById("previewImage");
 
+    
     fileInput.addEventListener("change", () => {
       const file = fileInput.files[0];
       const reader = new FileReader();
