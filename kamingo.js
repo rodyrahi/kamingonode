@@ -27,10 +27,13 @@ const config = {
 app.use(auth(config));
 
 app.use((req, res, next) => {
+  if (req.oidc.isAuthenticated()) {
   user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
   // console.log(req.baseUrl);
   // user  = req.baseUrl.replace("/dashboard/" , "")
   console.log(user);
+  next();
+  }
   next();
 });
 
@@ -38,6 +41,9 @@ app.use((req, res, next) => {
 
 app.get('/', function (req, res) {
   
+  if (req.oidc.isAuthenticated()) {
+    
+
   con.query(
     `SELECT * FROM profiles`,
     
@@ -51,8 +57,15 @@ app.get('/', function (req, res) {
       res.render('home' , {isAuthenticated : req.oidc.isAuthenticated(),data: result} )
     }
   );
+  }
+  else{
+    res.redirect('/login')
+  }
 
 })
+
+
+
 app.get('/Create', function (req, res) {
   res.render('createpost')
 })
