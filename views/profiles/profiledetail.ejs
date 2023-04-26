@@ -22,13 +22,13 @@
          <div class="border  " style="border-radius: 1rem;">
      
           <div class=" text-center ">
-            <img src="kamingo_favicon.png" alt="" srcset="" style="width: 100%; max-width: 20rem;"> 
+            <img src="/uploads/profiles/<%= data["image"] %>" alt="" srcset="" style="width: 100%; max-width: 20rem;"> 
           </div>
           
           <div class=" my-3 p-1 px-3 " style="border-top: 1px solid rgb(218, 218, 218);" >
-            <h5 class="fw-bold mt-2" >Rajvendra Rahi</h5>
-            <p class="m-0" >  PLUMBER</p>
-            <p class="text-muted mb-1">House no.18 ayoudhya nagar , Bhopal </p>
+            <h5 class="fw-bold mt-2" ><%= data["name"] %></h5>
+            <p class="m-0" ><%= data["service"] %></p>
+            <p class="text-muted mb-1"><%= data["address"] %></p>
 
             <!-- <h5>Rating</h5> -->
             <!-- <div class="border rounded p-2 " style="width: 5rem; "> -->

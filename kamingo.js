@@ -195,6 +195,32 @@ app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
+app.get('/:name', function (req, res) {
+  
+  if (req.oidc.isAuthenticated()) {
+    
+
+  con.query(
+    `SELECT * FROM profiles  WHERE name ="${req.params.name}"`,
+    
+    function (err, result, fields) {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result[0]);
+
+    
+      res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0]} )
+    }
+  );
+  }
+  else{
+    res.redirect('/login')
+  }
+
+})
+
+
 app.listen(3030)
 
 
