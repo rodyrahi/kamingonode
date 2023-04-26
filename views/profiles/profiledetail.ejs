@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header.ejs') %>
+
+    <body>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <style>
+
+
+    .hide {
+      display: none;
+    }
+  </style>
+
+
+  <%- include('../partials/nav.ejs') %>
+
+    <div class="container">
+      
+      <div class="row my-3">
+        <div class="col-lg-8 col-md-7 list ">
+         <div class="border  " style="border-radius: 1rem;">
+     
+          <div class=" text-center ">
+            <img src="kamingo_favicon.png" alt="" srcset="" style="width: 100%; max-width: 20rem;"> 
+          </div>
+          
+          <div class=" my-3 p-1 px-3 " style="border-top: 1px solid rgb(218, 218, 218);" >
+            <h5 class="fw-bold mt-2" >Rajvendra Rahi</h5>
+            <p class="m-0" >  PLUMBER</p>
+            <p class="text-muted mb-1">House no.18 ayoudhya nagar , Bhopal </p>
+
+            <!-- <h5>Rating</h5> -->
+            <!-- <div class="border rounded p-2 " style="width: 5rem; "> -->
+    
+              <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> 5.2</p>  
+              
+              <button class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i>  Get Contact </button>
+              <button class="btn-sm btn btn-primary mt-3" style="border-radius: 2rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
+            
+          </div>
+        
+        </div>
+
+
+        </div>
+       
+          <div class=" col-lg-4 col-md-5 sidebar borderp-2 border " style="border-radius: 1rem;">
+           
+           
+          </div>
+          
+
+
+        
+      </div>
+
+      <!-- <div class="phone hide">
+        <form class="d-flex" role="search">
+          <div class="d-flex border p-1 rounded">
+            <i class="fa-solid fa-magnifying-glass m-2 " style="font-size:
+              1.6rem;"></i>
+            <input class="form-control me-2" style="border: none;
+              background-color: lavender;" type="search"
+              placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary" style="border-radius:
+              2rem;" type="submit">Search</button>
+          </div>
+        </form>
+        <button class="btn btn-outline-secondary" style="border-radius:
+          2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
+        <button class="btn btn-outline-secondary" style="border-radius:
+          2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
+        <button class="btn btn-outline-secondary" style="border-radius:
+          2rem; background-color: black; color: aliceblue;" type="submit">Laundary</button>
+        <button class="btn btn-outline-secondary" style="border-radius:
+          2rem; background-color: black; color: aliceblue;" type="submit">Clothing</button>
+      </div> -->
+
+
+    </div>
+
+    <div class="chin hide">
+
+
+      <%- include('../partials/chin.ejs') %>
+    </div>
+    <script>
+      // Check the viewport size
+      var mq = window.matchMedia('(max-width: 600px)');
+
+      // Function to handle changes to the viewport size
+      function handleViewportChange(mq) {
+        if (mq.matches) {
+          // If viewport is less than 600px wide, add the new-class
+          document.querySelector('.sidebar').classList.add('hide');
+          document.querySelector('.sidebar').classList.remove('col-lg-4');
+          document.querySelector('.sidebar').classList.remove('col-md-5');
+          document.querySelector('.list').classList.add('col');
+          document.querySelector('.list').classList.remove('col-lg-8');
+          document.querySelector('.list').classList.remove('col-md-7');
+          document.querySelector('.phone').classList.remove('hide');
+          document.querySelector('.chin').classList.remove('hide');
+
+
+        } else {
+          // If viewport is greater than 600px wide, remove the new-class
+          document.querySelector('.sidebar').classList.remove('hide');
+          document.querySelector('.sidebar').classList.add('col-lg-4');
+          document.querySelector('.sidebar').classList.add('col-md-5');
+          document.querySelector('.list').classList.remove('col');
+          document.querySelector('.list').classList.add('col-lg-8');
+          document.querySelector('.list').classList.add('col-md-7');
+
+          document.querySelector('.phone').classList.add('hide');
+          document.querySelector('.chin').classList.add('hide');
+
+        }
+      }
+
+      // Call the function on load and when the viewport size changes
+      handleViewportChange(mq);
+      mq.addListener(handleViewportChange);
+    </script>
+  </body>
+
+                
+                
+  </html>
