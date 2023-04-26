@@ -88,15 +88,17 @@ app.get('/editprofile', function (req, res) {
         console.log(err);
       }
       result.forEach(element => {
-        if (result[0]["id"] === user) {
-          console.log(element);
-          res.render('profiles/editprofile' , {isAuthenticated : req.oidc.isAuthenticated() , data:element} )
+
+        if (element["id"] === user) {
+          console.log("matched");
+           res.render('profiles/editprofile' , {isAuthenticated : req.oidc.isAuthenticated() , data:element} )
         }
         else{
-          res.render('profiles/createprofile' , {isAuthenticated : req.oidc.isAuthenticated()})
+          
         }
         console.log(result[0]["id"]);
       });
+      res.render('profiles/createprofile' , {isAuthenticated : req.oidc.isAuthenticated()})
     }
   );
 
