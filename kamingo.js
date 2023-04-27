@@ -211,8 +211,19 @@ app.get('/:name', function (req, res) {
       }
       console.log(result[0]);
 
+      con.query(
+        `SELECT * FROM comments  WHERE post ="${req.params.name}"`,
+        
+        function (err, comments, fields) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(comments);
     
-      res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0]} )
+        
+          res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments} )
+        }
+      );
     }
   );
   }
@@ -221,6 +232,39 @@ app.get('/:name', function (req, res) {
   }
 
 })
+
+app.post('/postcomment', function (req, res) {
+
+  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+  nickname = JSON.stringify(req.oidc.user["nickname"], null, 2).replace(/"/g, "")
+  photo = JSON.stringify(req.oidc.user["picture"], null, 2).replace(/"/g, "")
+  const {name,comment} = req.body
+
+
+  console.log(req.body);
+  
+
+      con.query(
+        `INSERT INTO comments (id ,name , post, comment , photo) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' )`,
+      
+        function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(result);
+          res.redirect("/"+name)
+        }
+      );
+
+
+
+
+
+  
+  
+})
+
+
 
 
 app.listen(3030)

@@ -35,9 +35,10 @@
     
               <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> 5.2</p>  
               
+
               <a class="btn-sm btn btn-success mt-2 me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" href= "https://wa.me/<%= data["contact"] %>"  type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>  Get Contact </a>
-              <button class="btn-sm btn btn-primary mt-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
-            
+              <button class="btn-sm btn btn-primary mt-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>         
+           
           </div>
     
         
@@ -48,16 +49,34 @@
           <p class="text-muted mb-1">Sink Repair</p>
           <p class="text-success mb-1"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> 125</p>
 
+        </div>
 
-
-          <!-- <h5>Rating</h5> -->
-          <!-- <div class="border rounded p-2 " style="width: 5rem; "> -->
+        <div class=" my-2 p-1 px-3 border  " style="border-radius: 1rem;" >
+          <h4 class="fw-bold mt-2" >Reviews</h4>
+          <form  action="/postcomment" method="POST">
+            <div class="">
+              <input type="hidden" name="name" id="name" value="<%= data["name"] %>"  >
+              <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Comment here......"></textarea>
   
-            <!-- <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> 5.2</p>  
-            
-            <button class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i>  Get Contact </button>
-            <button class="btn-sm btn btn-primary mt-3" style="border-radius: 2rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
-           -->
+            </div>
+            <button class="btn-sm btn btn-primary mt-2 me-2 p-2 py-1"  style="border-radius: 2rem; font-size: 1rem;"   type="submit"> Comment </button>
+
+          </form>
+
+          <hr>
+          <div>
+            <% comments.forEach(element => { %>
+              <div class="border m-2 p-2 rounded" style="border-radius: 1rem;">
+                <div class="d-flex">
+                <img class="rounded-circle me-2" width="40px" src="<%= element["photo"]  %>" alt=""><p class="m-0 fw-bold mt-2" > <%= element["name"]  %> </p>
+              </div>
+                  <p class="mt-2 mx-2 mb-0"> <%= element["comment"]  %> </p>
+                
+              </div>
+                
+            <% }) %>
+          </div>
+
         </div>
 
         </div>
