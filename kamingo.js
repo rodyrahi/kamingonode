@@ -221,7 +221,7 @@ app.get('/:name', function (req, res) {
           console.log(comments);
     
         
-          res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments} )
+          res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sid"]} )
         }
       );
     }
@@ -264,7 +264,43 @@ app.post('/postcomment', function (req, res) {
   
 })
 
+app.get('/delete/:comment', function (req, res) {
+  
+  if (req.oidc.isAuthenticated()) {
+    
+    con.query(
+    `SELECT * FROM comments WHERE sno ="${req.params.comment}"`,
 
+    function (err, comments, fields) {
+    if (err) {
+    console.log(err);
+    }
+    console.log("comments");
+    console.log(comments);
+
+
+          con.query(
+          `DELETE FROM comments WHERE sno = "${req.params.comment}";`,
+
+          function (err, result, fields) {
+          if (err) {
+          console.log(err);
+          }
+          // console.log(result[0]);
+
+
+          res.redirect('/' + comments[0]["post"])
+
+          }
+          );
+    }
+    );
+  }
+  else{
+    res.redirect('/login')
+  }
+
+})
 
 
 app.listen(3030)
