@@ -83,7 +83,9 @@ app.get('/editprofile', function (req, res) {
       }
 
       console.log(result);
-      if (result[0]["id"]) {
+      try {
+       
+    
         
       
       con.query(
@@ -96,9 +98,10 @@ app.get('/editprofile', function (req, res) {
           res.render("profiles/editprofile", {isAuthenticated: req.oidc.isAuthenticated(),data: result[0],skills: skills,});
         }
       );
-    }
-   
+    } catch (error) {
       res.render("profiles/createprofile", {isAuthenticated: req.oidc.isAuthenticated()});
+
+    }
 
     }
      
