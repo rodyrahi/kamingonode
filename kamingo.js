@@ -289,7 +289,7 @@ app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
-app.get('/:name', function (req, res) {
+app.get('/services/:name', function (req, res) {
   
   if (req.oidc.isAuthenticated()) {
     
