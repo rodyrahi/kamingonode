@@ -177,22 +177,32 @@ app.post('/editprofile', function (req, res) {
       }
     );
 
-      console.log(skill.length);
+      console.log();
 
-    for (let index = 0; index < skill.length; index++) {
-      // const element = array[index];
- 
-      con.query(
 
-        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,    
-        function (err, result, fields) {
-          if (err) {
-            console.log(err);
-          }
-         
+      if (Array.isArray(skill)) {
+        for (let index = 0; index < skill.length; index++) {
+          // const element = array[index];
+          con.query(
+            `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,
+            function (err, result, fields) {
+              if (err) {
+                console.log(err);
+              }
+            }
+          );
         }
-      );
-    }
+      }else{
+        con.query(
+          `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill}' ,'${price}')`,
+          function (err, result, fields) {
+            if (err) {
+              console.log(err);
+            }
+          }
+        );
+      }
+      
 
     res.redirect("/")
   
