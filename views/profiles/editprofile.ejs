@@ -37,10 +37,10 @@
             </a> -->
 
           <!-- <i class="fa-solid fa-user" onclick="getfile()"></i> -->
-          <input type="file" class="hide"  accept="image/png, image/jpg" name="image" id="image">
+          <input type="file" class="hide"   accept="image/png, image/jpg" name="image" id="image">
           <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
           <div class="border rounded justify-content-center d-flex p-3 image-container ">
-
+            <input type="hidden"  name="image" value="<%= data["image"] %> ">
 
             <img src="/uploads/profiles/<%= data["image"] %>"  alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
           </div>
@@ -77,8 +77,27 @@
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control" id="description" name="description"  rows="3"><%= data["description"] %></textarea>
       </div>
-      <div class="mb-3">
-        <button class=" btn btn-outline-primary" style="border-radius: 2rem;" type="submit">Save Profile</button>
+
+      <div class="mb-3" id="skill">
+        
+        <% skills.forEach(element => { %>
+          <div class="border p-2 my-2 rounded bg-light">
+            <a href=""><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
+            
+          <label for="description" class="form-label ">Skill</label>
+          <input type="text" class="form-control mb-1 " id="skill"  value="<%= element["service"] %>" name="skill" placeholder="">
+          <label for="description" class="form-label ">Price</label>
+          <input type="number" class="form-control mb-1" id="Price"  value="<%= element["price"] %>" name="price" placeholder="">
+          </div>
+        <% }) %>
+
+      </div>
+        <button class=" btn btn-primary mb-2" style="border-radius: 2rem;" type="button" onclick="addskill()" >Add Skill</button>
+
+
+      
+      <div class="mb-3 mt-2">
+        <button class=" btn btn-outline-primary " style="border-radius: 2rem;" type="submit">Save Profile</button>
       </div>
   </div>
   </form>
@@ -90,6 +109,44 @@
     <%- include('../partials/chin.ejs') %>
   </div>
     <script>
+
+
+      function addskill() {
+
+
+        var l = document.createElement("LABEL");
+        l.innerHTML = "Skill"
+        l.classList.add('form-label');
+        
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text" );
+        x.setAttribute("name", "skill" );
+        x.classList.add('form-control');
+        x.classList.add('mb-1');
+
+
+        var l2 = document.createElement("LABEL");
+        l2.innerHTML = "Price"
+        l2.classList.add('form-label');
+
+        var x2 = document.createElement("INPUT");
+        x2.setAttribute("type", "number" );
+        x2.setAttribute("name", "price" );
+        x2.classList.add('form-control');
+        x2.classList.add('mb-1');
+
+       
+
+        const element = document.getElementById("skill");
+
+
+        element.appendChild(l);
+        element.appendChild(x);
+        element.appendChild(l2);
+        element.appendChild(x2);
+      }
+
+
       // Check the viewport size
       var mq = window.matchMedia('(max-width: 600px)');
   
@@ -119,6 +176,8 @@
     
     fileInput.addEventListener("change", () => {
       const file = fileInput.files[0];
+
+      console.log(file);
       const reader = new FileReader();
 
       reader.addEventListener("load", () => {
@@ -128,7 +187,11 @@
       if (file) {
         reader.readAsDataURL(file);
       }
+      
     });
+
+
+  
 
     function getfile() {
       fileInput.click()

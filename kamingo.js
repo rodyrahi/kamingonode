@@ -91,33 +91,64 @@ app.get('/editprofile', function (req, res) {
 
         if (element["id"] === user) {
           console.log("matched");
-           res.render('profiles/editprofile' , {isAuthenticated : req.oidc.isAuthenticated() , data:element} )
+
+
+          con.query(
+            `SELECT * FROM skill WHERE id = "${element["id"]}"`,
+          
+            function (err, skills, fields) {
+              if (err) {
+                console.log(err);
+              }
+              res.render('profiles/editprofile' , {isAuthenticated : req.oidc.isAuthenticated() , data:element , skills:skills} )
+
+      
+
+        
+            }
+          );
+
+
         }
         else{
           
         }
         console.log(result[0]["id"]);
       });
-      res.render('profiles/createprofile' , {isAuthenticated : req.oidc.isAuthenticated()})
+      // res.render('profiles/createprofile' , {isAuthenticated : req.oidc.isAuthenticated()})
     }
   );
 
-
 })
+
+
+
 app.post('/editprofile', function (req, res) {
-  const file = req.files.image;
+
+  file = null
+  try {
+    file = req.files.image;
+  } catch (error) {
+    
+  }
+ 
+
   user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
-  const {name, service ,  contact , address , description , shopname } = req.body
+  const {name, image , service ,  contact , address , description , shopname , price , skill } = req.body
   console.log(req.body);
   
-  file.mv('public/uploads/profiles/' + file.name, (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-    })
+
+
+
 
     if (file) {
+      file.mv('public/uploads/profiles/' + file.name, (err) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send(err);
+        }
+        })
+    
       con.query(
         `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
       
@@ -126,12 +157,50 @@ app.post('/editprofile', function (req, res) {
             console.log(err);
           }
           console.log(result);
+        
+        }
+      );
+    }
+    else{
+      con.query(
+        `UPDATE profiles SET name = '${name}', image='${image}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
+      
+        function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(result);
+        
         }
       );
     }
 
 
+    con.query(
 
+      `DELETE FROM skill WHERE id = "${user}";`,    
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+
+    for (let index = 0; index < skill.length; index++) {
+      // const element = array[index];
+ 
+      con.query(
+
+        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,    
+        function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(result);
+        }
+      );
+    }
 
     res.redirect("/")
   
@@ -150,7 +219,7 @@ app.get('/profiledetail', function (req, res) {
         console.log(err);
       }
       console.log(result);
-
+      
     
       res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result} )
     }
@@ -188,6 +257,24 @@ app.post('/createprofile', function (req, res) {
       }
     );
 
+    for (let index = 0; index < skill.length; index++) {
+      // const element = array[index];
+      
+   
+ 
+    con.query(
+      `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,${price[index]});`,
+    
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+    }
+
+
 
     res.redirect("/")
   
@@ -209,7 +296,7 @@ app.get('/:name', function (req, res) {
       if (err) {
         console.log(err);
       }
-      console.log(result[0]);
+      // console.log(result[0]);
 
       con.query(
         `SELECT * FROM comments  WHERE post ="${req.params.name}"`,
@@ -218,14 +305,34 @@ app.get('/:name', function (req, res) {
           if (err) {
             console.log(err);
           }
-          console.log(comments);
-    
+          // console.log(comments);
+          con.query(
+            `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
+          
+            function (err, skills, fields) {
+              if (err) {
+                console.log(err);
+              }
+              console.log(skills);
+              res.render('profiles/profiledetail' , 
+              {isAuthenticated : req.oidc.isAuthenticated(),
+                data: result[0] , 
+                comments: comments , 
+                user:req.oidc.user["sid"],
+                skills:skills} )
+
         
-          res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sid"]} )
+            }
+          );
+        
         }
       );
     }
   );
+
+
+
+
   }
   else{
     res.redirect('/login')

@@ -23,6 +23,7 @@
      
           <div class=" text-center pt-2">
             <img src="/uploads/profiles/<%= data["image"] %>"  alt="" srcset=""  style="width: 100%; max-width: 20rem; border-radius: 1rem"> 
+            
           </div>
           
           <div class=" my-3 p-1 px-3 " style="border-top: 1px solid rgb(218, 218, 218);" >
@@ -46,8 +47,13 @@
         <div class=" my-2 p-1 px-3 border  " style="border-radius: 1rem;" >
           <h4 class="fw-bold mt-2" >Skills</h4>
           <p class="m-0" >PLUMBER</p>
-          <p class="text-muted mb-1">Sink Repair</p>
-          <p class="text-success mb-1"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> 125</p>
+
+
+          <% skills.forEach(element => { %>
+            <p class="text-muted mb-1"><%= element["service"] %></p>
+            <p class="text-success mb-1"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
+          <% }) %>
+
 
         </div>
 
