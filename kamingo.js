@@ -83,9 +83,9 @@ app.get('/editprofile', function (req, res) {
         res.render("profiles/createprofile", {isAuthenticated: req.oidc.isAuthenticated()});
       }
 
-
+      console.log(result);
       con.query(
-        `SELECT * FROM skill WHERE id = "${result[0]["id"]}"`,
+        `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
 
         function (err, skills, fields) {
           if (err) {
