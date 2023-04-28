@@ -301,7 +301,7 @@ app.get('/:name', function (req, res) {
       if (err) {
         console.log(err);
       }
-      // console.log(result[0]);
+     console.log(result[0]);
 
       con.query(
         `SELECT * FROM comments  WHERE post ="${req.params.name}"`,
@@ -310,9 +310,9 @@ app.get('/:name', function (req, res) {
           if (err) {
             console.log(err);
           }
-          // console.log(comments);
+        //  console.log(comments);
           con.query(
-            `SELECT * FROM skill WHERE id = '${comments["id"]}'`,
+            `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
           
             function (err, skills, fields) {
               if (err) {
