@@ -305,7 +305,7 @@ app.get('/services/:name', function (req, res) {
 
      
 
-        con.query(`SELECT * FROM skill  WHERE id ="${result["id"]}"`, function (err, skills, fields) {
+        con.query(`SELECT * FROM skill  WHERE id ="${result[0]["id"]}"`, function (err, skills, fields) {
                   if (err) {
                     console.log(err);
                   }
