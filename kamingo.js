@@ -28,7 +28,7 @@ app.use(auth(config));
 
 app.use((req, res, next) => {
   if (req.oidc.isAuthenticated()) {
-  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
   // console.log(req.baseUrl);
   // user  = req.baseUrl.replace("/dashboard/" , "")
   console.log(user);
@@ -73,7 +73,7 @@ app.get('/', function (req, res) {
 
 app.get('/editprofile', function (req, res) {
 
-  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "");
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
 
   con.query(
     `SELECT id ,name, image, service , contact , address , description , shopname  FROM profiles WHERE id='${user}'`,
@@ -117,7 +117,7 @@ app.post('/editprofile', function (req, res) {
   }
  
 
-  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
   const {name, image , service ,  contact , address , description , shopname , price , skill } = req.body
   console.log(req.body);
   
@@ -220,7 +220,7 @@ app.get('/profiledetail', function (req, res) {
 //   console.log('creating profile');
 
 //   const file = req.files.image;
-//   user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+//   user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
 //   const {name, service ,  contact , address , description , shopname } = req.body
 //   console.log(req.body);
   
@@ -301,7 +301,7 @@ app.get('/:name', function (req, res) {
                 console.log(err);
               }
               console.log(skills);
-              res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sid"],skills:skills} )
+              res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sub"],skills:skills} )
             }
           );
         
@@ -322,7 +322,7 @@ app.get('/:name', function (req, res) {
 
 app.post('/postcomment', function (req, res) {
 
-  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
   nickname = JSON.stringify(req.oidc.user["nickname"], null, 2).replace(/"/g, "")
   photo = JSON.stringify(req.oidc.user["picture"], null, 2).replace(/"/g, "")
   const {name,comment} = req.body
