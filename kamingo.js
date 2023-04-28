@@ -80,10 +80,12 @@ app.get('/editprofile', function (req, res) {
 
     function (err, result, fields) {
       if (err) {
-        res.render("profiles/createprofile", {isAuthenticated: req.oidc.isAuthenticated()});
       }
 
       console.log(result);
+      if (result[0]["id"]) {
+        
+      
       con.query(
         `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
 
@@ -94,8 +96,9 @@ app.get('/editprofile', function (req, res) {
           res.render("profiles/editprofile", {isAuthenticated: req.oidc.isAuthenticated(),data: result[0],skills: skills,});
         }
       );
-        
+    }
    
+      res.render("profiles/createprofile", {isAuthenticated: req.oidc.isAuthenticated()});
 
     }
      
