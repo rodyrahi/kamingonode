@@ -85,7 +85,14 @@
             <a href=""><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
             
           <label for="description" class="form-label ">Skill</label>
-          <input type="text" class="form-control mb-1 " id="skill"  value="<%= element["service"] %>" name="skill" placeholder="">
+          <select name="skill" class="form-select" id="service" value="<%= element["service"] %>">
+            <option selected><%= element["service"] %></option>
+            <option value="PLUMBER">nobe change</option>
+            <option value="CLEANER">pipe change</option>
+            <option value="LAUNDARY">cleanin </option>
+  
+          </select> 
+
           <label for="description" class="form-label ">Price</label>
           <input type="number" class="form-control mb-1" id="Price"  value="<%= element["price"] %>" name="price" placeholder="">
           </div>
@@ -118,11 +125,18 @@
         l.innerHTML = "Skill"
         l.classList.add('form-label');
         
-        var x = document.createElement("INPUT");
+        var x = document.createElement("SELECT");
         x.setAttribute("type", "text" );
         x.setAttribute("name", "skill" );
         x.classList.add('form-control');
         x.classList.add('mb-1');
+    
+        
+        x.innerHTML = `<option selected>select</option>
+            <option value="PLUMBER">nobe change</option>
+            <option value="CLEANER">pipe change</option>
+            <option value="LAUNDARY">cleanin </option>`
+    
 
 
         var l2 = document.createElement("LABEL");

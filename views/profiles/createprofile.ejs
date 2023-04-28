@@ -40,24 +40,24 @@
           <input type="file" class="hide"   accept="image/png, image/jpg" name="image" id="image">
           <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
           <div class="border rounded justify-content-center d-flex p-3 image-container ">
-            <input type="hidden"  name="image" value="<%= data["image"] %> ">
+            <input type="hidden"  name="image" value="">
 
-            <img src="/uploads/profiles/<%= data["image"] %>"  alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
+            <img src="/uploads/profiles/kamingo_favicon.png"  alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
           </div>
         </div>
       </div>
       <div class="mb-3 ">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= data["name"] %>" placeholder="rajesh">
+        <input type="text" class="form-control" id="name" name="name" value="" placeholder="rajesh">
       </div>
       <div class="mb-3 ">
         <label for="shopname" class="form-label">Shop Name [optional]</label>
-        <input type="text" class="form-control" id="shopname" name="shopname" value="<%= data["shopname"] %>" placeholder="rajesh paint shop">
+        <input type="text" class="form-control" id="shopname" name="shopname" value="" placeholder="rajesh paint shop">
       </div>
       <div class="mb-3 ">
         <label for="nameinput" class="form-label">Service</label>
         <select name="service" class="form-select" id="service">
-          <option selected><%= data["service"] %></option>
+          <option selected>Plumber</option>
           <option value="PLUMBER">Plumber</option>
           <option value="CLEANER">Cleaner</option>
           <option value="LAUNDARY">Laundary</option>
@@ -66,16 +66,16 @@
       </div>
       <div class="mb-3">
         <label for="phone" class="form-label">Phone</label>
-        <input type="tel" class="form-control" id="contact" value="<%= data["contact"] %>" name="contact" placeholder="+9199999999">
+        <input type="tel" class="form-control" id="contact" value="" name="contact" placeholder="+9199999999">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Address</label>
-        <input type="text" class="form-control" id="address"  value="<%= data["address"] %>" name="address" placeholder="">
+        <input type="text" class="form-control" id="address"  value="" name="address" placeholder="">
       </div>
 
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description"  rows="3"><%= data["description"] %></textarea>
+        <textarea class="form-control" id="description" name="description"  rows="3"></textarea>
       </div>
 
       <div class="mb-3" id="skill">
@@ -85,9 +85,15 @@
             <a href=""><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
             
           <label for="description" class="form-label ">Skill</label>
-          <input type="text" class="form-control mb-1 " id="skill"  value="<%= element["service"] %>" name="skill" placeholder="">
+          <select name="skill" class="form-select" id="service">
+            <option selected>Sink change</option>
+            <option value="PLUMBER">nobe change</option>
+            <option value="CLEANER">pipe change</option>
+            <option value="LAUNDARY">cleaning </option>
+  
+          </select>          
           <label for="description" class="form-label ">Price</label>
-          <input type="number" class="form-control mb-1" id="Price"  value="<%= element["price"] %>" name="price" placeholder="">
+          <input type="number" class="form-control mb-1" id="Price"  value="" name="price" placeholder="">
           </div>
         <% }) %>
 
@@ -118,7 +124,7 @@
         l.innerHTML = "Skill"
         l.classList.add('form-label');
         
-        var x = document.createElement("INPUT");
+        var x = document.createElement("SELECT");
         x.setAttribute("type", "text" );
         x.setAttribute("name", "skill" );
         x.classList.add('form-control');
