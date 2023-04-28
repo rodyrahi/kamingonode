@@ -291,49 +291,60 @@ app.get("/profile", requiresAuth(), (req, res) => {
 
 app.get('/services/:name', function (req, res) {
   
+
+
   if (req.oidc.isAuthenticated()) {
-    
+    con.query(
+      `SELECT * FROM profiles  WHERE name ="${req.params.name}"`,
 
-  con.query(
-    `SELECT * FROM profiles  WHERE name ="${req.params.name}"`,
-    
-    function (err, result, fields) {
-      if (err) {
-        console.log(err);
-      }
-     console.log(result[0]);
-
-      con.query(
-        `SELECT * FROM comments  WHERE post ="${req.params.name}"`,
-        
-        function (err, comments, fields) {
-          if (err) {
-            console.log(err);
-          }
-        //  console.log(comments);
-          con.query(
-            `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
-          
-            function (err, skills, fields) {
-              if (err) {
-                console.log(err);
-              }
-              console.log(skills);
-              res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sub"],skills:skills} )
-            }
-          );
-        
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
         }
-      );
-    }
-  );
+        console.log(result[0]);
+
+     
+
+        con.query(`SELECT * FROM skill  WHERE id ="${result["id"]}"`, function (err, skills, fields) {
+                  if (err) {
+                    console.log(err);
+                  }
+                  con.query(`SELECT * FROM comments  WHERE id ="${result["id"]}"`,  function (err, comments, fields) {
+                        if (err) {
+                          console.log(err);
+                        }
+                        res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(), data: result[0] , comments: comments , user:req.oidc.user["sub"],skills:skills} )
+
+                      });
+  
+  
+                });
 
 
+        // con.query(
+        //   `SELECT * FROM comments  WHERE id ="${result[0]["id"]}"`,
+
+        //   function (err, comments, fields) {
+        //     if (err) {
+        //       console.log(err);
+        //     }
+        //     con.query(
+        //       `SELECT * FROM skill  WHERE id ="${result[0]["id"]}"`,
+
+        //       function (err, skills, fields) {
+        //         if (err) {
+        //           console.log(err);
+        //         }
+        //         res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sub"],skills:skills} )
 
 
-  }
-  else{
+        //       });
+        //   });
+      });
+  }else{
+    
     res.redirect('/login')
+
   }
 
 })
