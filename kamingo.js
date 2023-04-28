@@ -69,54 +69,38 @@ app.get('/', function (req, res) {
 
 
 
-app.get('/Create', function (req, res) {
-  res.render('createpost')
-})
-
 
 
 app.get('/editprofile', function (req, res) {
 
-  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
-
+  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "");
 
   con.query(
-    `SELECT id ,name, image, service , contact , address , description , shopname  FROM profiles`,
-  
+    `SELECT id ,name, image, service , contact , address , description , shopname  FROM profiles WHERE id='${user}'`,
+
     function (err, result, fields) {
       if (err) {
-        console.log(err);
+        res.render("profiles/createprofile", {isAuthenticated: req.oidc.isAuthenticated()});
       }
-      result.forEach(element => {
-
-        if (element["id"] === user) {
-          console.log("matched");
 
 
-          con.query(
-            `SELECT * FROM skill WHERE id = "${element["id"]}"`,
-          
-            function (err, skills, fields) {
-              if (err) {
-                console.log(err);
-              }
-              res.render('profiles/editprofile' , {isAuthenticated : req.oidc.isAuthenticated() , data:element , skills:skills} )
+      con.query(
+        `SELECT * FROM skill WHERE id = "${result[0]["id"]}"`,
 
-      
-
+        function (err, skills, fields) {
+          if (err) {
+            console.log(err);
+          }
+          res.render("profiles/editprofile", {isAuthenticated: req.oidc.isAuthenticated(),data: result[0],skills: skills,});
+        }
+      );
         
-            }
-          );
+   
 
-
-        }
-        else{
-          
-        }
-        console.log(result[0]["id"]);
-      });
-      // res.render('profiles/createprofile' , {isAuthenticated : req.oidc.isAuthenticated()})
     }
+     
+
+
   );
 
 })
@@ -150,7 +134,7 @@ app.post('/editprofile', function (req, res) {
         })
     
       con.query(
-        `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
+      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
       
         function (err, result, fields) {
           if (err) {
@@ -197,7 +181,7 @@ app.post('/editprofile', function (req, res) {
           if (err) {
             console.log(err);
           }
-          console.log(result);
+         
         }
       );
     }
@@ -231,54 +215,57 @@ app.get('/profiledetail', function (req, res) {
 
 })
 
-app.post('/createprofile', function (req, res) {
-  const file = req.files.image;
-  user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
-  const {name, service ,  contact , address , description , shopname } = req.body
-  console.log(req.body);
+// app.post('/createprofile', function (req, res) {
+
+//   console.log('creating profile');
+
+//   const file = req.files.image;
+//   user = JSON.stringify(req.oidc.user["sid"], null, 2).replace(/"/g, "")
+//   const {name, service ,  contact , address , description , shopname } = req.body
+//   console.log(req.body);
   
-  file.mv('public/uploads/profiles/' + file.name, (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-    })
+//   file.mv('public/uploads/profiles/' + file.name, (err) => {
+//     if (err) {
+//       console.log(err);
+//       return res.status(500).send(err);
+//     }
+//     })
 
     
 
-    con.query(
-      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+//     con.query(
+//       `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
     
-      function (err, result, fields) {
-        if (err) {
-          console.log(err);
-        }
-        console.log(result);
-      }
-    );
+//       function (err, result, fields) {
+//         if (err) {
+//           console.log(err);
+//         }
+//         console.log(result);
+//       }
+//     );
 
-    for (let index = 0; index < skill.length; index++) {
-      // const element = array[index];
+//     for (let index = 0; index < skill.length; index++) {
+//       // const element = array[index];
       
    
  
-    con.query(
-      `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,${price[index]});`,
+//     con.query(
+//       `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,${price[index]});`,
     
-      function (err, result, fields) {
-        if (err) {
-          console.log(err);
-        }
-        console.log(result);
-      }
-    );
-    }
+//       function (err, result, fields) {
+//         if (err) {
+//           console.log(err);
+//         }
+//         console.log(result);
+//       }
+//     );
+//     }
 
 
 
-    res.redirect("/")
+//     res.redirect("/")
   
-})
+// })
 
 app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
@@ -314,14 +301,7 @@ app.get('/:name', function (req, res) {
                 console.log(err);
               }
               console.log(skills);
-              res.render('profiles/profiledetail' , 
-              {isAuthenticated : req.oidc.isAuthenticated(),
-                data: result[0] , 
-                comments: comments , 
-                user:req.oidc.user["sid"],
-                skills:skills} )
-
-        
+              res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sid"],skills:skills} )
             }
           );
         

@@ -80,7 +80,7 @@
 
       <div class="mb-3" id="skill">
         
-        <% skills.forEach(element => { %>
+        
           <div class="border p-2 my-2 rounded bg-light">
             <a href=""><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
             
@@ -95,8 +95,7 @@
           <label for="description" class="form-label ">Price</label>
           <input type="number" class="form-control mb-1" id="Price"  value="" name="price" placeholder="">
           </div>
-        <% }) %>
-
+   
       </div>
         <button class=" btn btn-primary mb-2" style="border-radius: 2rem;" type="button" onclick="addskill()" >Add Skill</button>
 
@@ -130,6 +129,11 @@
         x.classList.add('form-control');
         x.classList.add('mb-1');
 
+        x.innerHTML = `<option selected>select</option>
+            <option value="PLUMBER">nobe change</option>
+            <option value="CLEANER">pipe change</option>
+            <option value="LAUNDARY">cleanin </option>`
+    
 
         var l2 = document.createElement("LABEL");
         l2.innerHTML = "Price"
