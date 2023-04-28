@@ -312,7 +312,7 @@ app.get('/:name', function (req, res) {
           }
           // console.log(comments);
           con.query(
-            `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
+            `SELECT * FROM skill WHERE id = '${comments["id"]}'`,
           
             function (err, skills, fields) {
               if (err) {
