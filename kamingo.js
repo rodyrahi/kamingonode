@@ -177,6 +177,8 @@ app.post('/editprofile', function (req, res) {
       }
     );
 
+      console.log(skill.length);
+
     for (let index = 0; index < skill.length; index++) {
       // const element = array[index];
  
