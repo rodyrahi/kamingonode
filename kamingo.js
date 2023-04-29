@@ -132,6 +132,7 @@ app.post('/editprofile', function (req, res) {
 
 
     if (file) {
+    
       file.mv('public/uploads/profiles/' + file.name, (err) => {
         if (err) {
           console.log(err);
@@ -140,7 +141,7 @@ app.post('/editprofile', function (req, res) {
         })
     
       con.query(
-      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+        `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
       
         function (err, result, fields) {
           if (err) {

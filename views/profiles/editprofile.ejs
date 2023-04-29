@@ -115,8 +115,9 @@
   
     <%- include('../partials/chin.ejs') %>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-
+     
 
       function addskill() {
 
@@ -187,28 +188,40 @@
     const fileInput = document.getElementById("image");
     const previewImage = document.getElementById("previewImage");
 
-    
     fileInput.addEventListener("change", () => {
-      const file = fileInput.files[0];
+    const file = fileInput.files[0];
 
-      console.log(file);
-      const reader = new FileReader();
 
-      reader.addEventListener("load", () => {
-        previewImage.setAttribute("src", reader.result);
-      });
 
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-      
+    new Compressor(file, {
+    quality: 0.5, // set the compression quality to 70%
+    success(result) {
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+    previewImage.setAttribute("src", reader.result);
+    });
+
+    if (file) {
+    reader.readAsDataURL(file);
+    }
+    },
+    error(err) {
+    console.log(err.message);
+    },
     });
 
 
-  
+    console.log(file);
+
+
+    });
+
+
+
 
     function getfile() {
-      fileInput.click()
+    fileInput.click()
     }
   </script>
 </body>
