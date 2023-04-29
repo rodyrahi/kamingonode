@@ -188,9 +188,8 @@
     const fileInput = document.getElementById("image");
     const previewImage = document.getElementById("previewImage");
 
-    fileInput.addEventListener("change", () => {
+    fileInput.addEventListener("change", async () => {
     const file = fileInput.files[0];
-
 
 
     new Compressor(file, {

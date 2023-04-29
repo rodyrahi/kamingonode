@@ -1,5 +1,6 @@
 
 var express = require('express')
+const bodyParser = require('body-parser');
 var app = express()
 const { auth, requiresAuth } = require("express-openid-connect");
 require("dotenv").config();
@@ -7,11 +8,16 @@ require("dotenv").config();
 var con = require("./database.js");
 
 const fileUpload = require('express-fileupload');
+const { log } = require('console');
 
 app.use(fileUpload());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 
 const config = {
@@ -112,12 +118,15 @@ app.get('/editprofile', function (req, res) {
 })
 
 
-
-app.post('/editprofile', function (req, res) {
-
+app.post('/editprofile', async  (req, res) => {
+  console.log(" post  ");
   file = null
   try {
     file = req.files.image;
+
+    const filePath = file.path;
+    
+    console.log(file);
   } catch (error) {
     
   }
@@ -132,14 +141,47 @@ app.post('/editprofile', function (req, res) {
 
 
     if (file) {
+
+      console.log(file);
+      const sharp = require('sharp');
+      const fs = require('fs');
     
-      file.mv('public/uploads/profiles/' + file.name, (err) => {
+      file.mv('public/uploads/profiles/orignals/'+ file.name, (err) => {
         if (err) {
           console.log(err);
           return res.status(500).send(err);
         }
         })
-    
+
+      
+        
+      
+      // assuming that the uploaded file is saved as 'file' in your code
+      const filePath = file.path;
+
+      // console.log(filePath);
+      const outputFilePath = 'public/uploads/profiles/' + file.name;
+      
+      sharp('public/uploads/profiles/orignals/'+ file.name)
+        .png({ quality: 80 })
+        .toFile(outputFilePath)
+        .then(() => {
+          console.log('Image compressed successfully!');
+          // remove the original file from the server
+          
+        })
+        .catch((err) => {
+          console.error(err);
+          // remove the original file from the server (in case of an error)
+         
+        });
+      
+        
+  
+
+      
+        
+ 
       con.query(
         `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
       
@@ -205,9 +247,18 @@ app.post('/editprofile', function (req, res) {
       }
       
 
+
+
+    
+
     res.redirect("/")
   
 })
+
+
+
+
+
 
 app.get('/profiledetail', function (req, res) {
   
