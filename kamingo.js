@@ -1,24 +1,21 @@
-
-var express = require('express')
-const bodyParser = require('body-parser');
-var app = express()
+var express = require("express");
+const bodyParser = require("body-parser");
+var app = express();
 const { auth, requiresAuth } = require("express-openid-connect");
 require("dotenv").config();
 
 var con = require("./database.js");
 
-const fileUpload = require('express-fileupload');
-const { log } = require('console');
+const fileUpload = require("express-fileupload");
+const { log } = require("console");
 
 app.use(fileUpload());
-app.use(express.static('public'));
-app.set('view engine', 'ejs');
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-
 
 const config = {
   authRequired: false,
@@ -34,51 +31,39 @@ app.use(auth(config));
 
 app.use((req, res, next) => {
   if (req.oidc.isAuthenticated()) {
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
-  // console.log(req.baseUrl);
-  // user  = req.baseUrl.replace("/dashboard/" , "")
-  console.log(user);
-  next();
-  }
-  else{
+    user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+    // console.log(req.baseUrl);
+    // user  = req.baseUrl.replace("/dashboard/" , "")
+    console.log(user);
+    next();
+  } else {
     next();
   }
-  
 });
 
-
-
-app.get('/', function (req, res) {
-  
+app.get("/", function (req, res) {
   if (req.oidc.isAuthenticated()) {
-    
+    con.query(
+      `SELECT * FROM profiles`,
 
-  con.query(
-    `SELECT * FROM profiles`,
-    
-    function (err, result, fields) {
-      if (err) {
-        console.log(err);
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+
+        res.render("home", {
+          isAuthenticated: req.oidc.isAuthenticated(),
+          data: result,
+        });
       }
-      console.log(result);
-
-    
-      res.render('home' , {isAuthenticated : req.oidc.isAuthenticated(),data: result} )
-    }
-  );
+    );
+  } else {
+    res.redirect("/login");
   }
-  else{
-    res.redirect('/login')
-  }
+});
 
-})
-
-
-
-
-
-app.get('/editprofile', function (req, res) {
-
+app.get("/editprofile", function (req, res) {
   user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
 
   con.query(
@@ -90,128 +75,93 @@ app.get('/editprofile', function (req, res) {
 
       console.log(result);
       try {
-       
-    
-        
-      
-      con.query(
-        `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
+        con.query(
+          `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
 
-        function (err, skills, fields) {
-          if (err) {
-            console.log(err);
+          function (err, skills, fields) {
+            if (err) {
+              console.log(err);
+            }
+            res.render("profiles/editprofile", {
+              isAuthenticated: req.oidc.isAuthenticated(),
+              data: result[0],
+              skills: skills,
+            });
           }
-          res.render("profiles/editprofile", {isAuthenticated: req.oidc.isAuthenticated(),data: result[0],skills: skills,});
-        }
-      );
-    } catch (error) {
-      res.render("profiles/createprofile", {isAuthenticated: req.oidc.isAuthenticated()});
-
+        );
+      } catch (error) {
+        res.render("profiles/createprofile", {
+          isAuthenticated: req.oidc.isAuthenticated(),
+        });
+      }
     }
-
-    }
-     
-
-
   );
+});
 
-})
-
-
-app.post('/editprofile', async  (req, res) => {
+app.post("/editprofile", async (req, res) => {
   console.log(" post  ");
-  file = null
+  file = null;
   try {
     file = req.files.image;
 
     const filePath = file.path;
-    
+
     console.log(file);
-  } catch (error) {
-    
-  }
- 
+  } catch (error) {}
 
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
-  const {name, image , service ,  contact , address , description , shopname , price , skill } = req.body
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  const {name,image,service,contact,address,description,shopname,price,skill,} = req.body;
   console.log(req.body);
-  
+
+  if (file) {
+    const sharp = require("sharp");
 
 
+    file.mv("public/uploads/profiles/"+"raw-" + file.name, (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+      const outputFilePath = "public/uploads/profiles/" + file.name;
 
-
-    if (file) {
-
-      console.log(file);
-      const sharp = require('sharp');
-      const fs = require('fs');
-    
-      file.mv('public/uploads/profiles/orignals/'+ file.name, (err) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send(err);
-        }
-        })
-
-      
-        
-      
-      // assuming that the uploaded file is saved as 'file' in your code
-      const filePath = file.path;
-
-      // console.log(filePath);
-      const outputFilePath = 'public/uploads/profiles/' + file.name;
-      
-      sharp('public/uploads/profiles/orignals/'+ file.name)
+      sharp("public/uploads/profiles/"+"raw-"+ file.name)
         .png({ quality: 80 })
         .toFile(outputFilePath)
         .then(() => {
-          console.log('Image compressed successfully!');
-          // remove the original file from the server
+          console.log("Image compressed successfully!");
+
+        }).then(() => {
+          
+          fs.unlink("public/uploads/profiles/"+"raw-"+ file.name, (err => {
+            if (err) console.log(err);
+            
+              console.log("\nDeleted file: example_file.txt");
+            
+          
+          }));
           
         })
         .catch((err) => {
           console.error(err);
           // remove the original file from the server (in case of an error)
-         
         });
-      
-        
-  
 
-      
-        
- 
-      con.query(
-        `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
-      
-        function (err, result, fields) {
-          if (err) {
-            console.log(err);
-          }
-          console.log(result);
-        
-        }
-      );
-    }
-    else{
-      con.query(
-        `UPDATE profiles SET name = '${name}', image='${image}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
-      
-        function (err, result, fields) {
-          if (err) {
-            console.log(err);
-          }
-          console.log(result);
-        
-        }
-      );
-    }
+
+    });
+
+
+    const fs = require("fs");
+
+   
+
+    // assuming that the uploaded file is saved as 'file' in your code
+
+    // console.log(filePath);
 
 
     con.query(
+      `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
 
-      `DELETE FROM skill WHERE id = "${user}";`,    
       function (err, result, fields) {
         if (err) {
           console.log(err);
@@ -219,71 +169,78 @@ app.post('/editprofile', async  (req, res) => {
         console.log(result);
       }
     );
+  } else {
+    con.query(
+      `UPDATE profiles SET name = '${name}', image='${image}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
 
-      console.log();
-
-
-      if (Array.isArray(skill)) {
-        for (let index = 0; index < skill.length; index++) {
-          // const element = array[index];
-          con.query(
-            `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,
-            function (err, result, fields) {
-              if (err) {
-                console.log(err);
-              }
-            }
-          );
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
         }
-      }else{
-        con.query(
-          `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill}' ,'${price}')`,
-          function (err, result, fields) {
-            if (err) {
-              console.log(err);
-            }
-          }
-        );
+        console.log(result);
       }
-      
-
-
-
-    
-
-    res.redirect("/")
-  
-})
-
-
-
-
-
-
-app.get('/profiledetail', function (req, res) {
-  
-  if (req.oidc.isAuthenticated()) {
-    
+    );
+  }
 
   con.query(
-    `SELECT * FROM profiles`,
-    
+    `DELETE FROM skill WHERE id = "${user}";`,
     function (err, result, fields) {
       if (err) {
         console.log(err);
       }
       console.log(result);
-      
-    
-      res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result} )
     }
   );
-  }
-  else{
-    res.redirect('/login')
+
+  console.log();
+
+  if (Array.isArray(skill)) {
+    for (let index = 0; index < skill.length; index++) {
+      // const element = array[index];
+      con.query(
+        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,
+        function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    }
+  } else {
+    con.query(
+      `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill}' ,'${price}')`,
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
   }
 
-})
+  res.redirect("/");
+});
+
+app.get("/profiledetail", function (req, res) {
+  if (req.oidc.isAuthenticated()) {
+    con.query(
+      `SELECT * FROM profiles`,
+
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+
+        res.render("profiles/profiledetail", {
+          isAuthenticated: req.oidc.isAuthenticated(),
+          data: result,
+        });
+      }
+    );
+  } else {
+    res.redirect("/login");
+  }
+});
 
 // app.post('/createprofile', function (req, res) {
 
@@ -293,7 +250,7 @@ app.get('/profiledetail', function (req, res) {
 //   user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
 //   const {name, service ,  contact , address , description , shopname } = req.body
 //   console.log(req.body);
-  
+
 //   file.mv('public/uploads/profiles/' + file.name, (err) => {
 //     if (err) {
 //       console.log(err);
@@ -301,11 +258,9 @@ app.get('/profiledetail', function (req, res) {
 //     }
 //     })
 
-    
-
 //     con.query(
 //       `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
-    
+
 //       function (err, result, fields) {
 //         if (err) {
 //           console.log(err);
@@ -316,12 +271,10 @@ app.get('/profiledetail', function (req, res) {
 
 //     for (let index = 0; index < skill.length; index++) {
 //       // const element = array[index];
-      
-   
- 
+
 //     con.query(
 //       `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,${price[index]});`,
-    
+
 //       function (err, result, fields) {
 //         if (err) {
 //           console.log(err);
@@ -331,20 +284,15 @@ app.get('/profiledetail', function (req, res) {
 //     );
 //     }
 
-
-
 //     res.redirect("/")
-  
+
 // })
 
 app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
-app.get('/services/:name', function (req, res) {
-  
-
-
+app.get("/services/:name", function (req, res) {
   if (req.oidc.isAuthenticated()) {
     con.query(
       `SELECT * FROM profiles  WHERE name ="${req.params.name}"`,
@@ -355,23 +303,29 @@ app.get('/services/:name', function (req, res) {
         }
         console.log(result[0]);
 
-     
-
-        con.query(`SELECT * FROM skill  WHERE id ="${result[0]["id"]}"`, function (err, skills, fields) {
-                  if (err) {
-                    console.log(err);
-                  }
-                  con.query(`SELECT * FROM comments  WHERE id ="${result["id"]}"`,  function (err, comments, fields) {
-                        if (err) {
-                          console.log(err);
-                        }
-                        res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(), data: result[0] , comments: comments , user:req.oidc.user["sub"],skills:skills} )
-
-                      });
-  
-  
+        con.query(
+          `SELECT * FROM skill  WHERE id ="${result[0]["id"]}"`,
+          function (err, skills, fields) {
+            if (err) {
+              console.log(err);
+            }
+            con.query(
+              `SELECT * FROM comments  WHERE id ="${result["id"]}"`,
+              function (err, comments, fields) {
+                if (err) {
+                  console.log(err);
+                }
+                res.render("profiles/profiledetail", {
+                  isAuthenticated: req.oidc.isAuthenticated(),
+                  data: result[0],
+                  comments: comments,
+                  user: req.oidc.user["sub"],
+                  skills: skills,
                 });
-
+              }
+            );
+          }
+        );
 
         // con.query(
         //   `SELECT * FROM comments  WHERE id ="${result[0]["id"]}"`,
@@ -389,88 +343,68 @@ app.get('/services/:name', function (req, res) {
         //         }
         //         res.render('profiles/profiledetail' , {isAuthenticated : req.oidc.isAuthenticated(),data: result[0] , comments: comments , user:req.oidc.user["sub"],skills:skills} )
 
-
         //       });
         //   });
-      });
-  }else{
-    
-    res.redirect('/login')
-
+      }
+    );
+  } else {
+    res.redirect("/login");
   }
+});
 
-})
-
-app.post('/postcomment', function (req, res) {
-
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "")
-  nickname = JSON.stringify(req.oidc.user["nickname"], null, 2).replace(/"/g, "")
-  photo = JSON.stringify(req.oidc.user["picture"], null, 2).replace(/"/g, "")
-  const {name,comment} = req.body
-
+app.post("/postcomment", function (req, res) {
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  nickname = JSON.stringify(req.oidc.user["nickname"], null, 2).replace(
+    /"/g,
+    ""
+  );
+  photo = JSON.stringify(req.oidc.user["picture"], null, 2).replace(/"/g, "");
+  const { name, comment } = req.body;
 
   console.log(req.body);
-  
 
-      con.query(
-        `INSERT INTO comments (id ,name , post, comment , photo) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' )`,
-      
-        function (err, result, fields) {
-          if (err) {
-            console.log(err);
-          }
-          console.log(result);
-          res.redirect("/"+name)
-        }
-      );
+  con.query(
+    `INSERT INTO comments (id ,name , post, comment , photo) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' )`,
 
-
-
-
-
-  
-  
-})
-
-app.get('/delete/:comment', function (req, res) {
-  
-  if (req.oidc.isAuthenticated()) {
-    
-    con.query(
-    `SELECT * FROM comments WHERE sno ="${req.params.comment}"`,
-
-    function (err, comments, fields) {
-    if (err) {
-    console.log(err);
+    function (err, result, fields) {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+      res.redirect("/" + name);
     }
-    console.log("comments");
-    console.log(comments);
+  );
+});
 
+app.get("/delete/:comment", function (req, res) {
+  if (req.oidc.isAuthenticated()) {
+    con.query(
+      `SELECT * FROM comments WHERE sno ="${req.params.comment}"`,
 
-          con.query(
+      function (err, comments, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log("comments");
+        console.log(comments);
+
+        con.query(
           `DELETE FROM comments WHERE sno = "${req.params.comment}";`,
 
           function (err, result, fields) {
-          if (err) {
-          console.log(err);
+            if (err) {
+              console.log(err);
+            }
+            // console.log(result[0]);
+
+            res.redirect("/" + comments[0]["post"]);
           }
-          // console.log(result[0]);
-
-
-          res.redirect('/' + comments[0]["post"])
-
-          }
-          );
-    }
+        );
+      }
     );
+  } else {
+    res.redirect("/login");
   }
-  else{
-    res.redirect('/login')
-  }
+});
 
-})
-
-
-app.listen(3030)
-
-
+app.listen(3030);
