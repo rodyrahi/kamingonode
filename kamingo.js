@@ -82,13 +82,27 @@ app.get("/editprofile", function (req, res) {
             if (err) {
               console.log(err);
             }
-            res.render("profiles/editprofile", {
-              isAuthenticated: req.oidc.isAuthenticated(),
-              data: result[0],
-              skills: skills,
-            });
-          }
-        );
+            con.query(
+              `SELECT subcategory FROM service WHERE category = '${result[0]["service"]}'`,
+    
+              function (err, services, fields) {
+                if (err) {
+                  console.log(err);
+                }
+
+                res.render("profiles/editprofile", {
+                  isAuthenticated: req.oidc.isAuthenticated(),
+                  data: result[0],
+                  skills: skills,
+                  services: services
+                });
+
+              });
+
+            
+
+
+          });
       } catch (error) {
         res.render("profiles/createprofile", {
           isAuthenticated: req.oidc.isAuthenticated(),
@@ -559,5 +573,10 @@ app.get("/delete/skill/:skill", function (req, res) {
     res.redirect("/login");
   }
 });
+
+
+
+
+
 
 app.listen(3030);

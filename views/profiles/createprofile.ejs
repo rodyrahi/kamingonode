@@ -37,7 +37,7 @@
             </a> -->
 
           <!-- <i class="fa-solid fa-user" onclick="getfile()"></i> -->
-          <input type="file" class="hide"   accept="image/png, image/jpg" name="image" id="image">
+          <input type="file" class="hide"   accept="image/png, image/jpg" name="image" id="image" required>
           <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
           <div class="border rounded justify-content-center d-flex p-3 image-container ">
             <input type="hidden"  name="image" value="">
@@ -48,15 +48,15 @@
       </div>
       <div class="mb-3 ">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="" placeholder="rajesh">
+        <input type="text" class="form-control" id="name" name="name" value="" placeholder="rajesh" required>
       </div>
       <div class="mb-3 ">
         <label for="shopname" class="form-label">Shop Name [optional]</label>
-        <input type="text" class="form-control" id="shopname" name="shopname" value="" placeholder="rajesh paint shop">
+        <input type="text" class="form-control" id="shopname" name="shopname" value="" placeholder="rajesh paint shop" >
       </div>
       <div class="mb-3 ">
         <label for="nameinput" class="form-label">Service</label>
-        <select name="service" class="form-select" id="service">
+        <select name="service" class="form-select" id="service" required>
           <option selected>Plumber</option>
           <option value="PLUMBER">Plumber</option>
           <option value="CLEANER">Cleaner</option>
@@ -66,11 +66,11 @@
       </div>
       <div class="mb-3">
         <label for="phone" class="form-label">Phone</label>
-        <input type="tel" class="form-control" id="contact" value="" name="contact" placeholder="+9199999999">
+        <input type="tel" class="form-control" id="contact" value="" name="contact" placeholder="+9199999999" required>
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Address</label>
-        <input type="text" class="form-control" id="address"  value="" name="address" placeholder="">
+        <input type="text" class="form-control" id="address"  value="" name="address" placeholder="" required>
       </div>
 
       <div class="mb-3">
@@ -85,7 +85,7 @@
             <a href=""><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
             
           <label for="description" class="form-label ">Skill</label>
-          <select name="skill" class="form-select" id="service">
+          <select name="skill" class="form-select" id="service" required>
             <option selected>Sink change</option>
             <option value="nobe change">nobe change</option>
             <option value="pipe change">pipe change</option>
@@ -93,7 +93,7 @@
   
           </select>          
           <label for="description" class="form-label ">Price</label>
-          <input type="number" class="form-control mb-1" id="Price"  value="" name="price" placeholder="">
+          <input type="number" class="form-control mb-1" id="Price"  value="" name="price" placeholder="" required>
           </div>
    
       </div>
