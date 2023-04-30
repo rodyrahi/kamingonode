@@ -496,12 +496,12 @@ app.post("/postcomment", function (req, res) {
     ""
   );
   photo = JSON.stringify(req.oidc.user["picture"], null, 2).replace(/"/g, "");
-  const { name, comment } = req.body;
+  const { name, comment , rating } = req.body;
 
   console.log(req.body);
 
   con.query(
-    `INSERT INTO comments (id ,name , post, comment , photo) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' )`,
+    `INSERT INTO comments (id ,name , post, comment , photo , ratings) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , '${rating}' )`,
 
     function (err, result, fields) {
       if (err) {

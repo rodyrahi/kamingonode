@@ -59,13 +59,25 @@
 
         <div class=" my-2 p-1 px-3 border  " style="border-radius: 1rem;" >
           <h4 class="fw-bold mt-2" >Reviews</h4>
+
+          
+
           <form  action="/postcomment" method="POST">
+            <div>
+            <button onclick="onestar()" type="button" class="my-3 p-2 one" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+            <button onclick="twostar()" type="button" class="my-3 p-2 two " style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+            <button onclick="threestar()" type="button" class="my-3 p-2 three" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+            <button onclick="fourstar()" type="button" class="my-3 p-2 four" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+            <button onclick="fivestar()" type="button" class="my-3 p-2 five" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;  "></i></button>
+  
+            <input type="hidden" class="rating" name="rating" value="0" id="rating">          
+            </div>
             <div class="">
               <input type="hidden" name="name" id="name" value="<%= data["name"] %>"  >
               <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Comment here......"></textarea>
   
             </div>
-            <button class="btn-sm btn btn-primary mt-2 me-2 p-2 py-1"  style="border-radius: 2rem; font-size: 1rem;"   type="submit"> Comment </button>
+            <button class="btn-sm btn btn-primary mt-2 me-2 p-2 py-1"  style="border-radius: 2rem; font-size: 1rem;"   type="submit"> Give Ratings </button>
 
           </form>
 
@@ -86,6 +98,8 @@
              
                 <% } %>
               </div>
+
+              
               
                 <p class="mt-2 mx-2 mb-0"> <%= element["comment"]  %> </p>
               
@@ -139,6 +153,63 @@
 
       <%- include('../partials/chin.ejs') %>
     </div>
+
+    <script>
+      //rating
+
+      function onestar(){
+        const ratingbox = document.querySelector('.rating');
+        document.querySelector('.one').classList.add('text-warning')
+        document.querySelector('.two').classList.remove('text-warning')
+        document.querySelector('.three').classList.remove('text-warning')
+        document.querySelector('.four').classList.remove('text-warning')
+        document.querySelector('.five').classList.remove('text-warning')
+        ratingbox.value = 1
+      }
+      function twostar(){
+        const ratingbox = document.querySelector('.rating');
+        document.querySelector('.one').classList.add('text-warning')
+        document.querySelector('.two').classList.add('text-warning')
+        document.querySelector('.three').classList.remove('text-warning')
+        document.querySelector('.four').classList.remove('text-warning')
+        document.querySelector('.five').classList.remove('text-warning')
+        ratingbox.value = 2
+      }
+      function threestar(){
+        const ratingbox = document.querySelector('.rating');
+        document.querySelector('.one').classList.add('text-warning')
+        document.querySelector('.two').classList.add('text-warning')
+        document.querySelector('.three').classList.add('text-warning')
+        document.querySelector('.four').classList.remove('text-warning')
+        document.querySelector('.five').classList.remove('text-warning')
+        ratingbox.value = 3
+      }
+      function fourstar(){
+        const ratingbox = document.querySelector('.rating');
+        document.querySelector('.one').classList.add('text-warning')
+        document.querySelector('.two').classList.add('text-warning')
+        document.querySelector('.three').classList.add('text-warning')
+        document.querySelector('.four').classList.add('text-warning')
+        document.querySelector('.five').classList.remove('text-warning')
+        ratingbox.value = 4
+      }
+      function fivestar(){
+        const ratingbox = document.querySelector('.rating');
+        document.querySelector('.one').classList.add('text-warning')
+        document.querySelector('.two').classList.add('text-warning')
+        document.querySelector('.three').classList.add('text-warning')
+        document.querySelector('.four').classList.add('text-warning')
+        document.querySelector('.five').classList.add('text-warning')
+        ratingbox.value = 5
+      }
+
+
+
+
+    </script>
+
+
+
     <script>
       // Check the viewport size
       var mq = window.matchMedia('(max-width: 600px)');
