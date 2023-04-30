@@ -293,7 +293,7 @@ app.post("/createprofile", async (req, res) => {
     );
   } else {
     con.query(
-      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${"kamingo_favicon.png"}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
 
       function (err, result, fields) {
         if (err) {
