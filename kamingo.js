@@ -220,6 +220,129 @@ app.post("/editprofile", async (req, res) => {
   res.redirect("/");
 });
 
+app.post("/createprofile", async (req, res) => {
+  console.log(" post  ");
+  file = null;
+  try {
+    file = req.files.image;
+
+    const filePath = file.path;
+
+    console.log(file);
+  } catch (error) {}
+
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  const {name,image,service,contact,address,description,shopname,price,skill,} = req.body;
+  console.log(req.body);
+
+  if (file) {
+    const sharp = require("sharp");
+
+
+    file.mv("public/uploads/profiles/"+"raw-" + file.name, (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+      const outputFilePath = "public/uploads/profiles/" + file.name;
+
+      sharp("public/uploads/profiles/"+"raw-"+ file.name)
+        .png({ quality: 80 })
+        .toFile(outputFilePath)
+        .then(() => {
+          console.log("Image compressed successfully!");
+
+        }).then(() => {
+          
+          fs.unlink("public/uploads/profiles/"+"raw-"+ file.name, (err => {
+            if (err) console.log(err);
+            
+              console.log("\nDeleted file: example_file.txt");
+            
+          
+          }));
+          
+        })
+        .catch((err) => {
+          console.error(err);
+          // remove the original file from the server (in case of an error)
+        });
+
+
+    });
+
+
+    const fs = require("fs");
+
+   
+
+    // assuming that the uploaded file is saved as 'file' in your code
+
+    // console.log(filePath);
+
+
+    con.query(
+      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+  } else {
+    con.query(
+      `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+  }
+
+  // con.query(
+  //   `DELETE FROM skill WHERE id = "${user}";`,
+  //   function (err, result, fields) {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //     console.log(result);
+  //   }
+  // );
+
+  console.log();
+
+  if (Array.isArray(skill)) {
+    for (let index = 0; index < skill.length; index++) {
+      // const element = array[index];
+      con.query(
+        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,
+        function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    }
+  } else {
+    con.query(
+      `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill}' ,'${price}')`,
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+  }
+
+  res.redirect("/");
+});
+
+
 app.get("/profiledetail", function (req, res) {
   if (req.oidc.isAuthenticated()) {
     con.query(
