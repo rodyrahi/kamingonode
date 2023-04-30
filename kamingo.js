@@ -8,6 +8,7 @@ var con = require("./database.js");
 
 const fileUpload = require("express-fileupload");
 const { log } = require("console");
+const { name } = require("ejs");
 
 app.use(fileUpload());
 app.use(express.static("public"));
@@ -447,17 +448,33 @@ app.get("/services/:name", function (req, res) {
               console.log(err);
             }
             con.query(
-              `SELECT * FROM comments  WHERE id ="${result["id"]}"`,
+              `SELECT * FROM comments  WHERE post='${req.params.name}'`,
               function (err, comments, fields) {
                 if (err) {
                   console.log(err);
                 }
+
+                // console.log('here');
+
+                
+                let rating = 0;
+
+                comments.forEach(element => {
+                  rating+=element["rating"]
+                });
+           
+                console.log(rating);
+                totalrating = rating/comments.length
+
+                console.log(totalrating);
+
                 res.render("profiles/profiledetail", {
                   isAuthenticated: req.oidc.isAuthenticated(),
                   data: result[0],
                   comments: comments,
                   user: req.oidc.user["sub"],
                   skills: skills,
+                  rating: totalrating
                 });
               }
             );
@@ -501,14 +518,32 @@ app.post("/postcomment", function (req, res) {
   console.log(req.body);
 
   con.query(
-    `INSERT INTO comments (id ,name , post, comment , photo , ratings) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , '${rating}' )`,
+
+    `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE id='${user}' `,
+    // `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  ) ON DUPLICATE KEY UPDATE rating=${rating}`,
 
     function (err, result, fields) {
       if (err) {
         console.log(err);
       }
-      console.log(result);
-      res.redirect("/" + name);
+
+      if (result["changedRows"] === 0) {
+        con.query(
+            `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  )`,
+            function (err, result, fields) {
+              if (err) {
+                console.log(err);
+              }
+            })
+      }
+      
+
+
+    
+          res.redirect("/services/" + name);
+ 
+
+
     }
   );
 });
