@@ -82,7 +82,7 @@
         
         <% skills.forEach(element => { %>
           <div class="border p-2 my-2 rounded bg-light">
-            <a href=""><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
+            <a href="/delete/skill/<%= element["sno"] %> "><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
             
           <label for="description" class="form-label ">Skill</label>
           <select name="skill" class="form-select" id="service" value="<%= element["service"] %>">

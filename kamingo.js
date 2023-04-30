@@ -198,7 +198,7 @@ app.post("/editprofile", async (req, res) => {
     for (let index = 0; index < skill.length; index++) {
       // const element = array[index];
       con.query(
-        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,
+        `INSERT INTO skill ( id ,service , price , post) VALUES ('${user}','${skill[index]}' ,'${price[index]}' ,'${name}')`,
         function (err, result, fields) {
           if (err) {
             console.log(err);
@@ -208,7 +208,7 @@ app.post("/editprofile", async (req, res) => {
     }
   } else {
     con.query(
-      `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill}' ,'${price}')`,
+      `INSERT INTO skill ( id ,service , price , post) VALUES ('${user}','${skill}' ,'${price}','${name}')`,
       function (err, result, fields) {
         if (err) {
           console.log(err);
@@ -320,7 +320,7 @@ app.post("/createprofile", async (req, res) => {
     for (let index = 0; index < skill.length; index++) {
       // const element = array[index];
       con.query(
-        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}')`,
+        `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill[index]}' ,'${price[index]}' ,'${name}' )`,
         function (err, result, fields) {
           if (err) {
             console.log(err);
@@ -330,7 +330,7 @@ app.post("/createprofile", async (req, res) => {
     }
   } else {
     con.query(
-      `INSERT INTO skill ( id ,service , price) VALUES ('${user}','${skill}' ,'${price}')`,
+      `INSERT INTO skill ( id ,service , price , post) VALUES ('${user}','${skill}' ,'${price}','${name}')`,
       function (err, result, fields) {
         if (err) {
           console.log(err);
@@ -520,7 +520,37 @@ app.get("/delete/:comment", function (req, res) {
             }
             // console.log(result[0]);
 
-            res.redirect("/" + comments[0]["post"]);
+            res.redirect("/services/" + comments[0]["post"]);
+          }
+        );
+      }
+    );
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/delete/skill/:skill", function (req, res) {
+  if (req.oidc.isAuthenticated()) {
+    con.query(
+      `SELECT * FROM skill WHERE sno ="${req.params.skill}"`,
+
+      function (err, skills, fields) {
+        if (err) {
+          console.log(err);
+        }
+       
+
+        con.query(
+          `DELETE FROM skill WHERE sno = "${req.params.skill}";`,
+
+          function (err, result, fields) {
+            if (err) {
+              console.log(err);
+            }
+            // console.log(result[0]);
+
+            res.redirect("/editprofile");
           }
         );
       }
