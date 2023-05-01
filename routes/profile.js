@@ -5,6 +5,8 @@ var con = require("../database.js");
 
 
 
+
+
 router.get("/editprofile", function (req, res) {
     user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
   
