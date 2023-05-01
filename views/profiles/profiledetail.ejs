@@ -33,8 +33,17 @@
 
             <!-- <h5>Rating</h5> -->
             <!-- <div class="border rounded p-2 " style="width: 5rem; "> -->
+
+              <% if (rating) { %>
+                <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i><%= rating %></p>  
+
+              <% } else { %>
+
+                <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i>0</p>  
+
+
+              <%}%>
     
-              <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i><%= rating %></p>  
               
 
               <a class="btn-sm btn btn-success mt-2 me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" href= "https://wa.me/<%= data["contact"] %>"  type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>  Get Contact </a>
@@ -61,7 +70,7 @@
           <h4 class="fw-bold mt-2" >Reviews</h4>
 
           
-
+          <h4 class="userrating"><%= userrating %></h4>
           <form  action="/postcomment" method="POST">
             <div>
             <button onclick="onestar()" type="button" class="my-3 p-2 one" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
@@ -85,11 +94,16 @@
          
             <% comments.forEach(element => { %>
 
+
+              <% if (element["comment"]) { %>
+               
+              
+
               <div>
 
               <div class="border mb-2 p-2 rounded " style="border-radius: 1rem;">
                 <div class="d-flex">
-                <img class="rounded-circle me-2" width="40px" src="/uploads/profiles/ <%=element["photo"] %>" alt=""><p class="m-0 fw-bold mt-2" > <%= element["name"]  %> </p>
+                <img class="rounded-circle me-2" width="40px" src="<%=element["photo"] %>" alt=""><p class="m-0 fw-bold mt-2" > <%= element["name"]  %> </p>
                 <% if (user === element["id"]) { %>
                   
                 
@@ -99,7 +113,7 @@
                 <% } %>
               </div>
 
-              
+              <% } %>
               
                 <p class="mt-2 mx-2 mb-0"> <%= element["comment"]  %> </p>
               
@@ -155,6 +169,32 @@
     </div>
 
     <script>
+
+
+      $(document).ready(function () {
+        value = document.querySelector('.userrating').innerHTML
+
+        console.log(value)
+
+        if(value === '1'){
+          onestar()
+        }
+        if(value === '2'){
+          twostar()
+        }
+        if(value === "3"){
+          threestar()
+        }
+        if(value === '4'){
+          fourstar()
+        }
+        if(value === '5'){
+          fivestar()
+        }
+
+
+      });
+
       //rating
 
       function onestar(){

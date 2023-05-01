@@ -474,7 +474,8 @@ app.get("/services/:name", function (req, res) {
                   comments: comments,
                   user: req.oidc.user["sub"],
                   skills: skills,
-                  rating: totalrating
+                  rating: totalrating,
+                  userrating:rating
                 });
               }
             );
