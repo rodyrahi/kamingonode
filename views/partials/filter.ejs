@@ -1,3 +1,69 @@
-<div>
-    
-</div>
+<form class="d-flex" role="search" action="/filter" method="POST" >
+    <div class="border p-2 mt-1 rounded " style="border-radius: 1rem;">
+      <div class="d-flex border p-1 rounded mt-1">
+        <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i>
+        <input class="form-control me-2" style="border: none; background-color: lavender;" type="search" placeholder="Search" aria-label="Search">
+      </div>
+      <div class="d-flex my-2">
+        <!-- <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i> -->
+        <p class="m-2" >City</p>
+        <select class="form-select " >
+          <!-- <option selected>Open this select menu</option> -->
+          <% data.filter((value, index, self) => {
+            return self.findIndex((t) => t.city === value.city) === index;
+         }).forEach((element) => { %>
+        <option value="<%= element.city %>"><%= element.city%></option>
+      <% }); %>
+    </select>
+          
+      
+        </select>
+        
+      </div>
+      <div class="d-flex my-2">
+        <!-- <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i> -->
+        <p class="m-2" >Area</p>
+        <select class="form-select " >
+          <!-- <option selected>Open this select menu</option> -->
+          <% data.filter((value, index, self) => {
+            return self.findIndex((t) => t.area === value.area) === index;
+         }).forEach((element) => { %>
+        <option value="<%= element.area %>"><%= element.area %></option>
+      <% }); %>
+    </select>
+          
+      
+        </select>
+        
+      </div>
+      <div class="d-flex my-2">
+        <p class="m-2" >Service</p>
+        <select class="form-select " >
+
+          
+            <% data.filter((value, index, self) => {
+                  return self.findIndex((t) => t.service === value.service) === index;
+               }).forEach((element) => { %>
+              <option value="<%= element.service %>"><%= element.service %></option>
+            <% }); %>
+          </select>
+          
+         
+          
+      
+        
+        
+      </div>
+      <div class="d-flex my-2">
+        <input type="checkbox" class="btn-check" id="btn-check" value="highrated" autocomplete="off">
+        <label class="btn btn-outline-dark " for="btn-check" style="border-radius: 2rem;" >High Rated</label>
+        
+       
+        
+      </div>
+     
+      <button class="btn btn-outline-primary" style="border-radius: 2rem;" type="submit">Search</button>
+
+    </div>
+  </form>
+
