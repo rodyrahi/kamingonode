@@ -52,7 +52,9 @@
       <div class="row ">
 
         <div class="col-5 " style="border-right: 1px rgb(214, 214, 214) solid;  "  >
-          <div class=" my-2  d-flex" style="object-fit: scale-down;">
+          <div class=" my-2  d-flex position-relative" style="object-fit: scale-down;">
+            <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
+
             <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="" style="max-width: 10rem; width: 100%;  ">
           </div>
         </div>
@@ -62,7 +64,7 @@
               <p class="m-0 mx-1" style="font-size: 0.9rem;"> <%= element["service"] %></p>
             <!-- </div> -->
             
-            <p style="font-size: 0.9rem; " class="text-muted mb-1 mx-1"> <%= element["address"] %></p>
+            <p style="font-size: 0.9rem; " class="text-muted mb-1 mx-1"> <%= element["address"] %> ,  <%= element["area"] %> , <%= element["city"] %> </p>
             <p style="font-size: 0.8rem;" class="fw-bold m-0 mx-1" ><i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> 5.0</p>
             <div class="d-flex justify-content-end " style="">
                

@@ -29,7 +29,7 @@
           <div class=" my-3 p-1 px-3 " style="border-top: 1px solid rgb(218, 218, 218);" >
             <h5 class="fw-bold mt-2" ><%= data["name"] %></h5>
             <p class="m-0" ><%= data["service"] %></p>
-            <p class="text-muted mb-1"><%= data["address"] %></p>
+            <p style="font-size: 1.2rem; " class="text-muted mb-1 "> <%= data["address"] %> ,  <%= data["area"] %> , <%= data["city"] %> </p>
 
             <!-- <h5>Rating</h5> -->
             <!-- <div class="border rounded p-2 " style="width: 5rem; "> -->
@@ -195,7 +195,14 @@
 
       });
 
+
+
+    
+
       //rating
+
+
+
 
       function onestar(){
         const ratingbox = document.querySelector('.rating');
@@ -242,8 +249,8 @@
         document.querySelector('.five').classList.add('text-warning')
         ratingbox.value = 5
       }
-
-
+    
+    
 
 
     </script>

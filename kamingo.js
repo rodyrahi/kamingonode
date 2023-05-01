@@ -51,6 +51,7 @@ app.get("/", function (req, res) {
         if (err) {
           console.log(err);
         }
+        console.log('here');
         console.log(result);
 
         res.render("home", {
@@ -68,7 +69,7 @@ app.get("/editprofile", function (req, res) {
   user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
 
   con.query(
-    `SELECT id ,name, image, service , contact , address , description , shopname  FROM profiles WHERE id='${user}'`,
+    `SELECT *  FROM profiles WHERE id='${user}'`,
 
     function (err, result, fields) {
       if (err) {
@@ -125,7 +126,7 @@ app.post("/editprofile", async (req, res) => {
   } catch (error) {}
 
   user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
-  const {name,image,service,contact,address,description,shopname,price,skill,} = req.body;
+  const {name,image,service,contact,address,description,shopname,price,skill,pincode,area,city} = req.body;
   console.log(req.body);
 
   if (file) {
@@ -175,7 +176,7 @@ app.post("/editprofile", async (req, res) => {
 
 
     con.query(
-      `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
+      `UPDATE profiles SET name = '${name}', image='${file.name}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' , pincode=${pincode}  , city='${city}' , area='${area}' where id='${user}'`,
 
       function (err, result, fields) {
         if (err) {
@@ -186,7 +187,7 @@ app.post("/editprofile", async (req, res) => {
     );
   } else {
     con.query(
-      `UPDATE profiles SET name = '${name}', image='${image}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}' where id='${user}'`,
+      `UPDATE profiles SET name = '${name}', image='${image}', service='${service}' , contact='${contact}' , address='${address}' , description='${description}' , shopname='${shopname}', pincode=${pincode}  , city='${city}' , area='${area}' where id='${user}'`,
 
       function (err, result, fields) {
         if (err) {

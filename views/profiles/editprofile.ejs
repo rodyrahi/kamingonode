@@ -69,6 +69,18 @@
         <input type="tel" class="form-control" id="contact" value="<%= data["contact"] %>" name="contact" placeholder="+9199999999">
       </div>
       <div class="mb-3 ">
+        <label for="address" class="form-label">Pincode</label>
+        <input type="number" onchange="getdata()" class="form-control pincode" id="pincode"  value="<%= data["pincode"] %>" name="pincode" placeholder="">
+      </div>
+      <div class="mb-3 ">
+        <label for="address" class="form-label">City</label>
+        <input type="text" class="form-control city" id="city"  value="<%= data["city"] %>" name="city" placeholder="">
+      </div>
+      <div class="mb-3 ">
+        <label for="address" class="form-label">Area</label>
+        <input type="text" class="form-control area" id="area"  value="<%= data["area"] %>" name="area" placeholder="">
+      </div>
+      <div class="mb-3 ">
         <label for="address" class="form-label">Address</label>
         <input type="text" class="form-control" id="address"  value="<%= data["address"] %>" name="address" placeholder="">
       </div>
@@ -119,7 +131,40 @@
     <%- include('../partials/chin.ejs') %>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
+  
+  
+  
+  <script>
+    //pincode
+
+
+
+
+
+      document.querySelector('.pincode').addEventListener('input', function() {
+        value = document.querySelector('.pincode').value
+
+  
+      $.getJSON("https://api.postalpincode.in/pincode/" + value, function (data) {
+
+       
+
+       
+        console.log(data[0]["PostOffice"][0]['Name'])
+
+        console.log(data[0]["PostOffice"][0]['Block'])
+
+        document.querySelector('.city').value = data[0]["PostOffice"][0]['Region']
+        document.querySelector('.area').value = data[0]["PostOffice"][0]['Name']
+
+      
+      })
+      })
+  
+
+  </script>
+  
+  <script>
      
 
       function addskill() {
