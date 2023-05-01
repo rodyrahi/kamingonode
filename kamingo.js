@@ -141,7 +141,7 @@ app.post("/editprofile", async (req, res) => {
       const outputFilePath = "public/uploads/profiles/" + file.name;
 
       sharp("public/uploads/profiles/"+"raw-"+ file.name)
-        .png({ quality: 80 })
+        .png({ quality: 60 })
         .toFile(outputFilePath)
         .then(() => {
           console.log("Image compressed successfully!");
