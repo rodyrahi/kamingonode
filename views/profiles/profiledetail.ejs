@@ -10,6 +10,21 @@
     .hide {
       display: none;
     }
+
+    .image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.rating {
+  position: absolute;
+  top: 10%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  border-radius: 5rem;
+  border: 1px cornflowerblue solid;
+}
+
   </style>
 
 
@@ -19,14 +34,14 @@
       
       <div class="row my-3">
         <div class="col-lg-8 col-md-7 list mb-5 ">
-         <div class="border  " style="border-radius: 1rem;">
+         <div class="border bg-light text-center " style="border-radius: 1rem;">
      
-          <div class=" text-center pt-2">
+          <div class=" text-center pt-2 image-container">
             <img src="/uploads/profiles/<%= data["image"] %>"  alt="" srcset=""  style="width: 100%; max-width: 20rem; border-radius: 1rem"> 
-            
+            <!-- <button class="btn btn-light shadow rating" >Edit</button> -->
           </div>
           
-          <div class=" my-3 p-1 px-3 " style="border-top: 1px solid rgb(218, 218, 218);" >
+          <div class=" my-3 p-1 px-3 text-start" style="border-top: 1px solid rgb(218, 218, 218);" >
             <h5 class="fw-bold mt-2" ><%= data["name"] %></h5>
             <p class="m-0" ><%= data["service"] %></p>
             <p style="font-size: 1.2rem; " class="text-muted mb-1 "> <%= data["address"] %> ,  <%= data["area"] %> , <%= data["city"] %> </p>
@@ -53,7 +68,7 @@
     
         
         </div>
-        <div class=" my-2 p-1 px-3 border  " style="border-radius: 1rem;" >
+        <div class=" my-2 p-1 px-3 border bg-light " style="border-radius: 1rem;" >
           <h4 class="fw-bold mt-2" >Skills</h4>
           <p class="m-0" >PLUMBER</p>
 
@@ -66,7 +81,7 @@
 
         </div>
 
-        <div class=" my-2 p-1 px-3 border  " style="border-radius: 1rem;" >
+        <div class=" my-2 p-1 px-3 border bg-light shadow-sm " style="border-radius: 1rem;" >
           <h4 class="fw-bold mt-2" >Reviews</h4>
 
           
@@ -101,7 +116,7 @@
 
               <div>
 
-              <div class="border mb-2 p-2 rounded " style="border-radius: 1rem;">
+              <div class="border mb-2 p-2 rounded bg-light shadow-sm " style="border-radius: 1rem;">
                 <div class="d-flex">
                 <img class="rounded-circle me-2" width="40px" src="<%=element["photo"] %>" alt=""><p class="m-0 fw-bold mt-2" > <%= element["name"]  %> </p>
                 <% if (user === element["id"]) { %>
@@ -118,9 +133,10 @@
                 <p class="mt-2 mx-2 mb-0"> <%= element["comment"]  %> </p>
               
                  
-              </div>
+              
          
             <% }) %>
+          </div>
           </div>
 
         </div>
@@ -137,27 +153,7 @@
         
       </div>
 
-      <!-- <div class="phone hide">
-        <form class="d-flex" role="search">
-          <div class="d-flex border p-1 rounded">
-            <i class="fa-solid fa-magnifying-glass m-2 " style="font-size:
-              1.6rem;"></i>
-            <input class="form-control me-2" style="border: none;
-              background-color: lavender;" type="search"
-              placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" style="border-radius:
-              2rem;" type="submit">Search</button>
-          </div>
-        </form>
-        <button class="btn btn-outline-secondary" style="border-radius:
-          2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
-        <button class="btn btn-outline-secondary" style="border-radius:
-          2rem; background-color: black; color: aliceblue;" type="submit">Plumber</button>
-        <button class="btn btn-outline-secondary" style="border-radius:
-          2rem; background-color: black; color: aliceblue;" type="submit">Laundary</button>
-        <button class="btn btn-outline-secondary" style="border-radius:
-          2rem; background-color: black; color: aliceblue;" type="submit">Clothing</button>
-      </div> -->
+
 
 
     </div>

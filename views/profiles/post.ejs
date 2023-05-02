@@ -6,14 +6,17 @@
   <div class="d-flex">
     <div class="row ">
 
-      <div class="col-5 " style="border-right: 1px rgb(214, 214, 214) solid;  ">
-        <div class=" my-2  d-flex position-relative" style="object-fit: scale-down;">
+      <div class="col-5 p-0 pt-2 px-1 position-relative" style="border-right: 1px rgb(214, 214, 214) solid;  ">
+        <!-- <div class=" my-2  d-flex " style="object-fit: scale-down;"> -->
           <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
 
-          <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="" style="max-width: 10rem; width: 100%;  ">
-        </div>
+          <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="" style="max-width: 10rem;  max-height:11rem;">
+        <!-- </div> -->
       </div>
-      <div class="col-7 my-1 p-1 " style="">
+      <div class="col-7 my-1 p-1 position-relative " style="">
+        <div class="position-relative">
+        <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
+
         <p class="fw-bold m-0 mx-1" style="font-size: 1.4rem;"><%= element["name"] %> </p>
         <!-- <div class="my-1" style="padding: 0.1rem; margin: 0rem 6rem 0.2rem 0rem; border-radius: 1rem; border-width: 1px; border-color: cornflowerblue; border-style: solid; "> -->
         <p class="m-0 mx-1" style="font-size: 0.9rem;"> <%= element["service"] %></p>
@@ -24,6 +27,7 @@
       
 
         <p style="font-size: 0.8rem;" class="fw-bold m-0 mx-1"><i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> <%= element["rating"] %></p>
+      </div>
         <div class="d-flex justify-content-end " style="">
 
           <a class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" href="/services/<%= element["name"] %>"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> Get Contact </a>
