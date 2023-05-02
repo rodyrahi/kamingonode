@@ -19,7 +19,7 @@ const { post } = require("./home.js");
     console.log(req.body);
   
     con.query(
-      `SELECT * FROM comments WHERE post='${name}'`,
+      `SELECT * FROM comments WHERE post='${name}' AND id='${user}'`,
       function (err, com, fields) {
         if (err) {
           console.log(err);
@@ -29,7 +29,7 @@ const { post } = require("./home.js");
           if (com.length !== 0) {
             //  console.log('this');
             con.query(
-              `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE post='${name}' `,
+              `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE post='${name}' AND id='${user}' `,
               // `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  ) ON DUPLICATE KEY UPDATE rating=${rating}`,
 
               function (err, result, fields) {

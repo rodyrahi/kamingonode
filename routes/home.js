@@ -108,6 +108,8 @@ router.post("/filter", function (req, res) {
 
 
 router.get("/services/:name", function (req, res) {
+  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+
     if (req.oidc.isAuthenticated()) {
       con.query(
         `SELECT * FROM profiles  WHERE name ="${req.params.name}"`,
@@ -134,9 +136,15 @@ router.get("/services/:name", function (req, res) {
                   // console.log('here');
   
                   let rating = 0;
+                  let userrating = 0;
+
   
                   comments.forEach((element) => {
                     rating += element["rating"];
+                    if (element.id === user) {
+                      userrating = element["rating"];
+
+                    }
                   });
   
                   console.log(rating);
@@ -159,7 +167,7 @@ router.get("/services/:name", function (req, res) {
                     user: req.oidc.user["sub"],
                     skills: skills,
                     rating: totalrating,
-                    userrating: rating,
+                    userrating: userrating,
                   });
                 }
               );

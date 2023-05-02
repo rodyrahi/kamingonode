@@ -33,6 +33,7 @@ router.get("/editprofile", function (req, res) {
                   if (err) {
                     console.log(err);
                   }
+                  console.log(services);
   
                   res.render("profiles/editprofile", {
                     isAuthenticated: req.oidc.isAuthenticated(),

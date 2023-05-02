@@ -98,13 +98,11 @@
             
           <label for="description" class="form-label ">Skill</label>
           <select name="skill" class="form-select" id="service" value="<%= element["service"] %>">
-            <!-- <option selected><%= element["service"] %></option> -->
+             <option selected><%= element["service"] %></option> 
             <% services.forEach(element => { %>
-              <option value="nobe change"> <%= element["subcategory"] %> </option>
+              <option value="<%= element["subcategory"] %>"> <%= element["subcategory"] %> </option>
             <% }) %>
-            
-            <!-- <option value="pipe change">pipe change</option>
-            <option value="cleaning">cleaning </option> -->
+
   
           </select> 
 
