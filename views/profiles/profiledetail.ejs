@@ -1,295 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('../partials/header.ejs') %>
+<%- include('../partials/header.ejs') %>
 
-    <body>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <style>
-
-
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
     .hide {
       display: none;
     }
 
     .image-container {
-  position: relative;
-  display: inline-block;
-}
+      position: relative;
+      display: inline-block;
+    }
 
-.rating {
-  position: absolute;
-  top: 10%;
-  left: 90%;
-  transform: translate(-50%, -50%);
-  border-radius: 5rem;
-  border: 1px cornflowerblue solid;
-}
-
+    .rating {
+      position: absolute;
+      top: 10%;
+      left: 90%;
+      transform: translate(-50%, -50%);
+      border-radius: 5rem;
+      border: 1px cornflowerblue solid;
+    }
   </style>
 
 
   <%- include('../partials/nav.ejs') %>
 
-    <div class="container">
-      
-      <div class="row my-3">
-        <div class="col-lg-8 col-md-7 list mb-5 ">
-         <div class="border bg-light text-center " style="border-radius: 1rem;">
-     
+  <div class="container">
+
+    <div class="row my-3">
+      <div class="col-lg-8 col-md-7 list mb-5 ">
+        <div class="border bg-light text-center " style="border-radius: 1rem;">
+
           <div class=" text-center pt-2 image-container">
-            <img src="/uploads/profiles/<%= data["image"] %>"  alt="" srcset=""  style="width: 100%; max-width: 20rem; border-radius: 1rem"> 
+            <img src="/uploads/profiles/<%= data["image"] %>" alt="" srcset="" style="width: 100%; max-width: 20rem; border-radius: 1rem">
             <!-- <button class="btn btn-light shadow rating" >Edit</button> -->
           </div>
-          
-          <div class=" my-3 p-1 px-3 text-start" style="border-top: 1px solid rgb(218, 218, 218);" >
-            <h5 class="fw-bold mt-2" ><%= data["name"] %></h5>
-            <p class="m-0" ><%= data["service"] %></p>
-            <p style="font-size: 1.2rem; " class="text-muted mb-1 "> <%= data["address"] %> ,  <%= data["area"] %> , <%= data["city"] %> </p>
+
+          <div class=" my-3 p-1 px-3 text-start" style="border-top: 1px solid rgb(218, 218, 218);">
+            <h5 class="fw-bold mt-2"><%= data["name"] %></h5>
+            <p class="m-0"><%= data["service"] %></p>
+            <p style="font-size: 1.2rem; " class="text-muted mb-1 "> <%= data["address"] %> , <%= data["area"] %> , <%= data["city"] %> </p>
 
             <!-- <h5>Rating</h5> -->
             <!-- <div class="border rounded p-2 " style="width: 5rem; "> -->
 
-              <% if (rating) { %>
-                <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i><%= rating %> (<%= ratingno %>)</p>  
+            <% if (rating) { %>
+            <p class="m-0"> <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i><%= rating %> (<%= ratingno %>)</p>
 
-              <% } else { %>
+            <% } else { %>
 
-                <p class="m-0" > <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i>0</p>  
+            <p class="m-0"> <i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i>0</p>
 
 
-              <%}%>
+            <%}%>
     
               
 
-              <a class="btn-sm btn btn-success mt-2 me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" href= "https://wa.me/<%= data["contact"] %>"  type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>  Get Contact </a>
-              <button class="btn-sm btn btn-primary mt-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>         
-           
+              <a class="btn-sm btn btn-success mt-2 me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" href= "https://wa.me/<%= data["contact"] %>" type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Get Contact </a>
+            <button class="btn-sm btn btn-primary mt-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
+
           </div>
-    
-        
+
+
         </div>
-        <div class=" my-2 p-1 px-3 border bg-light " style="border-radius: 1rem;" >
-          <h4 class="fw-bold mt-2" >Skills</h4>
-          <p class="m-0" >PLUMBER</p>
+        <div class=" my-2 p-1 px-3 border bg-light " style="border-radius: 1rem;">
+          <h4 class="fw-bold mt-2">Skills</h4>
+          <p class="m-0">PLUMBER</p>
 
 
           <% skills.forEach(element => { %>
-            <p class="text-muted mb-1"><%= element["service"] %></p>
-            <p class="text-success mb-1"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
+          <p class="text-muted mb-1"><%= element["service"] %></p>
+          <p class="text-success mb-1"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
           <% }) %>
 
 
         </div>
 
-        <div class=" my-2 p-1 px-3 border bg-light shadow-sm " style="border-radius: 1rem;" >
-          <h4 class="fw-bold mt-2" >Reviews</h4>
+        <div class=" my-2 p-1 px-3 border bg-light shadow-sm " style="border-radius: 1rem;">
+          <h4 class="fw-bold mt-2">Reviews</h4>
 
-          
+
           <h4 class="userrating"><%= userrating %></h4>
-          <form  action="/postcomment" method="POST">
+          <form action="/postcomment" method="POST">
             <div>
-            <button onclick="onestar()" type="button" class="my-3 p-2 one" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
-            <button onclick="twostar()" type="button" class="my-3 p-2 two " style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
-            <button onclick="threestar()" type="button" class="my-3 p-2 three" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
-            <button onclick="fourstar()" type="button" class="my-3 p-2 four" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
-            <button onclick="fivestar()" type="button" class="my-3 p-2 five" style="background: none; border-radius:0.5rem; color:darkgray; " ><i class="fa-solid fa-star" style="font-size: 2.0rem;  "></i></button>
-  
-            <input type="hidden" class="rating" name="rating" value="0" id="rating">          
+              <button onclick="onestar()" type="button" class="my-3 p-2 one" style="background: none; border-radius:0.5rem; color:darkgray; "><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+              <button onclick="twostar()" type="button" class="my-3 p-2 two " style="background: none; border-radius:0.5rem; color:darkgray; "><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+              <button onclick="threestar()" type="button" class="my-3 p-2 three" style="background: none; border-radius:0.5rem; color:darkgray; "><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+              <button onclick="fourstar()" type="button" class="my-3 p-2 four" style="background: none; border-radius:0.5rem; color:darkgray; "><i class="fa-solid fa-star" style="font-size: 2.0rem;"></i></button>
+              <button onclick="fivestar()" type="button" class="my-3 p-2 five" style="background: none; border-radius:0.5rem; color:darkgray; "><i class="fa-solid fa-star" style="font-size: 2.0rem;  "></i></button>
+
+              <input type="hidden" class="rating" name="rating" value="0" id="rating">
             </div>
             <div class="">
-              <input type="hidden" name="name" id="name" value="<%= data["name"] %>"  >
+              <input type="hidden" name="name" id="name" value="<%= data["name"] %>">
               <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Comment here......"></textarea>
-  
+
             </div>
-            <button class="btn-sm btn btn-primary mt-2 me-2 p-2 py-1"  style="border-radius: 2rem; font-size: 1rem;"   type="submit"> Give Ratings </button>
+            <button class="btn-sm btn btn-primary mt-2 me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"> Give Ratings </button>
 
           </form>
 
           <hr>
-         
-            <% comments.forEach(element => { %>
-            <% if (element["comment"]) { %>
 
-            <div>
+          <% comments.forEach(element => { %>
+          <% if (element["comment"]) { %>
 
-              <div class="border mb-2 p-2 rounded bg-light shadow-sm " style="border-radius: 1rem;">
-                <div class="d-flex">
-                  <img class="rounded-circle me-2" width="40px" src="<%=element["photo"] %>" alt="">
-                  <p class="m-0 fw-bold mt-2"> <%= element["name"]  %> </p>
-                  <% if (user === element["id"]) { %>
+          <div>
 
-
-
-                  <a href="/delete/<%= element["sno"] %>"><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;"></i></a>
-
-                  <% } %>
-                </div>
-
+            <div class="border mb-2 p-2 rounded bg-light shadow-sm " style="border-radius: 1rem;">
+              <div class="d-flex">
+                <img class="rounded-circle me-2" width="40px" src="<%=element["photo"] %>" alt="">
+                <p class="m-0 fw-bold mt-2"> <%= element["name"]  %> </p>
+                <% if (user === element["id"]) { %>
+                <a href="/delete/<%= element["sno"] %>"><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;"></i></a>
                 <% } %>
+              </div>
+              <% } %>
+              <p class="mt-2 mx-2 mb-0"> <%= element["comment"]  %> </p>
+            </div>
+            <% }) %>
 
-                <p class="mt-2 mx-2 mb-0"> <%= element["comment"]  %> </p>
-
-
-
-
-                
-          </div>
-          <% }) %>
           </div>
 
         </div>
 
-        </div>
-       
-          <div class=" col-lg-4 col-md-5 sidebar borderp-2 border " style="border-radius: 1rem;">
-           
-           
-          </div>
-          
-
-
-        
       </div>
-
-
+    </div>
+    <div class=" col-lg-4 col-md-5  mb-5 sidebar bg-light borderp-2 border " style="border-radius: 1rem;">
 
 
     </div>
 
-    <div class="chin hide">
 
 
-      <%- include('../partials/chin.ejs') %>
-    </div>
+  </div>
 
-    <script>
-
-
-      $(document).ready(function () {
-        value = document.querySelector('.userrating').innerHTML
-
-        console.log(value)
-
-        if(value === '1'){
-          onestar()
-        }
-        if(value === '2'){
-          twostar()
-        }
-        if(value === "3"){
-          threestar()
-        }
-        if(value === '4'){
-          fourstar()
-        }
-        if(value === '5'){
-          fivestar()
-        }
+  <div class="chin hide">
 
 
-      });
+    <%- include('../partials/chin.ejs') %>
+  </div>
 
+  <script>
+    $(document).ready(function() {
+      value = document.querySelector('.userrating').innerHTML
 
+      console.log(value)
 
-    
-
-      //rating
-
-
-
-
-      function onestar(){
-        const ratingbox = document.querySelector('.rating');
-        document.querySelector('.one').classList.add('text-warning')
-        document.querySelector('.two').classList.remove('text-warning')
-        document.querySelector('.three').classList.remove('text-warning')
-        document.querySelector('.four').classList.remove('text-warning')
-        document.querySelector('.five').classList.remove('text-warning')
-        ratingbox.value = 1
+      if (value === '1') {
+        onestar()
       }
-      function twostar(){
-        const ratingbox = document.querySelector('.rating');
-        document.querySelector('.one').classList.add('text-warning')
-        document.querySelector('.two').classList.add('text-warning')
-        document.querySelector('.three').classList.remove('text-warning')
-        document.querySelector('.four').classList.remove('text-warning')
-        document.querySelector('.five').classList.remove('text-warning')
-        ratingbox.value = 2
+      if (value === '2') {
+        twostar()
       }
-      function threestar(){
-        const ratingbox = document.querySelector('.rating');
-        document.querySelector('.one').classList.add('text-warning')
-        document.querySelector('.two').classList.add('text-warning')
-        document.querySelector('.three').classList.add('text-warning')
-        document.querySelector('.four').classList.remove('text-warning')
-        document.querySelector('.five').classList.remove('text-warning')
-        ratingbox.value = 3
+      if (value === "3") {
+        threestar()
       }
-      function fourstar(){
-        const ratingbox = document.querySelector('.rating');
-        document.querySelector('.one').classList.add('text-warning')
-        document.querySelector('.two').classList.add('text-warning')
-        document.querySelector('.three').classList.add('text-warning')
-        document.querySelector('.four').classList.add('text-warning')
-        document.querySelector('.five').classList.remove('text-warning')
-        ratingbox.value = 4
+      if (value === '4') {
+        fourstar()
       }
-      function fivestar(){
-        const ratingbox = document.querySelector('.rating');
-        document.querySelector('.one').classList.add('text-warning')
-        document.querySelector('.two').classList.add('text-warning')
-        document.querySelector('.three').classList.add('text-warning')
-        document.querySelector('.four').classList.add('text-warning')
-        document.querySelector('.five').classList.add('text-warning')
-        ratingbox.value = 5
-      }
-    
-    
-
-
-    </script>
-
-
-
-    <script>
-      // Check the viewport size
-      var mq = window.matchMedia('(max-width: 600px)');
-
-      // Function to handle changes to the viewport size
-      function handleViewportChange(mq) {
-        if (mq.matches) {
-          // If viewport is less than 600px wide, add the new-class
-          document.querySelector('.sidebar').classList.add('hide');
-          document.querySelector('.sidebar').classList.remove('col-lg-4');
-          document.querySelector('.sidebar').classList.remove('col-md-5');
-          document.querySelector('.list').classList.add('col');
-          document.querySelector('.list').classList.remove('col-lg-8');
-          document.querySelector('.list').classList.remove('col-md-7');
-          // document.querySelector('.phone').classList.remove('hide');
-          document.querySelector('.chin').classList.remove('hide');
-
-
-        } else {
-          // If viewport is greater than 600px wide, remove the new-class
-          document.querySelector('.sidebar').classList.remove('hide');
-          document.querySelector('.sidebar').classList.add('col-lg-4');
-          document.querySelector('.sidebar').classList.add('col-md-5');
-          document.querySelector('.list').classList.remove('col');
-          document.querySelector('.list').classList.add('col-lg-8');
-          document.querySelector('.list').classList.add('col-md-7');
-
-          // document.querySelector('.phone').classList.add('hide');
-          document.querySelector('.chin').classList.add('hide');
-
-        }
+      if (value === '5') {
+        fivestar()
       }
 
-      // Call the function on load and when the viewport size changes
-      handleViewportChange(mq);
-      mq.addListener(handleViewportChange);
-    </script>
-  </body>
 
-                
-                
-  </html>
+    });
+
+
+
+
+    //rating
+
+
+
+
+    function onestar() {
+      const ratingbox = document.querySelector('.rating');
+      document.querySelector('.one').classList.add('text-warning')
+      document.querySelector('.two').classList.remove('text-warning')
+      document.querySelector('.three').classList.remove('text-warning')
+      document.querySelector('.four').classList.remove('text-warning')
+      document.querySelector('.five').classList.remove('text-warning')
+      ratingbox.value = 1
+    }
+
+    function twostar() {
+      const ratingbox = document.querySelector('.rating');
+      document.querySelector('.one').classList.add('text-warning')
+      document.querySelector('.two').classList.add('text-warning')
+      document.querySelector('.three').classList.remove('text-warning')
+      document.querySelector('.four').classList.remove('text-warning')
+      document.querySelector('.five').classList.remove('text-warning')
+      ratingbox.value = 2
+    }
+
+    function threestar() {
+      const ratingbox = document.querySelector('.rating');
+      document.querySelector('.one').classList.add('text-warning')
+      document.querySelector('.two').classList.add('text-warning')
+      document.querySelector('.three').classList.add('text-warning')
+      document.querySelector('.four').classList.remove('text-warning')
+      document.querySelector('.five').classList.remove('text-warning')
+      ratingbox.value = 3
+    }
+
+    function fourstar() {
+      const ratingbox = document.querySelector('.rating');
+      document.querySelector('.one').classList.add('text-warning')
+      document.querySelector('.two').classList.add('text-warning')
+      document.querySelector('.three').classList.add('text-warning')
+      document.querySelector('.four').classList.add('text-warning')
+      document.querySelector('.five').classList.remove('text-warning')
+      ratingbox.value = 4
+    }
+
+    function fivestar() {
+      const ratingbox = document.querySelector('.rating');
+      document.querySelector('.one').classList.add('text-warning')
+      document.querySelector('.two').classList.add('text-warning')
+      document.querySelector('.three').classList.add('text-warning')
+      document.querySelector('.four').classList.add('text-warning')
+      document.querySelector('.five').classList.add('text-warning')
+      ratingbox.value = 5
+    }
+  </script>
+
+
+
+  <script>
+    // Check the viewport size
+    var mq = window.matchMedia('(max-width: 600px)');
+
+    // Function to handle changes to the viewport size
+    function handleViewportChange(mq) {
+      if (mq.matches) {
+        // If viewport is less than 600px wide, add the new-class
+        document.querySelector('.sidebar').classList.add('hide');
+        document.querySelector('.sidebar').classList.remove('col-lg-4');
+        document.querySelector('.sidebar').classList.remove('col-md-5');
+        document.querySelector('.list').classList.add('col');
+        document.querySelector('.list').classList.remove('col-lg-8');
+        document.querySelector('.list').classList.remove('col-md-7');
+        // document.querySelector('.phone').classList.remove('hide');
+        document.querySelector('.chin').classList.remove('hide');
+
+
+      } else {
+        // If viewport is greater than 600px wide, remove the new-class
+        document.querySelector('.sidebar').classList.remove('hide');
+        document.querySelector('.sidebar').classList.add('col-lg-4');
+        document.querySelector('.sidebar').classList.add('col-md-5');
+        document.querySelector('.list').classList.remove('col');
+        document.querySelector('.list').classList.add('col-lg-8');
+        document.querySelector('.list').classList.add('col-md-7');
+
+        // document.querySelector('.phone').classList.add('hide');
+        document.querySelector('.chin').classList.add('hide');
+
+      }
+    }
+
+    // Call the function on load and when the viewport size changes
+    handleViewportChange(mq);
+    mq.addListener(handleViewportChange);
+  </script>
+</body>
+
+
+
+</html>
