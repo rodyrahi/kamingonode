@@ -168,6 +168,7 @@ router.get("/services/:name", function (req, res) {
                     skills: skills,
                     rating: totalrating,
                     userrating: userrating,
+                    ratingno:comments.length
                   });
                 }
               );
