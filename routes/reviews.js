@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 var router = express.Router();
 var con = require("../database.js");
+const { post } = require("./home.js");
 
 
 
@@ -18,25 +19,39 @@ var con = require("../database.js");
     console.log(req.body);
   
     con.query(
-      `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE id='${user}' `,
-      // `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  ) ON DUPLICATE KEY UPDATE rating=${rating}`,
-  
-      function (err, result, fields) {
+      `SELECT * FROM comments`,
+      function (err, com, fields) {
         if (err) {
           console.log(err);
         }
-  
-        if (result["changedRows"] === 0) {
-          con.query(
-            `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  )`,
-            function (err, result, fields) {
-              if (err) {
-                console.log(err);
+        console.log(com);
+
+        com.forEach((element) => {
+          console.log(name);
+          if (element["post"] === name) {
+            con.query(
+              `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE id='${user}' `,
+              // `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  ) ON DUPLICATE KEY UPDATE rating=${rating}`,
+
+              function (err, result, fields) {
+                if (err) {
+                  console.log(err);
+                }
+                console.log(result);
               }
-            }
-          );
-        }
-  
+            );
+          } else {
+            con.query(
+              `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  )`,
+              function (err, result, fields) {
+                if (err) {
+                  console.log(err);
+                }
+              }
+            );
+          }
+        });
+
         res.redirect("/services/" + name);
       }
     );

@@ -298,27 +298,6 @@ router.post("/createprofile", async (req, res) => {
     res.redirect("/");
   });
   
-router.get("/profiledetail", function (req, res) {
-    if (req.oidc.isAuthenticated()) {
-      con.query(
-        `SELECT * FROM profiles`,
-  
-        function (err, result, fields) {
-          if (err) {
-            console.log(err);
-          }
-          console.log(result);
-  
-          res.render("profiles/profiledetail", {
-            isAuthenticated: req.oidc.isAuthenticated(),
-            data: result,
-          });
-        }
-      );
-    } else {
-      res.redirect("/login");
-    }
-  });
 
 
 module.exports = router

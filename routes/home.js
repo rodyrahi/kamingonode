@@ -14,12 +14,38 @@ router.get("/", function (req, res) {
           if (err) {
             console.log(err);
           }
+          console.log(result.name);
+          con.query(
+            `SELECT * FROM comments`,
+            function (err, comments, fields) {
+              if (err) {
+                console.log(err);
+              }
+
+              // console.log('here');
+
+              let rating = 0;
+
+              // comments.forEach((element) => {
+              //   rating += element["rating"];
+              // });
+
+              // console.log(rating);
+              // totalrating = rating / comments.length;
+
+              // console.log(totalrating);
+              res.render("home", {
+                isAuthenticated: req.oidc.isAuthenticated(),
+                data: result,
+                rating: comments
+              });
+
+              
+            }
+          );
        
   
-          res.render("home", {
-            isAuthenticated: req.oidc.isAuthenticated(),
-            data: result,
-          });
+          
         }
       );
     } else {
