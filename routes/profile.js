@@ -214,7 +214,7 @@ router.post("/createprofile", async (req, res) => {
         const outputFilePath = "public/uploads/profiles/" + file.name;
   
         sharp("public/uploads/profiles/" + "raw-" + file.name)
-          .png({ quality: 80 })
+          .png({ quality: 50 })
           .toFile(outputFilePath)
           .then(() => {
             console.log("Image compressed successfully!");
@@ -299,6 +299,51 @@ router.post("/createprofile", async (req, res) => {
     res.redirect("/");
   });
   
-
+  router.get("/createprofile", function (req, res) {
+    user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  
+    con.query(
+      `SELECT *  FROM profiles WHERE id='${user}'`,
+  
+      function (err, result, fields) {
+        if (err) {
+        }
+  
+        console.log(result);
+        try {
+          con.query(
+            `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`,
+  
+            function (err, skills, fields) {
+              if (err) {
+                console.log(err);
+              }
+              con.query(
+                `SELECT subcategory FROM service WHERE category = '${result[0]["service"]}'`,
+  
+                function (err, services, fields) {
+                  if (err) {
+                    console.log(err);
+                  }
+                  console.log(services);
+  
+                  res.render("profiles/editprofile", {
+                    isAuthenticated: req.oidc.isAuthenticated(),
+                    data: result[0],
+                    skills: skills,
+                    services: services,
+                  });
+                }
+              );
+            }
+          );
+        } catch (error) {
+          res.render("profiles/createprofile", {
+            isAuthenticated: req.oidc.isAuthenticated(),
+          });
+        }
+      }
+    );
+  });
 
 module.exports = router
