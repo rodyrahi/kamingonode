@@ -16,7 +16,7 @@ router.get("/", function (req, res) {
           }
           console.log(result.name);
           con.query(
-            `SELECT * FROM comments`,
+            `SELECT * FROM comments `,
             function (err, comments, fields) {
               if (err) {
                 console.log(err);
@@ -141,6 +141,14 @@ router.get("/services/:name", function (req, res) {
   
                   console.log(rating);
                   totalrating = rating / comments.length;
+                  con.query(
+                    `UPDATE profiles SET rating='${totalrating}' WHERE name ="${req.params.name}"`,
+                    function (err, comments, fields) {
+                      if (err) {
+                        console.log(err);
+                      }
+                    
+                  });
   
                   console.log(totalrating);
   

@@ -19,18 +19,17 @@ const { post } = require("./home.js");
     console.log(req.body);
   
     con.query(
-      `SELECT * FROM comments`,
+      `SELECT * FROM comments WHERE post='${name}'`,
       function (err, com, fields) {
         if (err) {
           console.log(err);
         }
         console.log(com);
 
-        com.forEach((element) => {
-          console.log(name);
-          if (element["post"] === name) {
+          if (com.length !== 0) {
+            //  console.log('this');
             con.query(
-              `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE id='${user}' `,
+              `UPDATE comments SET id='${user}',name='${nickname}',post='${name}',comment='${comment}',photo='${photo}',rating=${rating} WHERE post='${name}' `,
               // `INSERT INTO comments (id ,name , post, comment , photo , rating ) VALUES ('${user}','${nickname}','${name}', '${comment}' , '${photo}' , ${rating}  ) ON DUPLICATE KEY UPDATE rating=${rating}`,
 
               function (err, result, fields) {
@@ -50,7 +49,7 @@ const { post } = require("./home.js");
               }
             );
           }
-        });
+        
 
         res.redirect("/services/" + name);
       }
