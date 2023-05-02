@@ -149,6 +149,7 @@ router.get("/services/:name", function (req, res) {
   
                   console.log(rating);
                   totalrating = rating / comments.length;
+                  totalrating = Math.round(totalrating * 10)/10
                   con.query(
                     `UPDATE profiles SET rating='${totalrating}' WHERE name ="${req.params.name}"`,
                     function (err, comments, fields) {
