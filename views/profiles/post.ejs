@@ -6,11 +6,16 @@
   <div class="d-flex">
     <div class="row ">
 
-      <div class="col-5 p-2 text-center position-relative" style="border-right: 1px rgb(214, 214, 214) solid;  ">
+      <div class="col-5 p-2 text-center position-relative " style="border-right: 1px rgb(214, 214, 214) solid;   ">
+
+        <div class="rounded-circle d-flex" style="object-fit: scale-down;">
+          <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class=""  style="border-radius:50% ;overflow: hidden; width:150px ; height:150px; object-fit:cover;">
+
+        </div>
         <!-- <div class=" my-2 d-flex " style="object-fit: scale-down;"> -->
           <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
 
-          <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="rounded-circle" style="max-width: 10rem; width:150px; height:150px;  max-height:10rem; object-fit:cover;">
+          <!-- <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="rounded-circle" style="max-width: 10rem; width:150px; height:150px;  max-height:10rem; object-fit:cover;"> -->
         <!-- </div> -->
       </div>
       <div class="col-7 my-1 p-1 position-relative " style="">
