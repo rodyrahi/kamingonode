@@ -8,8 +8,8 @@
 
       <div class="col-5 p-2 text-center position-relative " style="border-right: 1px rgb(214, 214, 214) solid;   ">
 
-        <div class="rounded-circle d-flex" style="object-fit: scale-down;">
-          <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="" width="120px" height="120px"  style="border-radius:50% ;overflow: hidden;object-fit:cover;">
+        <div class="rounded-circle d-flex image-box" id="image-box" style="object-fit: scale-down;">
+          <img src="/uploads/profiles/<%= element["image"] %>" onchange="" alt="" srcset="" class=""style=" width:100%; border-radius:50% ;overflow: hidden;object-fit:cover;">
 
         </div>
         <!-- <div class=" my-2 d-flex " style="object-fit: scale-down;"> -->
@@ -50,4 +50,23 @@
   </div>
 </div>
 
+<script>
+
+  window.onload = function() {
+    const myDiv = document.querySelectorAll('.image-box');
+    // Set the height and width of the div
+    // myDiv.style.height = '200px';
+    // myDiv.style.width = '200px';
+    myDiv.forEach(element => {
+       w= element.clientWidth;
+      element.style.height = w.toString() + "px";
+       console.log(w , element.clientHeight);
+    });
+   
+  }
+  
+  </script>
+
 <% }) %>
+
+
