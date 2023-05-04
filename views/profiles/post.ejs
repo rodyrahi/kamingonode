@@ -1,6 +1,6 @@
 <% data.forEach(element => { %>
 
-<div class="col-md-6 m-1 border rounded shadow mb-3 service bg-light" style="max-width: 26rem;">
+<div class="col-md-6 m-1 border shadow mb-3 service bg-light" style="max-width: 26rem; border-radius: 1rem; ">
 
 
   <div class="d-flex">
@@ -9,7 +9,7 @@
       <div class="col-5 p-2 text-center position-relative " style="border-right: 1px rgb(214, 214, 214) solid;   ">
 
         <div class="rounded-circle d-flex image-box" id="image-box" style="object-fit: scale-down;">
-          <img src="/uploads/profiles/<%= element["image"] %>" onchange="" alt="" srcset="" class="lazy"style=" width:100%; border-radius:50% ;overflow: hidden;object-fit:cover;">
+          <img src="/uploads/profiles/<%= element["image"] %>" onchange="" alt="" srcset="" class="lazy shadow"style=" width:100%; border-radius:50% ;overflow: hidden;object-fit:cover; border:3px cornflowerblue solid ">
 
         </div>
         <!-- <div class=" my-2 d-flex " style="object-fit: scale-down;"> -->
