@@ -1,56 +1,48 @@
 <% data.forEach(element => { %>
 
-<div class="col-md-6 m-1 border shadow mb-3 service bg-light " style="max-width: 26rem; border-radius: 1rem; ">
+  <div class="col-md-6 m-1 border shadow mb-3 service bg-light " style="max-width: 26rem; border-radius: 1rem; ">
 
-
-  <div class="d-flex">
-    <div class="row ">
-
-      <div class="col-5 p-2 text-center position-relative  " style="  margin: auto; ">
-
-        <div class="rounded-circle d-flex image-box" id="image-box" style="object-fit: scale-down;">
-          <img src="/uploads/profiles/<%= element["image"] %>" onchange="" alt="" srcset="" class=" border lazy shadow-sm"style=" width:100%; border-radius:50% ;overflow: hidden;object-fit:cover;">
-
+    <div class="d-flex">
+      <div class="row ">
+  
+        <div class="col-5 p-2 text-center position-relative  " style="  margin: auto; ">
+  
+          <div class="rounded-circle d-flex image-box" id="image-box" style="object-fit: cover;">
+            <img src="/uploads/profiles/<%= element["image"] %>" onchange="" alt="" srcset="" class="border lazy shadow-sm" style="width: 100%; height: auto; aspect-ratio: 1 / 1; border-radius: 50%; object-fit: cover;">
+  
+          </div>
+  
         </div>
-        <!-- <div class=" my-2 d-flex " style="object-fit: scale-down;"> -->
-          <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
-
-          <!-- <img src="/uploads/profiles/<%= element["image"] %>" alt="" srcset="" class="rounded-circle" style="max-width: 10rem; width:150px; height:150px;  max-height:10rem; object-fit:cover;"> -->
-        <!-- </div> -->
-      </div>
-      <div class="col-7 my-1 p-1 position-relative " style="">
-        <div class="position-relative">
-        <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
-
-        <p class="fw-bold m-0 mx-1" style="font-size: 1.4rem;"><%= element["name"] %> </p>
-        <!-- <div class="my-1" style="padding: 0.1rem; margin: 0rem 6rem 0.2rem 0rem; border-radius: 1rem; border-width: 1px; border-color: cornflowerblue; border-style: solid; "> -->
-        <p class="m-0 mx-1" style="font-size: 0.9rem;"> <%= element["service"] %></p>
-        <!-- </div> -->
-
-        <p style="font-size: 0.9rem; " class="text-muted mb-1 mx-1"> <%= element["address"] %> , <%= element["area"] %> , <%= element["city"] %> </p>
-
-      
-
-        <p style="font-size: 0.8rem;" class="fw-bold m-0 mx-1"><i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> <%= element["rating"] %></p>
-      </div>
-        <div class="d-flex justify-content-end " style="">
-
-          <a class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" href="/services/<%= element["name"] %>"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> Get Contact </a>
-          <% var name = element["name"]; %>
-          <button class="btn-sm btn btn-primary mt-3" style="border-radius: 2rem;" onclick="Share('<%= name %>')" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
-
+        <div class="col-7 my-1 p-1 position-relative " style="">
+          <div class="position-relative">
+            <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
+  
+            <p class="fw-bold m-0 mx-1" style="font-size: 1.4rem;"><%= element["name"] %> </p>
+            <p class="m-0 mx-1" style="font-size: 0.9rem;"> <%= element["service"] %></p>
+  
+            <p style="font-size: 0.9rem; " class="text-muted mb-1 mx-1"> <%= element["address"] %> , <%= element["area"] %> , <%= element["city"] %> </p>
+  
+            <p style="font-size: 0.8rem;" class="fw-bold m-0 mx-1"><i class="fa-solid fa-star " style="font-size: 1rem; color: gold;"></i> <%= element["rating"] %></p>
+          </div>
+          <div class="d-flex justify-content-end " style="">
+  
+            <a class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" href="/services/<%= element["name"] %>"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> Get Contact </a>
+            <% var name = element["name"]; %>
+            <button class="btn-sm btn btn-primary mt-3" style="border-radius: 2rem;" onclick="Share('<%= name %>')" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
+  
+          </div>
+  
         </div>
-
+  
       </div>
-
+  
+  
+  
     </div>
-
-
-
   </div>
-</div>
+  
 
 
 
 <% }) %>
-<script src="image.js"></script>
+<!-- <script src="image.js"></script> -->
