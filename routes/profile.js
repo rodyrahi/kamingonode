@@ -198,8 +198,11 @@ router.post("/createprofile", async (req, res) => {
       address,
       description,
       shopname,
-      price,
       skill,
+      price,
+      pincode,
+      area,
+      city,
     } = req.body;
     console.log(req.body);
   
@@ -239,7 +242,8 @@ router.post("/createprofile", async (req, res) => {
       // console.log(filePath);
   
       con.query(
-        `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+        `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname,pincode,area,city) VALUES 
+        ('${user}','${name}' ,'${file.name}', '${service}' , '${contact}','${address}','${description}','${shopname}','${pincode}','${area}' ,'${city}');`,
   
         function (err, result, fields) {
           if (err) {
@@ -250,7 +254,8 @@ router.post("/createprofile", async (req, res) => {
       );
     } else {
       con.query(
-        `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname) VALUES ('${user}','${name}' ,'${"kamingo_favicon.png"}', '${service}' , '${contact}','${address}','${description}','${shopname}');`,
+        `INSERT INTO profiles ( id ,name, image, service , contact , address , description , shopname ,pincode,area,city) VALUES 
+        ('${user}','${name}' ,'${"kamingo_favicon.png"}', '${service}' , '${contact}','${address}','${description}','${shopname}','${pincode}','${area}' ,'${city}');`,
   
         function (err, result, fields) {
           if (err) {
