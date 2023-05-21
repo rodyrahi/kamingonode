@@ -39,8 +39,8 @@
           </div>
 
           <div class=" my-3 p-1 px-3 text-start" style="border-top: 1px solid rgb(218, 218, 218);">
-            <h5 class="fw-bold mt-2"><%= data["name"] %></h5>
             <p class="m-0"><%= data["service"] %></p>
+            <h5 class="fw-bold mt-2"><%= data["name"] %></h5>
             <p style="font-size: 1.2rem; " class="text-muted mb-1 "> <%= data["address"] %> , <%= data["area"] %> , <%= data["city"] %> </p>
 
             <!-- <h5>Rating</h5> -->
@@ -71,8 +71,16 @@
 
 
           <% skills.forEach(element => { %>
-          <p class="text-muted mb-1"><%= element["service"] %></p>
-          <p class="text-success mb-1"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
+            <div class="my-2" style="width: fit-content;">
+              <div class="container " style="border: 2px rgb(12, 23, 237) solid;">
+              <div class="bg-light row">
+          <p class="text-dark mb-1"><%= element["service"] %></p>
+        </div>
+        <div class="row bg-primary py-1">
+          <p class="text-light mb-1" style="font-size:1.5rem;" ><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
+        </div>
+      </div>
+        </div>
           <% }) %>
 
 
