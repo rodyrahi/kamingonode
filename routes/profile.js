@@ -38,6 +38,7 @@ router.get("/editprofile", async (req, res) => {
       services: services,
     });
   } else {
+    console.log('mmmmmmmmmmmmmmmmmmm');
     res.render("profiles/createprofile", {
       isAuthenticated: req.oidc.isAuthenticated(),
     });
