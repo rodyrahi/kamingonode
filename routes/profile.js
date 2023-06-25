@@ -18,8 +18,8 @@ function executeQuery(query) {
 
 
 router.get("/editprofile", async (req, res) => {
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
-
+  const user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  console.log(user);
   const result = await executeQuery(
     `SELECT *  FROM profiles WHERE id='${user}'`
   );
