@@ -26,7 +26,7 @@ router.get("/editprofile", async (req, res) => {
 
   console.log(result);
 
-  if (result) {
+  if (result.length>0) {
     
   
   const skills = await executeQuery(
