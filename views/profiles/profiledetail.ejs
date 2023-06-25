@@ -67,20 +67,20 @@
         </div>
         <div class=" my-2 p-1 px-3 border bg-light " style="border-radius: 1rem;">
           <h4 class="fw-bold mt-2">Skills</h4>
-          <p class="m-0">PLUMBER</p>
+          <p class="m-0"><%= data["service"] %></p>
 
 
           <% skills.forEach(element => { %>
             <div class="my-2" style="width: fit-content;">
               <div class="container " style="border: 2px rgb(12, 23, 237) solid;">
-              <div class="bg-light row">
-          <p class="text-dark mb-1"><%= element["service"] %></p>
-        </div>
-        <div class="row bg-success py-1">
-          <p class="text-light mb-1" style="font-size:1.5rem;" ><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
-        </div>
-      </div>
-        </div>
+                <div class="bg-light row">
+                  <p class="text-dark mb-1"><%= element["service"] %></p>
+                </div>
+                <div class="row bg-success py-1">
+                  <p class="text-light mb-1" style="font-size:1.5rem;"><i class="fa-sharp fa-solid fa-indian-rupee-sign"></i> <%= element["price"] %></p>
+                </div>
+              </div>
+            </div>
           <% }) %>
 
 
