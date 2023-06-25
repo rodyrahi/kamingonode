@@ -23,6 +23,8 @@ router.get("/editprofile", async (req, res) => {
   const result = await executeQuery(
     `SELECT *  FROM profiles WHERE id='${user}'`
   );
+
+  console.log(result);
   const skills = await executeQuery(
     `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`
   );
