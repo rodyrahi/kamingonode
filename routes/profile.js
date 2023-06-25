@@ -25,12 +25,17 @@ router.get("/editprofile", async (req, res) => {
   );
 
   console.log(result);
+
+  if (result) {
+    
+  
   const skills = await executeQuery(
     `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`
   );
   const services = await executeQuery(
     `SELECT subcategory FROM service WHERE category = '${result[0]["service"]}'`
   );
+  }
 
   if (skills) {
     res.render("profiles/editprofile", {
