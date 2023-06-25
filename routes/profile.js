@@ -35,9 +35,9 @@ router.get("/editprofile", async (req, res) => {
   const services = await executeQuery(
     `SELECT subcategory FROM service WHERE category = '${result[0]["service"]}'`
   );
-  }
+  
 
-  if (skills) {
+ 
     res.render("profiles/editprofile", {
       isAuthenticated: req.oidc.isAuthenticated(),
       data: result[0],
