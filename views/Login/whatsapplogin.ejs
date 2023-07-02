@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/header.ejs') %>
+
+<body>
+
+  <div class="container">
+    <div class="" id="another-form" style="">
+
+      <h3>Enter Number </h3>
+      <form id="signin-form">
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="tel" class="form-control" name="phone" id="phone">
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+
+
+    <div class="" id="another-form1" style="display: none;">
+      <h3>Enter OTP</h3>
+      <form id="another-form" action="sendcode/home" method="post">
+        <div class="mb-3">
+          <label for="another-field" class="form-label">OTP</label>
+          <input type="tel" maxlength="5" name="otp" placeholder="_____" class="form-control" id="otp" style="letter-spacing: 18px;
+          font-size: 27px; font-weight: bolder;">
+        </div>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+
+<script>
+      const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent page reload
+
+    // Get form data
+    const formData = new FormData(event.target);
+
+    console.log(formData);
+    const phone = formData.get("phone");
+    try {
+      // Send POST request using fetch
+      const response = await fetch('/sendcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `phoneNumber=${encodeURIComponent(phone)}`,        
+      });
+
+      if (response.ok) {
+        console.log('ok');
+        document.getElementById('another-form').style.display = 'none';
+        document.getElementById('another-form1').style.display = 'block';
+
+      } else {
+        console.error('Request failed');
+
+        // Handle the error
+      }
+
+    } catch (error) {
+      console.error('Request failed:', error);
+    }
+
+  };
+
+  // Add event listener to the form submit event
+  const signinForm = document.getElementById('signin-form');
+  signinForm.addEventListener('submit', handleSubmit);
+</script>
+
+
+
+</html>

@@ -74,7 +74,7 @@
         document.querySelector('.list').classList.remove('col-md-7');
         document.querySelector('.phone').classList.remove('hide');
         document.querySelector('.chin').classList.remove('hide');
-
+        document.querySelector('.navbar').classList.add('hide');
 
       } else {
         // If viewport is greater than 600px wide, remove the new-class
@@ -87,6 +87,8 @@
 
         document.querySelector('.phone').classList.add('hide');
         document.querySelector('.chin').classList.add('hide');
+        document.querySelector('.navbar').classList.remove('hide');
+
 
       }
     }

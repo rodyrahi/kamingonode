@@ -1,4 +1,6 @@
 const express = require("express");
+const session = require('express-session');
+
 const app = express();
 var router = express.Router();
 var con = require("../database.js");
@@ -17,7 +19,13 @@ function executeQuery(query) {
 
 
 router.get("/", async (req, res) => {
-    if (req.oidc.isAuthenticated()) {
+
+    // req.session.phoneNumber = req.body.phoneNumber
+
+
+
+
+    if (req.session.phoneNumber) {
 
       const result = await executeQuery(`SELECT * FROM profiles`)
       const comments = await executeQuery(`SELECT * FROM profiles`)
@@ -29,7 +37,7 @@ router.get("/", async (req, res) => {
        })
 
     } else {
-      res.redirect("/login");
+      res.render("login/whatsapplogin" , {});
     }
   });
 
