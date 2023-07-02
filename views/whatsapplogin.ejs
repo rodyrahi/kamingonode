@@ -9,7 +9,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      height: 80vh;
       text-align: center;
     }
 
@@ -27,18 +27,18 @@
     }
   </style>
 
-<body>
-  <div class="container">
-    <img src="kamingo_favicon.png" alt="Logo" id="logo">
-    <h3 id="login-message">Login with your WhatsApp number</h3>
+<body style="background-color: #307aff;">
+  <div class="container" >
+    <div class="bg-light p-3" style="border-radius: 2rem;">
+    <img src="kamingo_favicon.png" alt="Logo" id="logo" width="100rem">
+    <h3  id="login-message">Login To Kamingo With WhatsApp number</h3>
     <div id="another-form">
       <h3>Enter Number</h3>
       <form id="signin-form">
         <div class="mb-3">
-          <label for="phone" class="form-label">Phone</label>
-          <input type="tel" class="form-control" name="phone" id="phone">
+          <input type="tel" style="font-size: 1.5rem;" class="form-control" placeholder="+91" name="phone" id="phone">
         </div>
-        <button type="submit" class="btn btn-dark">Submit</button>
+        <button type="submit" style="border-radius: 3rem;" class="btn btn-primary btn-lg">Submit</button>
       </form>
     </div>
 
@@ -53,6 +53,7 @@
         <button type="submit" class="btn btn-secondary">Submit</button>
       </form>
     </div>
+  </div>
   </div>
 </body>
 
