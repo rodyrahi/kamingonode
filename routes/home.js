@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
        })
 
     } else {
-      res.render("login/whatsapplogin");
+      res.render("whatsapplogin");
     }
   });
 
