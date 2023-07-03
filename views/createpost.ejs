@@ -4,7 +4,11 @@
     <%- include('./partials/header.ejs') %>
 </head>
 <body>
-    
+  <style>
+    .hide {
+      display: none;
+    }
+  </style>
 
 <%- include('./partials/nav.ejs') %>
 
@@ -26,4 +30,34 @@
 </div>
 </form>
 </body>
+
+
+<script>
+
+   // Check the viewport size
+   var mq = window.matchMedia('(max-width: 600px)');
+
+// Function to handle changes to the viewport size
+function handleViewportChange(mq) {
+  if (mq.matches) {
+
+
+    document.querySelector('.navbar').classList.add('hide');
+
+  } else {
+    // If viewport is greater than 600px wide, remove the new-class
+
+    document.querySelector('.navbar').classList.remove('hide');
+
+
+  }
+}
+
+// Call the function on load and when the viewport size changes
+handleViewportChange(mq);
+mq.addListener(handleViewportChange);
+
+</script>
+
+
 </html>

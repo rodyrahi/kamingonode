@@ -216,14 +216,17 @@
         if (mq.matches) {
           // If viewport is less than 600px wide, add the new-class
 
-          document.querySelector('.chin').classList.remove('hide');
+          // document.querySelector('.chin').classList.remove('hide');
   
   
+          document.querySelector('.navbar').classList.add('hide');
+
         } else {
           // If viewport is greater than 600px wide, remove the new-class
 
-          document.querySelector('.chin').classList.add('hide');
-  
+          document.querySelector('.navbar').classList.remove('hide');
+
+
         }
       }
   
