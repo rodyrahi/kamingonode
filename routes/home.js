@@ -91,9 +91,9 @@ router.post("/filter", async (req, res) => {
   });
 
 router.get("/services/:name", async (req, res) => {
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  user = req.session.phoneNumber
 
-    if (req.oidc.isAuthenticated()) {
+    if (user) {
       const result = await executeQuery(
         `SELECT * FROM profiles  WHERE name ="${req.params.name}"`
       );
@@ -128,7 +128,7 @@ router.get("/services/:name", async (req, res) => {
           isAuthenticated: req.oidc.isAuthenticated(),
           data: result[0],
           comments: comments,
-          user: req.oidc.user["sub"],
+          user: user,
           skills: skills,
           rating: totalrating,
           userrating: userrating,
@@ -136,9 +136,19 @@ router.get("/services/:name", async (req, res) => {
         });
       }
     } else {
-      res.redirect("/login");
+      res.redirect("/whatsapplogin");
     }
   });
+
+
+  router.get("/whatsapplogin", async (req, res) => {
+
+
+        res.render("whatsapplogin");
+
+    });
   
+
+
 
 module.exports = router

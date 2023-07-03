@@ -17,6 +17,10 @@
      /* change opacity to 1 on hover */
     }
 
+    .hide {
+      display: none;
+    }
+
   </style>
 
 
@@ -99,6 +103,29 @@
         fileInput.click()
     }
     
+
+
+    var mq = window.matchMedia('(max-width: 600px)');
+
+    // Function to handle changes to the viewport size
+    function handleViewportChange(mq) {
+      if (mq.matches) {
+        // If viewport is less than 600px wide, add the new-class
+
+        document.querySelector('.navbar').classList.add('hide');
+
+      } else {
+        // If viewport is greater than 600px wide, remove the new-class
+
+        document.querySelector('.navbar').classList.remove('hide');
+
+
+      }
+    }
+
+    // Call the function on load and when the viewport size changes
+    handleViewportChange(mq);
+    mq.addListener(handleViewportChange);
     </script>
 </body>
 
