@@ -18,28 +18,7 @@ function executeQuery(query) {
 }
 
 
-router.get("/", async (req, res) => {
 
-    // req.session.phoneNumber = req.body.phoneNumber
-
-
-
-
-    if (req.session.phoneNumber) {
-
-      const result = await executeQuery(`SELECT * FROM profiles`)
-      const comments = await executeQuery(`SELECT * FROM profiles`)
-      
-      res.render("home", {
-        isAuthenticated: req.oidc.isAuthenticated(),
-        data: result,
-        rating: comments,
-       })
-
-    } else {
-      res.render("whatsapplogin");
-    }
-  });
 
 
 router.post("/filter", async (req, res) => {
