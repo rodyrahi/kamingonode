@@ -19,7 +19,9 @@ function executeQuery(query) {
 
 router.get("/editprofile", async (req, res) => {
   const user = req.session.phoneNumber;
-  console.log(user);
+
+
+  const userdata = executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
 
   if (user) {
     
@@ -45,6 +47,7 @@ router.get("/editprofile", async (req, res) => {
     res.render("profiles/editprofile", {
       isAuthenticated: req.oidc.isAuthenticated(),
       data: result[0],
+      userdata:userdata[0],
       skills: skills,
       services: services,
     });
@@ -68,7 +71,9 @@ router.post("/editprofile", async (req, res) => {
     console.log(file);
   } catch (error) {}
 
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  user = req.session.phoneNumber;
+
+
   const {
     name,
     image,
@@ -256,7 +261,11 @@ router.post("/createprofile", async (req, res) => {
 });
 
 router.get("/createprofile", async (req, res) => {
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  user = req.session.phoneNumber;
+
+
+  const userdata = executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
+
 
   con.query(
     `SELECT *  FROM profiles WHERE id='${user}'`,
@@ -286,6 +295,7 @@ router.get("/createprofile", async (req, res) => {
                 res.render("profiles/editprofile", {
                   isAuthenticated: req.oidc.isAuthenticated(),
                   data: result[0],
+                  userdata: userdata[0],
                   skills: skills,
                   services: services,
                 });
@@ -300,6 +310,83 @@ router.get("/createprofile", async (req, res) => {
       }
     }
   );
+});
+
+
+
+
+router.post("/createuserprofile", async (req, res) => {
+
+  file = null;
+  try {
+    file = req.files.image;
+
+    const filePath = file.path;
+
+    console.log(file);
+  } catch (error) {}
+
+  user = req.session.phoneNumber;
+  const {name} = req.body;
+  console.log(req.body);
+
+  if (file) {
+    const sharp = require("sharp");
+
+    file.mv("public/uploads/profiles/" + "raw-" + file.name, (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+      const outputFilePath = "public/uploads/profiles/" + file.name;
+
+      sharp("public/uploads/profiles/" + "raw-" + file.name)
+        .png({ quality: 50 })
+        .toFile(outputFilePath)
+        .then(() => {
+          console.log("Image compressed successfully!");
+        })
+        .then(() => {
+          fs.unlink("public/uploads/profiles/" + "raw-" + file.name, (err) => {
+            if (err) console.log(err);
+
+            console.log("\nDeleted file: example_file.txt");
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+
+    const fs = require("fs");
+
+    con.query(
+      `INSERT INTO userprofiles ( id ,name, image) VALUES 
+        ('${user}','${name}' ,'${file.name}');`,
+
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+  } else {
+    con.query(
+      `INSERT INTO userprofiles ( id ,name, image, ) VALUES 
+        ('${user}','${name}' ,'${"kamingo_favicon.png"}');`,
+
+      function (err, result, fields) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+  }
+
+
+  res.redirect("/home");
 });
 
 module.exports = router

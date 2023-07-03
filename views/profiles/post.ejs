@@ -9,14 +9,14 @@
   
           <div class="rounded-circle d-flex image-box" id="image-box" style="object-fit: cover;">
             <img src="/uploads/profiles/<%= element["image"] %>" onchange="" alt="" srcset="" class="border lazy shadow-sm" style="width: 100%; height: auto; aspect-ratio: 1 / 1; border-radius: 50%; object-fit: cover;">
-            <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
+            <a href="/home/services/<%= element["name"] %>" class="stretched-link"></a>
 
           </div>
   
         </div>
         <div class="col-7 my-1 p-1 position-relative " style="">
           <div class="position-relative">
-            <a href="/services/<%= element["name"] %>" class="stretched-link"></a>
+            <a href="/home/services/<%= element["name"] %>" class="stretched-link"></a>
   
             <p class="fw-bold m-0 mx-1" style="font-size: 1.4rem;"><%= element["name"] %> </p>
             <p class="m-0 mx-1" style="font-size: 0.9rem;"> <%= element["service"] %></p>
@@ -27,7 +27,7 @@
           </div>
           <div class="d-flex justify-content-end " style="">
   
-            <a class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" href="/services/<%= element["name"] %>"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> Get Contact </a>
+            <a class="btn-sm btn btn-success mt-3 me-2" style="border-radius: 2rem;" href="/home/services/<%= element["name"] %>"> <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> Get Contact </a>
             <% var name = element["name"]; %>
             <button class="btn-sm btn btn-primary mt-3" style="border-radius: 2rem;" onclick="Share('<%= name %>')" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
   

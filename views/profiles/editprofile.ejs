@@ -42,7 +42,7 @@
           <div class="border rounded justify-content-center d-flex p-3 image-container ">
             <input type="hidden"  name="image" value="<%= data["image"] %> ">
 
-            <img src="/uploads/profiles/<%= data["image"] %>"  alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
+            <img src="/uploads/profiles/<%= userdata["image"] %>"  alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
           
           </div>
         </div>
@@ -50,7 +50,7 @@
     
       <div class="mb-3 ">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= data["name"] %>" placeholder="rajesh">
+        <input type="text" class="form-control" id="name" name="name" value="<%= userdata["name"] %>" placeholder="rajesh">
       </div>
       <div class="mb-3 ">
         <label for="shopname" class="form-label">Shop Name [optional]</label>

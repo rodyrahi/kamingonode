@@ -56,6 +56,6 @@ router.post('/', async (req, res) => {
       });
   });
 router.post('/home', async (req, res) => {
-    res.redirect('/home')
+    res.render('userprofile')
   });
   module.exports = router

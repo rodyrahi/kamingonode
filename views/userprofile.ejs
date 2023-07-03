@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 80vh;
+      text-align: center;
+    }
+
+    #logo {
+      margin-bottom: 20px;
+    }
+
+    #login-message {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+  </style>
+
+<body style="background-color: #307aff;">
+  <div class="container" >
+    <div class="bg-light p-3 shadow" style="border-radius: 2rem;">
+    <div id="another-form">
+      
+      <form id="signin-form" action="/createuserprofile" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <img src=""  alt="" class="rounded-circle" id="previewImage" srcset="" width="150rem" onclick="getfile()">
+            <br>
+            <i class="fa-solid fa-circle-user mb-3" id="icon" style="font-size: 9rem;" onclick="getfile()"></i>
+
+            <br>
+            <input type="file" style=""  class="form-control hide" name="image" id="image" >
+            <label for="name" class="form-label">Nick Name</label>
+
+          <input type="text" style="font-size: 1.5rem;"  class="form-control" placeholder="Mukesh" name="name" id="name">
+        </div>
+        <button type="submit" style="border-radius: 3rem;" class="btn btn-primary btn-lg">Create Profile</button>
+      </form>
+    </div>
+  </div>
+  </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    const fileInput = document.getElementById("image");
+    const previewImage = document.getElementById("previewImage");
+    const icon = document.getElementById("icon");
+
+
+    fileInput.addEventListener("change", async () => {
+    const file = fileInput.files[0];
+
+
+    new Compressor(file, {
+    quality: 0.5, // set the compression quality to 70%
+    success(result) {
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+    previewImage.setAttribute("src", reader.result);
+    icon.classList.add('hide')
+
+    });
+
+    if (file) {
+    reader.readAsDataURL(file);
+    }
+    },
+    error(err) {
+    console.log(err.message);
+    },
+    });
+
+
+    console.log(file);
+
+
+    });
+
+    function getfile() {
+    fileInput.click()
+    }
+</script>
+
+
+
+</html>
