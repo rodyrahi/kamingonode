@@ -7,9 +7,7 @@
 
 <body>
   <style>
-    .image-container img {
-      opacity: 0.8;
-    }
+
 
     .image-container:hover img {
       opacity: 1;
@@ -19,7 +17,6 @@
   </style>
 
 
-  <%- include('../partials/nav.ejs') %>
 
   <div class="container">
 
@@ -39,10 +36,10 @@
           <!-- <i class="fa-solid fa-user" onclick="getfile()"></i> -->
           <input type="file" class=""   accept="image/png, image/jpg" name="image" id="image">
           <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
-          <div class="border rounded justify-content-center d-flex p-3 image-container ">
-            <input type="hidden"  name="image" value="<%= data["image"] %> ">
+          <div class=" justify-content-center d-flex p-3  ">
+            <input type="hidden"  name="image" value="<%= userdata["image"] %> ">
 
-            <img src="/uploads/profiles/<%= userdata["image"] %>"  alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
+            <img class="rounded-circle"  src="/uploads/profiles/<%= userdata["image"] %>"   alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
           
           </div>
         </div>
@@ -54,7 +51,7 @@
       </div>
       <div class="mb-3 ">
         <label for="shopname" class="form-label">Shop Name [optional]</label>
-        <input type="text" class="form-control" id="shopname" name="shopname" value="<%= data["shopname"] %>" placeholder="rajesh paint shop">
+        <input type="text" class="form-control" id="shopname" name="shopname" value="<%= locals.data["shopname"] %>" placeholder="rajesh paint shop">
       </div>
       <div class="mb-3 ">
         <label for="nameinput" class="form-label">Service</label>
@@ -68,23 +65,23 @@
       </div>
       <div class="mb-3">
         <label for="phone" class="form-label">Phone</label>
-        <input type="tel" class="form-control" id="contact" value="<%= data["contact"] %>" name="contact" placeholder="+9199999999">
+        <input type="tel" class="form-control" id="contact" value="<%= locals.data["contact"] %>" name="contact" placeholder="+9199999999">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Pincode</label>
-        <input type="number" onchange="getdata()" class="form-control pincode" id="pincode"  value="<%= data["pincode"] %>" name="pincode" placeholder="">
+        <input type="number" onchange="getdata()" class="form-control pincode" id="pincode"  value="<%= locals.data["pincode"] %>" name="pincode" placeholder="">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">City</label>
-        <input type="text" class="form-control city" id="city"  value="<%= data["city"] %>" name="city" placeholder="">
+        <input type="text" class="form-control city" id="city"  value="<%= locals.data["city"] %>" name="city" placeholder="">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Area</label>
-        <input type="text" class="form-control area" id="area"  value="<%= data["area"] %>" name="area" placeholder="">
+        <input type="text" class="form-control area" id="area"  value="<%= locals.data["area"] %>" name="area" placeholder="">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Address</label>
-        <input type="text" class="form-control" id="address"  value="<%= data["address"] %>" name="address" placeholder="">
+        <input type="text" class="form-control" id="address"  value="<%= locals.data["address"] %>" name="address" placeholder="">
       </div>
 
       <div class="mb-3">
@@ -94,14 +91,14 @@
 
       <div class="mb-3" id="skill">
         
-        <% skills.forEach(element => { %>
+        <% locals.skills.forEach(element => { %>
           <div class="border p-2 my-2 rounded bg-light">
             <a href="/delete/skill/<%= element["sno"] %> "><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;" ></i></a>
             
           <label for="description" class="form-label ">Skill</label>
           <select name="skill" class="form-select" id="service" value="<%= element["service"] %>">
              <option selected><%= element["service"] %></option> 
-            <% services.forEach(element => { %>
+            <% locals.services.forEach(element => { %>
               <option value="<%= element["subcategory"] %>"> <%= element["subcategory"] %> </option>
             <% }) %>
 

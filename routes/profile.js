@@ -21,8 +21,10 @@ router.get("/editprofile", async (req, res) => {
   const user = req.session.phoneNumber;
 
 
-  const userdata = executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
+  const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
 
+
+  console.log(userdata);
   if (user) {
     
 
@@ -34,7 +36,8 @@ router.get("/editprofile", async (req, res) => {
 
   if (result.length>0) {
     
-  
+
+
   const skills = await executeQuery(
     `SELECT * FROM skill WHERE id = '${result[0]["id"]}'`
   );
@@ -51,11 +54,18 @@ router.get("/editprofile", async (req, res) => {
       skills: skills,
       services: services,
     });
-  } else {
+
+  }else{
     res.render("profiles/createprofile", {
-      isAuthenticated: req.oidc.isAuthenticated(),
+
+      userdata:userdata[0],
+      data: 'data',
+      skills: [],
+      services: [],
+
     });
   }
+  
 }
 else{
   res.redirect('/home')
@@ -160,7 +170,7 @@ router.post("/createprofile", async (req, res) => {
     console.log(file);
   } catch (error) {}
 
-  user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
+  user = req.session.phoneNumber;
   const {
     name,
     image,
