@@ -55,7 +55,7 @@ router.get("/editprofile", async (req, res) => {
   }
 }
 else{
-  res.redirect('/')
+  res.redirect('/home')
 }
 });
   
@@ -141,7 +141,7 @@ router.post("/editprofile", async (req, res) => {
     );
   }
 
-  res.redirect("/");
+  res.redirect("/home");
 });
   
 router.post("/createprofile", async (req, res) => {
@@ -252,7 +252,7 @@ router.post("/createprofile", async (req, res) => {
     );
   }
 
-  res.redirect("/");
+  res.redirect("/home");
 });
 
 router.get("/createprofile", async (req, res) => {
