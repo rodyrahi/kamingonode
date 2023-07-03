@@ -63,24 +63,26 @@ app.use("/", profileRouter);
 app.use("/", reviewsRouter);
 app.use("/sendcode", codeRouter);
 
+function executeQuery(query) {
+  return new Promise((resolve, reject) => {
+    con.query(query, (err, result, fields) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
 app.get("/", async (req, res) => {
 
   // req.session.phoneNumber = req.body.phoneNumber
 
 
-
-
   if (req.session.phoneNumber) {
 
-    const result = await executeQuery(`SELECT * FROM profiles`)
-    const comments = await executeQuery(`SELECT * FROM profiles`)
-    
-    res.render("home", {
-      isAuthenticated: req.oidc.isAuthenticated(),
-      data: result,
-      rating: comments,
-     })
+    res.redirect('/home')
 
   } else {
     res.render("whatsapplogin");
