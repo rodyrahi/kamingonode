@@ -58,7 +58,7 @@ app.use((req, res, next) => {
     next();
   }
 });
-app.use("/", homeRouter);
+app.use("/home", homeRouter);
 app.use("/", profileRouter);
 app.use("/", reviewsRouter);
 app.use("/sendcode", codeRouter);
