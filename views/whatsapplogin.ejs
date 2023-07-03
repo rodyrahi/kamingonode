@@ -9,7 +9,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 80vh;
+      height: 100vh;
       text-align: center;
     }
 
@@ -34,29 +34,33 @@
         <div class="bg-white rounded text-center p-3 shadow" style="">
             <img src="kamingo_favicon.png" alt="Logo" id="logo" width="70rem">
             <h1 class="fw-bold text-primary" style="font-family: 'Poppins', sans-serif; font-size: 2.5rem;">KAMINGO</h1>
-            <hr>
-            <div class="text-start" id="another-form" >
-            <p class=" m-0" >Enter Your</p>
-            <p class="text-muted ">Phone Number</p>
+              <hr>
+              <div class="text-start" id="another-form" >
+              <p class=" m-0" >Enter Your</p>
+              <p class="text-muted ">Phone Number</p>
 
 
-            <form id="signin-form" >
-                <div class="mb-3">
-                <input type="tel" style="font-size: 1.5rem;"  class="form-control" placeholder="+91" name="phone" id="phone">
-                </div>
-                <button type="submit" style="border-radius: 3rem; " class="btn btn-primary">Send OTP</button>
-            </form>
+              <form id="signin-form" >
+                  <div class="mb-3">
+                  <input type="tel" style="font-size: 1.5rem;"  class="form-control" placeholder="+91" name="phone" id="phone">
+                  </div>
+                  <button type="submit" style="border-radius: 3rem; " class="btn btn-primary">Send OTP</button>
+              </form>
             </div>
 
             <div id="another-form1" class="text-start hide" style="">
-            <h3>Enter OTP</h3>
-            <form id="otp-form" action="sendcode/home" method="post">
-                <div class="mb-3">
-                <input type="tel" maxlength="5" name="otp" placeholder="_____" class="form-control" id="otp" style="letter-spacing: 18px;
-                font-size: 27px; font-weight: bolder; text-align: center; max-width: 15rem;">
-                </div>
-                <button type="submit" class=" rounded-5 btn btn-success">Submit</button>
-            </form>
+              <div>
+                <p class=" m-0" >Enter OTP</p>
+
+              </div>
+              <br>
+              <form id="otp-form" action="sendcode/home" method="post">
+                  <div class="mb-3">
+                  <input type="tel" maxlength="5" name="otp" placeholder="_____" class="form-control" id="otp" style="letter-spacing: 18px;
+                  font-size: 27px; font-weight: bolder; text-align: center; max-width: 15rem;">
+                  </div>
+                  <button type="submit" class=" rounded-5 btn btn-success">Submit</button>
+              </form>
             </div>
         </div>
 
@@ -88,7 +92,7 @@
       if (response.ok) {
         console.log('ok');
         document.getElementById('another-form').style.display = 'none';
-        document.getElementById('another-form1').style.display = 'block';
+        document.getElementById('another-form1').style.display = 'flex';
 
       } else {
         console.error('Request failed');
