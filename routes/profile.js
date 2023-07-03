@@ -20,6 +20,10 @@ function executeQuery(query) {
 router.get("/editprofile", async (req, res) => {
   const user = req.session.phoneNumber;
   console.log(user);
+
+  if (user) {
+    
+
   const result = await executeQuery(
     `SELECT *  FROM profiles WHERE id='${user}'`
   );
@@ -45,11 +49,14 @@ router.get("/editprofile", async (req, res) => {
       services: services,
     });
   } else {
-    console.log('mmmmmmmmmmmmmmmmmmm');
     res.render("profiles/createprofile", {
       isAuthenticated: req.oidc.isAuthenticated(),
     });
   }
+}
+else{
+  res.redirect('/')
+}
 });
   
 router.post("/editprofile", async (req, res) => {
