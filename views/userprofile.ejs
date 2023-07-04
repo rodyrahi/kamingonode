@@ -27,7 +27,7 @@
     }
   </style>
 
-<body style="background-color: #307aff;">
+<body style="background-color: #ffffff;">
   <div class="container" >
     <div class="bg-light p-3 shadow" style="border-radius: 2rem;">
     <div id="another-form">
@@ -38,7 +38,9 @@
             height: auto;
             aspect-ratio: 1 / 1;
             border-radius: 50%;
-            object-fit: cover;" src="" width="150rem" alt="" class="rounded-circle" id="previewImage" srcset=""  onclick="getfile()">
+            width: 100%;
+            max-width: 10rem;
+            object-fit: cover;" src=""  alt="" class="rounded-circle hide" id="previewImage" srcset=""  onclick="getfile()">
             <br>
             <i class="fa-solid fa-circle-user mb-3" id="icon" style="font-size: 9rem;" onclick="getfile()"></i>
 
@@ -74,6 +76,7 @@
 
     reader.addEventListener("load", () => {
     previewImage.setAttribute("src", reader.result);
+    previewImage.classList.remove('hide')
     icon.classList.add('hide')
 
     });
