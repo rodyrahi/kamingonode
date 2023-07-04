@@ -89,6 +89,21 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/test", async (req, res) => {
+
+  req.session.phoneNumber = "9999999999"
+
+
+  if (req.session.phoneNumber) {
+
+    res.redirect('/home')
+
+  } else {
+    res.render("whatsapplogin");
+  }
+});
+
+
 app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
