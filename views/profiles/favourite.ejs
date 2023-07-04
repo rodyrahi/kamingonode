@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/header.ejs') %>
+<body> 
+    
+    <div class="container">
+        <p class="text-muted">Favourites</p>
+        <% data.forEach(element => { %>
+            <div class="d-flex border my-2 bg-light rounded border" style="align-items: center;" >
+                <div class="position-relative">
+                <a href="/home/services/<%= element.name %>" class="stretched-link"></a>
+                <img class="rounded-circle m-2" src="uploads/profiles/<%= element.image %>" style="max-width: 4rem; width: 100%; height: auto; aspect-ratio: 1/1; object-fit: cover;" alt="" srcset="">
+                </div>
+
+                <div  class="position-relative">
+                    <a href="/home/services/<%= element.name %>" class="stretched-link"></a>
+
+                    <h4 class="m-0"><%= element.name %></h4>
+                    <p class="text-muted" style="font-size: 0.9rem;"><%= element.service %></p>
+
+
+              
+                </div>
+            </div>
+
+        <% }) %>
+   
+
+    </div>
+
+</body>

@@ -399,4 +399,18 @@ router.post("/createuserprofile", async (req, res) => {
   res.redirect("/home");
 });
 
+
+
+router.get("/favourite", async (req, res) => {
+
+    const result = await executeQuery(`SELECT * FROM profiles`)
+    const comments = await executeQuery(`SELECT * FROM profiles`)
+    
+    res.render("profiles/favourite", {
+      isAuthenticated: req.oidc.isAuthenticated(),
+      data: result,
+      rating: comments,
+     })
+  });
+
 module.exports = router
