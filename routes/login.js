@@ -40,25 +40,14 @@ router.post('/', async (req, res) => {
     console.log(number);
     client
       .sendMessage(`${+number}@c.us`, randomCode)
-      .then(() => {
-        console.log('Message sent successfully');
-        const result = executeQuery(`SELECT * FROM profiles WHERE id='${number}'`);
-  
-        if (result.length < 1) {
-          executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
-        }
-  
-        res.sendStatus(200)
-      })
-      .catch((error) => {
-        console.error('Error sending message:', error);
-        res.sendStatus(500); // Send an error response to the client
-      });
+      .then(async () =>  res.sendStatus(200))
+      .catch((error) => res.sendStatus(500));
   });
 router.post('/home', async (req, res) => {
   
-  const result = executeQuery(`SELECT * FROM userprofiles WHERE id='${req.session.phoneNumber}'`);
-    if (result.length<0) {
+  const result = await executeQuery(`SELECT * FROM userprofiles WHERE id='${req.session.phoneNumber}'`);
+    console.log(result.length);
+    if (result.length < 1) {
       res.render('userprofile')
 
     }
