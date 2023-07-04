@@ -1,7 +1,7 @@
 var express = require("express");
 const bodyParser = require("body-parser");
 const session = require('express-session');
-
+const FileStore = require('session-file-store')(session);
 var app = express();
 const { auth, requiresAuth } = require("express-openid-connect");
 require("dotenv").config();
@@ -20,13 +20,15 @@ const codeRouter = require("./routes/login.js");
 
 
 
-app.use(
-  session({
-    secret: 'YourSecretKey',
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+app.use(session({
+  secret: 'your-secret-key',
+  store: new FileStore({
+    path: '/session/store', // Choose a directory to store session files
+    ttl: 86400 // Session expiration time in seconds (optional)
+  }),
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(fileUpload());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
