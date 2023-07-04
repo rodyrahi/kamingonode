@@ -56,6 +56,15 @@ router.post('/', async (req, res) => {
       });
   });
 router.post('/home', async (req, res) => {
-    res.render('userprofile')
+  
+  const result = executeQuery(`SELECT * FROM userprofiles WHERE id='${req.session.phoneNumber}'`);
+    if (result.length<0) {
+      res.render('userprofile')
+
+    }
+    else{
+      res.redirect('/home')
+
+    }
   });
   module.exports = router
