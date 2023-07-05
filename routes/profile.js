@@ -403,8 +403,10 @@ router.post("/addfav", async (req, res) => {
   console.log(req.body);
   const result = await executeQuery(`SELECT fav FROM userprofiles WHERE fav LIKE '%${req.body.phoneNumber},%';`)
   console.log(result);
+ 
   if (result.length ==0) {
-    executeQuery(`UPDATE userprofiles SET fav = CONCAT(fav, '${req.body.phoneNumber},') WHERE id = '${req.session.phoneNumber}'`);
+  
+    executeQuery(`UPDATE userprofiles SET fav = CONCAT(fav, '${req.body.phoneNumber},') WHERE id= '${req.session.phoneNumber}'`);
 
   }
   res.sendStatus(200)
@@ -424,14 +426,16 @@ router.get("/favourite", async (req, res) => {
 
 
     const fav = await executeQuery(`SELECT * FROM userprofiles WHERE id= '${req.session.phoneNumber}'`)
+    let result
+    if (fav.length == 0) {
+      result = await executeQuery(`SELECT * FROM profiles WHERE contact IN (${fav[0].fav}'null');`)
 
-    
-    const result = await executeQuery(`SELECT * FROM profiles WHERE contact IN (${fav[0].fav}'null');`)
-    console.log(result);
+    }
+  
     const comments = await executeQuery(`SELECT * FROM profiles`)
     
     res.render("profiles/favourite", {
-      data: result,
+      data: result ? result:[] ,
       rating: comments,
      })
   });
