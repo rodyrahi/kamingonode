@@ -99,6 +99,10 @@ router.get("/services/:name", async (req, res) => {
       const comments = await executeQuery(
         `SELECT * FROM comments  WHERE post='${req.params.name}'`
       );
+      const userfav = await executeQuery(
+        `SELECT fav FROM userprofiles  WHERE id='${user}'`
+      );
+
 
       let rating = 0;
       let userrating = 0;
@@ -127,6 +131,7 @@ router.get("/services/:name", async (req, res) => {
           user: user,
           skills: skills,
           rating: totalrating,
+          userfav: userfav ? userfav:'', 
           userrating: userrating,
           ratingno: comments.length,
         });

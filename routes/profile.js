@@ -399,6 +399,25 @@ router.post("/createuserprofile", async (req, res) => {
   res.redirect("/home");
 });
 
+router.post("/addfav", async (req, res) => {
+  console.log(req.body);
+  const result = await executeQuery(`SELECT fav FROM userprofiles WHERE fav LIKE '%${req.body.phoneNumber},%';`)
+  console.log(result);
+  if (result.length ==0) {
+    executeQuery(`UPDATE userprofiles SET fav = CONCAT(fav, '${req.body.phoneNumber},') WHERE id = '8109204371'`);
+
+  }
+  res.sendStatus(200)
+});
+
+router.post("/removefav", async (req, res) => {
+  executeQuery(`  
+  UPDATE userprofiles
+  SET fav = REPLACE(fav, '${req.body.phoneNumber},', '')
+  WHERE fav LIKE '%${req.body.phoneNumber},%';`)
+
+  res.sendStatus(200)
+});
 
 
 router.get("/favourite", async (req, res) => {
