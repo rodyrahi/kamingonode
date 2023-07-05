@@ -23,11 +23,14 @@ router.get("/", async(req, res) => {
   if (req.session.phoneNumber) {
 
     const result = await executeQuery(`SELECT * FROM profiles`)
+    const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
+    console.log(userdata);
     const comments = await executeQuery(`SELECT * FROM profiles`)
     
     res.render("home", {
       isAuthenticated: req.oidc.isAuthenticated(),
       data: result,
+      userdata: userdata ? userdata[0]:[],
       rating: comments,
      })
 
@@ -39,51 +42,72 @@ router.get("/", async(req, res) => {
 
 
 router.post("/filter", async (req, res) => {
-    const{search , city , area , service , highest } = req.body
-    filters = [search , city , area , service , highest]
-    console.log(req.body);
-    if (req.oidc.isAuthenticated()) {
+
+      const{service } = req.body
+
+  
+    // const{search , city , area , service , highest } = req.body
+    // filters = [search , city , area , service , highest]
+    // console.log(req.body);
+    // if (req.oidc.isAuthenticated()) {
         
-      let result = await executeQuery(`SELECT * FROM profiles`)
+    //   let result = await executeQuery(`SELECT * FROM profiles`)
 
-      if (result) {
-      await Promise.all(filters.map(async (element) => {
-        if (element && element !== search && element !== highest ) {
-          result = result.filter(
-            (item) =>
-              item.city === element ||
-              item.area === element ||
-              item.service === element
-          );
-        }
-        if (element && element === search) {
-          console.log(element);
-         result= result.filter(
-            (item) =>
-              item.name.toLowerCase().includes(element.toLowerCase()) ||
-              item.service.toLowerCase().includes(element.toLowerCase()) ||
-              item.city.toLowerCase().includes(element.toLowerCase()) ||
-              item.area.toLowerCase().includes(element.toLowerCase())
-          );
-        }
-        if (element && element === highest) {
-          const newresult = await executeQuery(`SELECT * FROM profiles ORDER BY rating DESC`)
+    //   if (result) {
+    //   await Promise.all(filters.map(async (element) => {
+    //     if (element && element !== search && element !== highest ) {
+    //       result = result.filter(
+    //         (item) =>
+    //           item.city === element ||
+    //           item.area === element ||
+    //           item.service === element
+    //       );
+    //     }
+    //     if (element && element === search) {
+    //       console.log(element);
+    //      result= result.filter(
+    //         (item) =>
+    //           item.name.toLowerCase().includes(element.toLowerCase()) ||
+    //           item.service.toLowerCase().includes(element.toLowerCase()) ||
+    //           item.city.toLowerCase().includes(element.toLowerCase()) ||
+    //           item.area.toLowerCase().includes(element.toLowerCase())
+    //       );
+    //     }
+    //     if (element && element === highest) {
+    //       const newresult = await executeQuery(`SELECT * FROM profiles ORDER BY rating DESC`)
 
-          result= newresult
-        }
+    //       result= newresult
+    //     }
 
 
       
-        }))
-        res.render("home", {
-          isAuthenticated: req.oidc.isAuthenticated(),
-          data: result,
-        });
-      }
+    //     }))
+    //     res.render("home", {
+    //       isAuthenticated: req.oidc.isAuthenticated(),
+    //       data: result,
+    //     });
+    //   }
 
-    } else {
-      res.redirect("/login");
-    }
+    // } else {
+    //   res.redirect("/login");
+    // }
+
+    let result = await executeQuery(`SELECT * FROM profiles WHERE service ='${service.toLowerCase()}' `)
+    const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
+
+    console.log(result);
+
+    res.render("home", {
+            isAuthenticated: req.oidc.isAuthenticated(),
+            data: result,
+            userdata: userdata ? userdata[0]:[],
+
+
+          });
+
+
+
+
   });
 
 router.get("/services/:name", async (req, res) => {

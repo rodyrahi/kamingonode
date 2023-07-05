@@ -1,74 +1,58 @@
-<form class="d-flex" action="/filter" method="POST" enctype="multipart/form-data">
-  <div class="border p-2 mt-1 rounded bg-light " style="border-radius: 1rem;">
-    <div class="d-flex border p-1 rounded mt-1">
-      <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i>
-      <input class="form-control me-2" name="search" id="search" style="border: none; background-color: lavender;" type="search" placeholder="Search" aria-label="Search">
+
+
+
+
+<form id="filter" class="" action="home/filter" method="post" >
+  
+
+  <div class="container bg-light mt-2 border rounded-2 p-2">
+    <div class="row align-items-center px-1">
+      <label for="service" class="col-sm-2 col-form-label text-muted"> Service</label>
+      <div class="col-sm-10">
+        <select class="form-select" name="service" id="service">
+          <option selected value="">All</option>
+          <% data.filter((value, index, self) => {
+            return self.findIndex((t) => t.service === value.service) === index;
+          }).forEach((element) => { %>
+            <option value="<%= element.service %>"><%= element.service %></option>
+          <% }); %>
+        </select>
+      </div>
     </div>
-    <div class="d-flex my-2">
-      <!-- <i class="fa-solid fa-magnifying-glass m-2 " style="font-size: 1.6rem;"></i> -->
-      <p class="m-2">City</p>
-      <select class="form-select " name="city" id="city">
-        <option selected value="">Any</option>
-        <% data.filter((value, index, self) => {
-            return self.findIndex((t) => t.city === value.city) === index;
-         }).forEach((element) => { %>
-        <option value="<%= element.city %>"><%= element.city%></option>
-        <% }); %>
-      </select>
+  
+    <div class="row align-items-center px-1">
+      <label for="pincode" class="col-sm-2 col-form-label text-muted">Pincode</label>
+      <div class="col-sm-10">
+        
+        <input class="form-control" type="text" id="pincode" value="<%= userdata.pincode %>"  placeholder="Enter pincode">
 
 
 
-    </div>
-    <div class="d-flex my-2">
-      <p class="m-2">Area</p>
-      <select class="form-select " name="area" id="area">
-        <option selected value="">Any</option>
-
-        <% data.filter((value, index, self) => {
-            return self.findIndex((t) => t.area === value.area) === index;
-         }).forEach((element) => { %>
-        <option value="<%= element.area %>"><%= element.area %></option>
-        <% }); %>
-
-      </select>
-
+      </div>
 
 
     </div>
-    <div class="d-flex my-2">
-      <p class="m-2">Service</p>
-      <select class="form-select " name="service" id="service">
-
-        <option selected value="">Any</option>
-
-        <% data.filter((value, index, self) => {
-                  return self.findIndex((t) => t.service === value.service) === index;
-               }).forEach((element) => { %>
-        <option value="<%= element.service %>"><%= element.service %></option>
-        <% }); %>
-      </select>
-
-
-
-
-
-    </div>
-
-
-
-
-
-    <div class="form-check m-2 ">
-      
-      <input class="form-check-input" type="checkbox" value="true" name="highest" id="flexCheckChecked">
-      <label class="form-check-label" for="flexCheckChecked">
-        Highest
-      </label>
-    </div>
-
-    <button class="btn btn-primary" style="border-radius: 2rem;" type="submit">Search</button>
-    <a class="btn btn-outline-primary" style="border-radius: 2rem;" href="/">Clear</a>
-
   </div>
+  
+
+
+
+
 
 </form>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  // Get the form element
+  var form = document.getElementById("filter");
+
+  // Add event listener to form elements
+  var elements = form.elements;
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].addEventListener("change", function() {
+      form.submit();
+    });
+  }
+});
+</script>
+
+
