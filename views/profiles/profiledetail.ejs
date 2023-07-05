@@ -72,20 +72,53 @@
 
               <a class="btn-sm btn btn-success me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" href= "https://wa.me/91<%= data["contact"] %>" type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"> </i> <%= data["contact"] %> </a>
             <button class="btn-sm btn btn-primary me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
-            <form id="fav-form">
+            
+      
+
+            <% if (userfav.some(element => element === data.contact)) { %>
+              <form id="remove-fav-form" class="">             
+                <button type="submit" style="border: none; background: none;" class="">
+                <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
+                </button>
+                <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
+              </form>
+
+            <form id="fav-form" class="hide">
               <button type="submit" style="border: none; background: none;" class="">
               <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem;"></i>
               </button>
               <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
             </form>
-            <form id="remove-fav-form" class="hide">
 
-              
+
+            <% } else {%>
+
+              <form id="remove-fav-form" class="hide">             
+                <button type="submit" style="border: none; background: none;" class="">
+                <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
+                </button>
+                <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
+              </form>
+
+            <form id="fav-form" class="" >
               <button type="submit" style="border: none; background: none;" class="">
-              <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
+              <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem;"></i>
               </button>
               <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
             </form>
+            <% }%>
+            
+         
+
+
+
+           
+            
+
+
+
+
+
           </div>
           
 

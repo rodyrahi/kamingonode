@@ -404,7 +404,7 @@ router.post("/addfav", async (req, res) => {
   const result = await executeQuery(`SELECT fav FROM userprofiles WHERE fav LIKE '%${req.body.phoneNumber},%';`)
   console.log(result);
   if (result.length ==0) {
-    executeQuery(`UPDATE userprofiles SET fav = CONCAT(fav, '${req.body.phoneNumber},') WHERE id = '8109204371'`);
+    executeQuery(`UPDATE userprofiles SET fav = CONCAT(fav, '${req.body.phoneNumber},') WHERE id = '${req.session.phoneNumber}'`);
 
   }
   res.sendStatus(200)
@@ -414,7 +414,7 @@ router.post("/removefav", async (req, res) => {
   executeQuery(`  
   UPDATE userprofiles
   SET fav = REPLACE(fav, '${req.body.phoneNumber},', '')
-  WHERE fav LIKE '%${req.body.phoneNumber},%';`)
+  WHERE fav LIKE '%${req.body.phoneNumber},%' AND id= '${req.session.phoneNumber}';`)
 
   res.sendStatus(200)
 });
@@ -422,11 +422,15 @@ router.post("/removefav", async (req, res) => {
 
 router.get("/favourite", async (req, res) => {
 
-    const result = await executeQuery(`SELECT * FROM profiles`)
+
+    const fav = await executeQuery(`SELECT * FROM userprofiles WHERE id= '${req.session.phoneNumber}'`)
+
+    
+    const result = await executeQuery(`SELECT * FROM profiles WHERE contact IN (${fav[0].fav}'null');`)
+    console.log(result);
     const comments = await executeQuery(`SELECT * FROM profiles`)
     
     res.render("profiles/favourite", {
-      isAuthenticated: req.oidc.isAuthenticated(),
       data: result,
       rating: comments,
      })

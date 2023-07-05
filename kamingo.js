@@ -99,7 +99,7 @@ app.get("/", async (req, res) => {
 
 app.get("/test", async (req, res) => {
 
-  req.session.phoneNumber = "9999999999"
+  req.session.phoneNumber = "8109204371"
 
 
   if (req.session.phoneNumber) {

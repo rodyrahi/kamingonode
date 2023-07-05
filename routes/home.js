@@ -99,10 +99,21 @@ router.get("/services/:name", async (req, res) => {
       const comments = await executeQuery(
         `SELECT * FROM comments  WHERE post='${req.params.name}'`
       );
-      const userfav = await executeQuery(
-        `SELECT fav FROM userprofiles  WHERE id='${user}'`
-      );
 
+
+      const userfav = await executeQuery(
+        `SELECT * FROM userprofiles  WHERE id='${user}'`
+      );
+      
+      console.log(userfav[0].fav);
+      let favarray = [];
+      if (userfav) {
+        const favString = userfav[0].fav.toString();
+        favarray = favString.split(",");
+      }
+      
+      console.log(userfav , req.session.phoneNumber);
+ 
 
       let rating = 0;
       let userrating = 0;
@@ -121,6 +132,8 @@ router.get("/services/:name", async (req, res) => {
         await executeQuery(
           `UPDATE profiles SET rating='${totalrating}' WHERE name ="${req.params.name}"`
         );
+          
+
 
         console.log(totalrating);
 
@@ -131,7 +144,7 @@ router.get("/services/:name", async (req, res) => {
           user: user,
           skills: skills,
           rating: totalrating,
-          userfav: userfav ? userfav:'', 
+          userfav: favarray ? favarray:[], 
           userrating: userrating,
           ratingno: comments.length,
         });
