@@ -427,7 +427,7 @@ router.get("/favourite", async (req, res) => {
 
     const fav = await executeQuery(`SELECT * FROM userprofiles WHERE id= '${req.session.phoneNumber}'`)
     let result
-    if (fav.length == 0) {
+    if (fav.length > 0) {
       result = await executeQuery(`SELECT * FROM profiles WHERE contact IN (${fav[0].fav}'null');`)
 
     }
