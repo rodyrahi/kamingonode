@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
       .then(async () =>  res.sendStatus(200))
       .catch((error) => res.sendStatus(500));
   });
-router.post('/home', async (req, res) => {
+router.post('/code', async (req, res) => {
   
   const result = await executeQuery(`SELECT * FROM userprofiles WHERE id='${req.session.phoneNumber}'`);
     console.log(result.length);

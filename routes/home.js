@@ -106,8 +106,9 @@ router.get("/services/:name", async (req, res) => {
       );
       
       console.log(userfav[0].fav);
+      
       let favarray = [];
-      if (userfav) {
+      if (userfav[0].fav) {
         const favString = userfav[0].fav.toString();
         favarray = favString.split(",");
       }

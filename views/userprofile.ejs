@@ -48,7 +48,14 @@
             <input type="file" style=""  class="form-control hide" name="image" id="image" required >
             <label for="name" class="form-label">Nick Name</label>
 
-          <input type="text" style="font-size: 1.5rem;"  class="form-control" placeholder="Mukesh" name="name" id="name">
+            <input type="text" style="font-size: 1.5rem;"  class="form-control" placeholder="Mukesh" name="name" id="name">
+            <label for="name" class="form-label">Pincode</label>
+
+            <input type="number" maxlength="6"  style="font-size: 1.5rem;"  class="form-control pincode" placeholder="" name="pincode" id="name">
+
+            <input type="text"  style="font-size: 1.5rem;"  class="form-control city hide" placeholder="" name="city" id="city">
+            <input type="text"  style="font-size: 1.5rem;"  class="form-control area hide" placeholder="" name="area" id="area">
+
         </div>
         <button type="submit" style="border-radius: 3rem;" class="btn btn-primary btn-lg">Create Profile</button>
       </form>
@@ -101,6 +108,27 @@
     }
 </script>
 
+<script>
+        document.querySelector('.pincode').addEventListener('input', function() {
+        value = document.querySelector('.pincode').value
 
+  
+      $.getJSON("https://api.postalpincode.in/pincode/" + value, function (data) {
+
+       
+
+       
+        console.log(data[0]["PostOffice"][0]['Name'])
+
+        console.log(data[0]["PostOffice"][0]['Block'])
+
+        document.querySelector('.city').value = data[0]["PostOffice"][0]['Region']
+        document.querySelector('.area').value = data[0]["PostOffice"][0]['Name']
+
+      
+      })
+      })
+  
+</script>
 
 </html>

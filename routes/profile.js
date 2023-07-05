@@ -337,7 +337,7 @@ router.post("/createuserprofile", async (req, res) => {
   } catch (error) {}
 
   user = req.session.phoneNumber;
-  const {name} = req.body;
+  const {name, pincode ,city , area} = req.body;
   console.log(req.body);
 
   if (file) {
@@ -371,8 +371,8 @@ router.post("/createuserprofile", async (req, res) => {
     const fs = require("fs");
 
     con.query(
-      `INSERT INTO userprofiles ( id ,name, image) VALUES 
-        ('${user}','${name}' ,'${file.name}');`,
+      `INSERT INTO userprofiles ( id ,name, image ,pincode , city , area) VALUES 
+        ('${user}','${name}' ,'${file.name}','${pincode}','${city}','${area}');`,
 
       function (err, result, fields) {
         if (err) {
@@ -383,8 +383,8 @@ router.post("/createuserprofile", async (req, res) => {
     );
   } else {
     con.query(
-      `INSERT INTO userprofiles ( id ,name, image, ) VALUES 
-        ('${user}','${name}' ,'${"kamingo_favicon.png"}');`,
+      `INSERT INTO userprofiles ( id ,name, image,pincode , city , area ) VALUES 
+        ('${user}','${name}' ,'${"kamingo_favicon.png"}','${pincode}','${city}','${area}');`,
 
       function (err, result, fields) {
         if (err) {
