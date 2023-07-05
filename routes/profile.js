@@ -371,8 +371,8 @@ router.post("/createuserprofile", async (req, res) => {
     const fs = require("fs");
 
     con.query(
-      `INSERT INTO userprofiles ( id ,name, image ,pincode , city , area) VALUES 
-        ('${user}','${name}' ,'${file.name}','${pincode}','${city}','${area}');`,
+      `INSERT INTO userprofiles ( id ,name, image ,fav,pincode , city , area) VALUES 
+        ('${user}','${name}' ,'${file.name}','','${pincode}','${city}','${area}');`,
 
       function (err, result, fields) {
         if (err) {
