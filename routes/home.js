@@ -116,7 +116,7 @@ router.get("/filter/:service/:pincode", async (req, res) => {
   });
 
 
-router.post("/filter", async (req, res) => {
+router.post("/", async (req, res) => {
 
     const{service , pincode} = req.body
 
@@ -184,7 +184,15 @@ router.post("/filter", async (req, res) => {
 
   //       });
 
-  const filterservice = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
+
+
+  let filterservice = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
+  
+  if (service === 'all') {
+    filterservice = await executeQuery(`SELECT * FROM profiles WHERE pincode='${pincode}'`)
+  }
+  
+  
   const filterdata = await executeQuery(`SELECT * FROM profiles`)
 
   const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
