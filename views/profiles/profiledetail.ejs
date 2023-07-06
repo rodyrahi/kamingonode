@@ -74,45 +74,9 @@
             <button class="btn-sm btn btn-primary me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
             
       
+            <%- include('../partials/like.ejs' , {userfav:userfav , data:data}) %>
 
-            <% if (userfav.some(element => element === data.contact)) { %>
-              <form id="remove-fav-form" class="">             
-                <button type="submit" style="border: none; background: none;" class="">
-                <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
-                </button>
-                <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
-              </form>
-
-            <form id="fav-form" class="hide">
-              <button type="submit" style="border: none; background: none;" class="">
-              <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem;"></i>
-              </button>
-              <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
-            </form>
-
-
-            <% } else {%>
-
-              <form id="remove-fav-form" class="hide">             
-                <button type="submit" style="border: none; background: none;" class="">
-                <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
-                </button>
-                <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
-              </form>
-
-            <form id="fav-form" class="" >
-              <button type="submit" style="border: none; background: none;" class="">
-              <i class="fa-solid fa fa-heart" id="fa" style=" font-size: 1.3rem;"></i>
-              </button>
-              <input type="text" class="hide" name="phone" value="<%= data["contact"] %>" >
-            </form>
-            <% }%>
-            
-         
-
-
-
-           
+                
             
 
 

@@ -1,0 +1,133 @@
+
+
+<% if (userfav.some(element => element === data.contact)) { %>
+    <form id="remove-fav-form" class="">
+      <button type="submit" style="border: none; background: none;" class="">
+        <i class="fa-solid fa fa-heart" id="fa" style="font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
+      </button>
+      <input type="text" class="hide" name="phone" value="<%= data.contact %>" >
+    </form>
+  
+    <form id="fav-form" class="hide">
+      <button type="submit" style="border: none; background: none;" class="">
+        <i class="fa-solid fa fa-heart" id="fa" style="font-size: 1.3rem;"></i>
+      </button>
+      <input type="text" class="hide" name="phone" value="<%= data.contact %>" >
+    </form>
+  
+  <% } else { %>
+  
+    <form id="remove-fav-form" class="hide">
+      <button type="submit" style="border: none; background: none;" class="">
+        <i class="fa-solid fa fa-heart" id="fa" style="font-size: 1.3rem; background-color: aliceblue; color: crimson;"></i>
+      </button>
+      <input type="text" class="hide" name="phone" value="<%= data.contact %>" >
+    </form>
+  
+    <form id="fav-form" class="">
+      <button type="submit" style="border: none; background: none;" class="">
+        <i class="fa-solid fa fa-heart" id="fa" style="font-size: 1.3rem;"></i>
+      </button>
+      <input type="text" class="hide" name="phone" value="<%= data.contact %>" >
+    </form>
+  
+  <% } %>
+  
+  
+
+  <script>
+    const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent page reload
+  
+    // Get form data
+    const formData = new FormData(event.target);
+  
+    console.log(formData);
+    const phone = formData.get("phone");
+    try {
+      // Send POST request using fetch
+      const response = await fetch('/addfav', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `phoneNumber=${encodeURIComponent(phone)}`,        
+      });
+  
+      if (response.ok) {
+        console.log('ok');
+  
+  
+  
+        document.getElementById('remove-fav-form').classList.remove('hide');
+        document.getElementById('fav-form').classList.add('hide');
+  
+      } else {
+        console.error('Request failed');
+  
+        // Handle the error
+      }
+  
+    } catch (error) {
+      console.error('Request failed:', error);
+    }
+  
+  };
+  
+  // Add event listener to the form submit event
+  const signinForm = document.getElementById('fav-form');
+  signinForm.addEventListener('submit', handleSubmit);
+  
+  
+  const handleSubmit2 = async (event) => {
+    event.preventDefault(); // Prevent page reload
+  
+    // Get form data
+    const formData = new FormData(event.target);
+  
+    console.log(formData);
+    const phone = formData.get("phone");
+    try {
+      // Send POST request using fetch
+      const response = await fetch('/removefav', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `phoneNumber=${encodeURIComponent(phone)}`,        
+      });
+  
+      if (response.ok) {
+        console.log('ok');
+  
+  
+        document.getElementById('remove-fav-form').classList.add('hide');
+        document.getElementById('fav-form').classList.remove('hide');
+  
+  
+  
+  
+      } else {
+        console.error('Request failed');
+  
+        // Handle the error
+      }
+  
+    } catch (error) {
+      console.error('Request failed:', error);
+    }
+  
+  };
+  
+  // Add event listener to the form submit event
+  const removefav = document.getElementById('remove-fav-form');
+  removefav.addEventListener('submit', handleSubmit2);
+  
+  
+  
+  
+  
+  </script>
+
+
+ 

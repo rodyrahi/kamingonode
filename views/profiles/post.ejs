@@ -1,3 +1,16 @@
+<style>
+  i.fa {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0 0 2px #888;
+   background-color: cornflowerblue;
+    padding: 0.4em 0.4em;
+    color: white;
+    aspect-ratio: 1/1;
+  
+  }
+</style>
+
 <% data.forEach(element => { %>
 
   <div class="col-md-6 m-1 border  service bg-light " style="max-width: 26rem; border-radius: 1rem; ">
@@ -36,16 +49,24 @@
   
             </div>
 
-            <!-- <button class="btn-sm btn btn-primary mt-1" style="border-radius: 2rem;" onclick="Share('<%= name %>')" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button> -->
+
+            <%- include('../partials/like.ejs' , {userfav:userfav , data:element}) %>
+
+
+
+            
+
+         
+
   
           </div>
   
         </div>
-  
+
 
       </div>
   
-  
+
   
   
   </div>

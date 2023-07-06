@@ -27,11 +27,23 @@ router.get("/", async(req, res) => {
     console.log(userdata);
     const comments = await executeQuery(`SELECT * FROM profiles`)
     
+    const userfav = await executeQuery(
+      `SELECT * FROM userprofiles  WHERE id='${req.session.phoneNumber}'`
+    );
+    
+    console.log(userfav[0].fav);
+    
+    let favarray = [];
+    if (userfav[0].fav) {
+      const favString = userfav[0].fav.toString();
+      favarray = favString.split(",");
+    }
+
     res.render("home", {
-      isAuthenticated: req.oidc.isAuthenticated(),
       data: result,
       filterdata: result,
       userdata: userdata ? userdata[0]:[],
+      userfav: favarray ? favarray:[], 
       rating: comments,
      })
 
@@ -199,11 +211,25 @@ router.post("/", async (req, res) => {
 
   console.log(filterdata);
 
+  
+  const userfav = await executeQuery(
+    `SELECT * FROM userprofiles  WHERE id='${req.session.phoneNumber}'`
+  );
+  
+  console.log(userfav[0].fav);
+  
+  let favarray = [];
+  if (userfav[0].fav) {
+    const favString = userfav[0].fav.toString();
+    favarray = favString.split(",");
+  }
+
   res.render("home", {
           isAuthenticated: req.oidc.isAuthenticated(),
           data: filterservice,
           filterdata:filterdata,
           userdata: userdata ? userdata[0]:[],
+          userfav: favarray ? favarray:[], 
 
 
         });
