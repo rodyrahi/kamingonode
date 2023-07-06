@@ -5,15 +5,29 @@ var con = require("../database.js");
 const { post } = require("./home.js");
 
 
+function executeQuery(query) {
+  return new Promise((resolve, reject) => {
+    con.query(query, (err, result, fields) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
+  router.post("/postcomment",  async (req, res) => {
+    user = req.session.phoneNumber;
+    // nickname = JSON.stringify(req.oidc.user["nickname"], null, 2).replace(
+    //   /"/g,
+    //   ""
+    // );
 
-  router.post("/postcomment", function (req, res) {
-    user = JSON.stringify(req.oidc.user["sub"], null, 2).replace(/"/g, "");
-    nickname = JSON.stringify(req.oidc.user["nickname"], null, 2).replace(
-      /"/g,
-      ""
-    );
-    photo = JSON.stringify(req.oidc.user["picture"], null, 2).replace(/"/g, "");
+    const result = await executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`)
+
+    nickname = result[0].name
+    photo = result[0].image;
     const { name, comment, rating } = req.body;
   
     console.log(req.body);
@@ -51,7 +65,7 @@ const { post } = require("./home.js");
           }
         
 
-        res.redirect("/services/" + name);
+        res.redirect("home/services/" + name);
       }
     );
   });
