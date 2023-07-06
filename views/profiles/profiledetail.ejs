@@ -180,7 +180,7 @@
 
             <div class="border mb-2 p-2 rounded bg-light shadow-sm " style="border-radius: 1rem;">
               <div class="d-flex">
-                <img class="rounded-circle me-2" width="40px" src="<%=element["photo"] %>" alt="">
+                <img class="rounded-circle me-2" width="40px" src="/public/uploads/profiles/<%=element["photo"] %>" alt="">
                 <p class="m-0 fw-bold mt-2"> <%= element["name"]  %> </p>
                 <% if (user === element["id"]) { %>
                 <a href="/delete/<%= element["sno"] %>"><i class="fa-solid fa-trash mx-2 mt-2 " style="font-size: 1.2rem; color: black;"></i></a>
