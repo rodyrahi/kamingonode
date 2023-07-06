@@ -43,7 +43,7 @@ router.get("/", async(req, res) => {
 
 router.post("/filter", async (req, res) => {
 
-      const{service } = req.body
+      const{service , pincode} = req.body
 
   
     // const{search , city , area , service , highest } = req.body
@@ -92,8 +92,8 @@ router.post("/filter", async (req, res) => {
     //   res.redirect("/login");
     // }
 
-    let result = await executeQuery(`SELECT * FROM profiles WHERE service ='${service.toLowerCase()}' `)
-    const filterdata = await executeQuery(`SELECT * FROM profiles  `)
+    const result = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
+    const filterdata = await executeQuery(`SELECT * FROM profiles`)
 
     const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
 
