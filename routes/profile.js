@@ -22,9 +22,10 @@ router.get("/editprofile", async (req, res) => {
 
 
   const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
+  const servicedata = await executeQuery(`SELECT category FROM service`);
 
-
-  console.log(userdata);
+  const categories = servicedata.map(row => row.category);
+  console.log(servicedata);
   if (user) {
     
 
@@ -53,6 +54,7 @@ router.get("/editprofile", async (req, res) => {
       userdata:userdata[0],
       skills: skills,
       services: services,
+      servicedata:categories
     });
 
   }else{
@@ -62,6 +64,7 @@ router.get("/editprofile", async (req, res) => {
       data: 'data',
       skills: [],
       services: [],
+      servicedata:categories
 
     });
   }
@@ -274,8 +277,9 @@ router.get("/createprofile", async (req, res) => {
   user = req.session.phoneNumber;
 
 
-  const userdata = executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
-
+  const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id='${user}'`);
+  const servicedata = await executeQuery(`SELECT * FROM profiles`);
+  console.log(servicedata , 'this');
 
   con.query(
     `SELECT *  FROM profiles WHERE id='${user}'`,
@@ -308,6 +312,7 @@ router.get("/createprofile", async (req, res) => {
                   userdata: userdata[0],
                   skills: skills,
                   services: services,
+                  servicedata:servicedata[0]
                 });
               }
             );

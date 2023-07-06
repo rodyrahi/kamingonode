@@ -55,11 +55,14 @@
       </div>
       <div class="mb-3 ">
         <label for="nameinput" class="form-label">Service</label>
-        <select name="service" class="form-select" id="service">
-          <option selected><%= data["service"] %></option>
-          <option value="PLUMBER">Plumber</option>
-          <option value="CLEANER">Cleaner</option>
-          <option value="LAUNDARY">Laundary</option>
+        <select class="form-select" name="service" id="service">
+          <% servicedata.filter((value, index, self) => {
+            return self.findIndex((t) => t === value) === index;
+          }).forEach((element) => { %>
+            <option value="<%= element%>"><%= element%></option>
+            
+          <% }); %>
+     
 
         </select>
       </div>
