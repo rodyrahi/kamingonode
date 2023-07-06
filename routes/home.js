@@ -30,6 +30,7 @@ router.get("/", async(req, res) => {
     res.render("home", {
       isAuthenticated: req.oidc.isAuthenticated(),
       data: result,
+      filterdata: result,
       userdata: userdata ? userdata[0]:[],
       rating: comments,
      })
@@ -41,9 +42,10 @@ router.get("/", async(req, res) => {
 });
 
 
-router.post("/filter", async (req, res) => {
+router.get("/filter/:service/:pincode", async (req, res) => {
 
-      const{service , pincode} = req.body
+      const service = req.params.service
+      const pincode = req.params.pincode
 
   
     // const{search , city , area , service , highest } = req.body
@@ -92,16 +94,16 @@ router.post("/filter", async (req, res) => {
     //   res.redirect("/login");
     // }
 
-    const result = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
+    const filterservice = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
     const filterdata = await executeQuery(`SELECT * FROM profiles`)
 
     const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
 
-    console.log(result);
+    console.log(filterdata);
 
     res.render("home", {
             isAuthenticated: req.oidc.isAuthenticated(),
-            data: result,
+            data: filterservice,
             filterdata:filterdata,
             userdata: userdata ? userdata[0]:[],
 
@@ -112,6 +114,93 @@ router.post("/filter", async (req, res) => {
 
 
   });
+
+
+router.post("/filter", async (req, res) => {
+
+    const{service , pincode} = req.body
+
+    console.log(req.body);
+
+  // // const{search , city , area , service , highest } = req.body
+  // // filters = [search , city , area , service , highest]
+  // // console.log(req.body);
+  // // if (req.oidc.isAuthenticated()) {
+      
+  // //   let result = await executeQuery(`SELECT * FROM profiles`)
+
+  // //   if (result) {
+  // //   await Promise.all(filters.map(async (element) => {
+  // //     if (element && element !== search && element !== highest ) {
+  // //       result = result.filter(
+  // //         (item) =>
+  // //           item.city === element ||
+  // //           item.area === element ||
+  // //           item.service === element
+  // //       );
+  // //     }
+  // //     if (element && element === search) {
+  // //       console.log(element);
+  // //      result= result.filter(
+  // //         (item) =>
+  // //           item.name.toLowerCase().includes(element.toLowerCase()) ||
+  // //           item.service.toLowerCase().includes(element.toLowerCase()) ||
+  // //           item.city.toLowerCase().includes(element.toLowerCase()) ||
+  // //           item.area.toLowerCase().includes(element.toLowerCase())
+  // //       );
+  // //     }
+  // //     if (element && element === highest) {
+  // //       const newresult = await executeQuery(`SELECT * FROM profiles ORDER BY rating DESC`)
+
+  // //       result= newresult
+  // //     }
+
+
+    
+  // //     }))
+  // //     res.render("home", {
+  // //       isAuthenticated: req.oidc.isAuthenticated(),
+  // //       data: result,
+  // //     });
+  // //   }
+
+  // // } else {
+  // //   res.redirect("/login");
+  // // }
+
+  // const result = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
+  // const filterdata = await executeQuery(`SELECT * FROM profiles`)
+
+  // const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
+
+  // console.log(result);
+
+  // res.render("home", {
+  //         isAuthenticated: req.oidc.isAuthenticated(),
+  //         data: result,
+  //         filterdata:filterdata,
+  //         userdata: userdata ? userdata[0]:[],
+
+
+  //       });
+
+  const filterservice = await executeQuery(`SELECT * FROM profiles WHERE service='${service.toLowerCase()}' AND pincode='${pincode}' `)
+  const filterdata = await executeQuery(`SELECT * FROM profiles`)
+
+  const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
+
+  console.log(filterdata);
+
+  res.render("home", {
+          isAuthenticated: req.oidc.isAuthenticated(),
+          data: filterservice,
+          filterdata:filterdata,
+          userdata: userdata ? userdata[0]:[],
+
+
+        });
+
+});
 
 router.get("/services/:name", async (req, res) => {
   user = req.session.phoneNumber

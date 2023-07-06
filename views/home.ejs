@@ -17,7 +17,7 @@
 
   <div class="container ">
     <div class="phone hide">
-      <%- include('./partials/filter.ejs', { filterdata: data }) %>
+      <%- include('./partials/filter.ejs', { data: filterdata }) %>
 
     </div>
     <div class="row my-3 ">
@@ -29,7 +29,7 @@
       <div class="col-lg-4 col-md-5 sidebar  " style=" position: fixed;
       top: 5rem;
       right: 2.5rem;">
-      <%- include('./partials/filter.ejs', { filterdata: data }) %>
+      <%- include('./partials/filter.ejs', { data: filterdata }) %>
       </div>
     </div>
   </div>
