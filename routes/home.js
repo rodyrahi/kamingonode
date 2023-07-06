@@ -93,6 +93,8 @@ router.post("/filter", async (req, res) => {
     // }
 
     let result = await executeQuery(`SELECT * FROM profiles WHERE service ='${service.toLowerCase()}' `)
+    const filterdata = await executeQuery(`SELECT * FROM profiles  `)
+
     const userdata = await executeQuery(`SELECT * FROM userprofiles WHERE id = '${req.session.phoneNumber}'`)
 
     console.log(result);
@@ -100,6 +102,7 @@ router.post("/filter", async (req, res) => {
     res.render("home", {
             isAuthenticated: req.oidc.isAuthenticated(),
             data: result,
+            filterdata:filterdata,
             userdata: userdata ? userdata[0]:[],
 
 
