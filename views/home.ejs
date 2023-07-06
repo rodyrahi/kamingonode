@@ -20,17 +20,19 @@
       <%- include('./partials/filter.ejs', { data: filterdata }) %>
 
     </div>
+    <div class="row justify-content-center px-1 d-flex ">
+      <%- include('./profiles/post.ejs', { data: data , userdata:userdata}) %>
+    </div>
+    <div class="col-lg-4 col-md-5 sidebar  " style=" position: fixed;
+    top: 5rem;
+    right: 2.5rem;">
+    <%- include('./partials/filter.ejs', { data: filterdata }) %>
+    </div>
     <div class="row my-3 ">
       <div class="col-lg-8 col-md-7 list mb-5  pt-1 " style="border-radius: 1rem;">
-        <div class="row justify-content-center d-flex ">
-          <%- include('./profiles/post.ejs', { data: data , userdata:userdata}) %>
-        </div>
+        
       </div>
-      <div class="col-lg-4 col-md-5 sidebar  " style=" position: fixed;
-      top: 5rem;
-      right: 2.5rem;">
-      <%- include('./partials/filter.ejs', { data: filterdata }) %>
-      </div>
+
     </div>
   </div>
 
