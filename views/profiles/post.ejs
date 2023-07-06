@@ -11,7 +11,7 @@
   }
 </style>
 
-<% data.forEach(element => { %>
+<% data.forEach((element ,index) => { %>
 
   <div class="col-md-6 m-1 border  service bg-light " style="max-width: 26rem; border-radius: 1rem; ">
 
@@ -50,7 +50,7 @@
             </div>
 
 
-            <%- include('../partials/like.ejs' , {userfav:userfav , data:element}) %>
+            <%- include('../partials/like.ejs' , {userfav:userfav , data:element , index:index}) %>
 
 
 
