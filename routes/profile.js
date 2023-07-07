@@ -447,11 +447,6 @@ router.get("/favourite", async (req, res) => {
 
 
 
-  router.get("/settings", async (req, res) => {
 
-
-  
-    res.render('settings')
-  });
 
 module.exports = router

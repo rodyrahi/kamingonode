@@ -313,7 +313,12 @@ router.get("/services/:name", async (req, res) => {
 
     });
   
+  router.get("/settings", async (req, res) => {
 
+
+
+    res.render('settings')
+  });
 
 
 module.exports = router
