@@ -5,7 +5,7 @@
   <%- include('../partials/header.ejs') %>
 </head>
 
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
   <style>
     .image-container img {
       opacity: 0.8;
@@ -16,6 +16,14 @@
       cursor: pointer;
       /* change opacity to 1 on hover */
     }
+
+    input[type]
+      {
+      font-size: 0.8rem;
+    }
+    label{
+     
+    }
   </style>
 
 
@@ -25,7 +33,7 @@
 
     <form class="border p-2 rounded bg-light shadow-sm " style="margin-bottom: 6rem; margin-top: 1rem;" action="/createprofile" method="POST" enctype="multipart/form-data">
       <div class="text-center my-2">
-        <h4>Create Profile</h4>
+        <h4>Create A Service</h4>
 
       </div>
 
@@ -37,9 +45,9 @@
             </a> -->
 
           <!-- <i class="fa-solid fa-user" onclick="getfile()"></i> -->
-          <input type="file" class=""   accept="image/png, image/jpg" name="image" id="image">
+          <input type="file" class="hide"   accept="image/png, image/jpg" name="image" id="image">
           <!-- <img id="previewImage" src="#" alt="Preview Image"  > -->
-          <div class=" justify-content-center d-flex p-3 image-container ">
+          <div class=" justify-content-center hide d-flex p-3 image-container ">
             <input type="hidden"  name="image" value="/uploads/profiles/<%= userdata["image"] %>">
 
             <img  style="
@@ -48,19 +56,19 @@
             border-radius: 50%;
             max-width: 12rem;
             object-fit: cover;" 
-            class="rounded-circle"   src="/uploads/profiles/<%= userdata["image"] %>"   alt="" id="previewImage" srcset=""  onclick="getfile()">
+            class="rounded-circle hide"   src="/uploads/profiles/<%= userdata["image"] %>"   alt="" id="previewImage" srcset=""  onclick="getfile()">
           
           </div>
         </div>
       </div>
     
-      <div class="mb-3 ">
+      <div class="mb-3 hide ">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= userdata["name"] %>" placeholder="rajesh">
+        <input type="text" class="form-control" id="name" name="name" value="<%= userdata["name"] %>" placeholder="rajesh" >
       </div>
       <div class="mb-3 ">
-        <label for="shopname" class="form-label">Shop Name [optional]</label>
-        <input type="text" class="form-control" id="shopname" name="shopname" value="" placeholder="rajesh paint shop">
+        <label for="shopname" class="form-label ">Shop Name [optional]</label>
+        <input type="text" style="font-size: 0.8rem;" class="form-control" id="shopname" name="shopname" value="" placeholder="rajesh paint shop">
       </div>
       <div class="mb-3 ">
         <label for="nameinput" class="form-label">Service</label>
@@ -83,15 +91,15 @@
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Pincode</label>
-        <input type="number" onchange="getdata()" class="form-control pincode" id="pincode"  value="" name="pincode" placeholder="">
+        <input type="number" onchange="getdata()" class="form-control pincode" id="pincode"  value="<%= userdata.pincode %>" name="pincode" placeholder="">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">City</label>
-        <input type="text" class="form-control city" id="city"  value="" name="city" placeholder="">
+        <input type="text" class="form-control city" id="city"  value="<%= userdata.city %>" name="city" placeholder="">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Area</label>
-        <input type="text" class="form-control area" id="area"  value="" name="area" placeholder="">
+        <input type="text" class="form-control area" id="area"  value="<%= userdata.area %>" name="area" placeholder="">
       </div>
       <div class="mb-3 ">
         <label for="address" class="form-label">Address</label>
@@ -105,7 +113,7 @@
 
       <div class="mb-3" id="skill">
         
-          <div class="border p-2 my-2 rounded bg-light">
+          <div class="border p-1 my-2 rounded bg-light">
             
           <label for="description" class="form-label ">Skill</label>
           <label for="description" class="form-label ">Skill</label>
@@ -125,7 +133,7 @@
       </div>
         <button class=" btn btn-primary mb-2" style="border-radius: 2rem;" type="button" onclick="addskill()" >Add Skill</button>
 
-
+      <hr>
       
       <div class="mb-3 mt-2">
         <button class=" btn btn-outline-primary " style="border-radius: 2rem;" type="submit">Save Profile</button>
