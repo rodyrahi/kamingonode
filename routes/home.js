@@ -319,9 +319,13 @@ router.get("/services/:name", async (req, res) => {
   
   router.get("/settings", async (req, res) => {
 
+    const user = await executeQuery(
+      `SELECT * FROM userprofiles  WHERE id='${req.session.phoneNumber}'`
+    );
 
-
-    res.render('settings')
+    res.render('settings' , {
+      userdata:user[0]
+    })
   });
 
   router.get("/logout", async (req, res) => {
