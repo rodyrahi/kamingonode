@@ -406,10 +406,10 @@ router.post("/createuserprofile", async (req, res) => {
 
 router.post("/addfav", async (req, res) => {
   console.log(req.body);
-  const result = await executeQuery(`SELECT fav FROM userprofiles WHERE fav LIKE '%${req.body.phoneNumber},%';`)
+  const result = await executeQuery(`SELECT fav FROM userprofiles WHERE fav LIKE '%${req.body.phoneNumber},%' AND id='${req.session.phoneNumber}';`)
   console.log(result);
  
-  if (result.length ==0) {
+  if (result.length <1) {
   
     executeQuery(`UPDATE userprofiles SET fav = CONCAT(fav, '${req.body.phoneNumber},') WHERE id= '${req.session.phoneNumber}'`);
 
