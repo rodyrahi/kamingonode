@@ -9,6 +9,10 @@
   .hide {
     display: none;
   }
+  input[type]
+      {
+      font-size: 0.8rem;
+    }
 </style>
 
 <body>
@@ -18,108 +22,66 @@
           font-size: 1.2rem;
         }
         i.fa {
-        display: inline-block;
-        border-radius: 60px;
-        box-shadow: 0 0 2px #888;
-        background-color: #2e3c5d;
-        padding: 0.5em 0.6em;
-        color: white;
-        aspect-ratio: 1/1;
-      
-      }
-      
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0 0 2px #888;
+  background-color: #3c77ff;
+  padding: 0.5em 0.6em;
+  aspect-ratio: 1/1;
+  color: white;
+}
       </style>
-     <div class="container">
+     <div class="container ">
       
-      
-      <div class="row" style="cursor: pointer; display: flex;">
+      <h3>Profile</h3>
+      <div class="row p-1 bg-light border mb-2  rounded-2  " style="cursor: pointer; display: flex;">
       
        
       
-        <h3>Profile</h3>
-        <div class="p-2 border rounded shadow d-flex position-relative " style="align-items: center;" >
-          <a href="/profile" class="stretched-link"></a>
-          <div>
-            <i class="fa-solid fa fa-user me-3" style="background-color: white; color: #2e3c5d; font-size: 1.5rem;"></i>
-      
-          </div>
-          
-        <div>
-      
-          <p class=" m-0 mb-1" style="font-size: 1.2rem;">Rajvendra Rahi</p>
 
-          <div class="d-flex">
-            <p class="me-2" ><i class="fa-regular fa-heart"></i> 2k  </p>
-            <p><i class="fa-regular fa-star"></i> 1.5</p>
+
+          <div class="p-1 col-3 d-flex " style="align-items: center;" >
+            
+              <i class="fa-solid fa fa-user me-3" style="background-color: white; color: #000000; font-size: 1.5rem;"></i>
+      
+      
           </div>
+         
+
+          <div class="col p-1">
+            <p class=" m-0 mb-1 " style="font-size: 1.2rem;">Rajvendra Rahi</p>
+
+            <div class="d-flex">
+              <p class="me-2 m-0" ><i class="fa-regular fa-heart"></i> 2k  </p>
+              <p class="m-0"><i class="fa-regular fa-star"></i> 1.5</p>
+
+              <i style="position: relative;
+              z-index: 999;
+              padding: 0.5em 0.5em;
+              font-size: 0.8rem;
+              height: fit-content;
+              left: 4rem;" class="fa-solid fa fa-pen" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"></i>
+
+            </div>
+        
+
+          </div>
+      
+      </div>
 
       
-        </div>
-      
+      <div class="collapse row bg-light border rounded-2 " id="collapseExample">
+   
+          <div class="mb-2">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="" placeholder="" >
+          </div>     
+          <div class="mb-3">
+          <button class="btn btn-dark btn-sm rounded-pill" >Update</button>
         </div>
       </div>
-      
-      
-      
-      <div class="bg-light row my-3">
-      
-        <div class="row">
-          <div class="d-flex p-1 " style="align-items: center;">
-             <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid fa fa-car me-3"></i> Park</a>
-          </div>
-        
-        </div>
-        
-      
-        <div class="row">
-          <div class="d-flex p-1 " style="align-items: center;">
-             <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid fa fa-bolt me-3"></i> Charge</a>
-          </div>
-        
-        </div>
-        
-        <div class="row">
-          <div class="d-flex p-1 " style="align-items: center;">
-             <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid fa fa-gas-pump me-3"></i> Fuel</a>
-          </div>
-        
-        </div>
-        
-        <div class="row">
-          <div class="d-flex p-1 " style="align-items: center;">
-             <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid fa fa-toolbox me-3"></i> Flat Tire</a>
-          </div>
-        
-        </div>
-        
-      
-      </div>
-      
-      
-      <div class="row">
-      <div class="row">
-        <div class="d-flex  p-2 my-1" style="align-items: center; border-top: 1px rgb(221, 221, 221) solid;">
-           <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid ico fa-bell me-3" ></i> Help & Support</a>
-        </div>
-      
-      </div>
-      
-      
-      <div class="row">
-        <div class="d-flex  p-2 my-1" style="align-items: center; border-top: 1px rgb(221, 221, 221) solid;">
-           <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid ico fa-share-nodes me-3"></i> Referral</a>
-        </div>
-      
-      </div>
-      
-      
-      <div class="row">
-        <div class="d-flex  p-2 my-1" style="align-items: center; border-top: 1px rgb(221, 221, 221) solid;">
-           <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid ico fa-language me-3"></i>Language</a>
-        </div>
-      
-      </div>
-      
+
+
       
       
       <div class="row position-absolute" style="bottom: 10px; ">
