@@ -87,8 +87,9 @@ app.get("/", async (req, res) => {
 
   // req.session.phoneNumber = req.body.phoneNumber
 
+  user = await executeQuery(`SELECT * FROM userprofile WHERE id='${req.session.phoneNumber}'`)
 
-  if (req.session.phoneNumber) {
+  if (req.session.phoneNumber && user.length >0) {
 
     res.redirect('/home')
 
