@@ -3,38 +3,72 @@
 <%- include('./partials/header.ejs') %>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- 
+
 
 <style>
   .hide {
     display: none;
   }
-  input[type]
-      {
-      font-size: 0.8rem;
-    }
+
+  input[type] {
+    font-size: 0.8rem;
+  }
 </style>
 
 <body>
 
-    <style>
-        .ico{
-          font-size: 1.2rem;
-        }
-        i.fa {
-  display: inline-block;
-  border-radius: 60px;
-  box-shadow: 0 0 2px #888;
-  background-color: #3c77ff;
-  padding: 0.5em 0.6em;
-  aspect-ratio: 1/1;
-  color: white;
-}
-      </style>
-     <div class="container ">
-      
-      <h3>Profile</h3>
-      <div class="row p-1 bg-light border mb-2  rounded-2  " style="cursor: pointer; display: flex;">
+  <style>
+    .ico {
+      font-size: 1.2rem;
+    }
+
+    i.fa {
+      display: inline-block;
+      border-radius: 60px;
+      box-shadow: 0 0 2px #888;
+      background-color: #3c77ff;
+      padding: 0.5em 0.6em;
+      aspect-ratio: 1/1;
+      color: white;
+    }
+  </style>
+  <div class="container">
+
+
+
+
+    <div class=" row mt-3 ">
+
+
+      <div class="col-5 ">
+        <img src="/uploads/profiles/IMG_0195.JPG" onchange="" alt="" srcset="" class="border lazy shadow-sm" style="width: 100%; height: auto; aspect-ratio: 1 / 1; border-radius: 50%; object-fit: cover; ">
+
+      </div>
+      <div class="col-7  ">
+        <h2>Rajvendra Rahi</h2>
+
+        <div class="d-flex">
+          <p class="me-2 "><i class="fa-regular fa-heart"></i> 2k </p>
+          <p class=""><i class="fa-regular fa-star"></i> 1.5</p>
+        </div>
+
+        <button class="btn btn-dark btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Edit Profile</button>
+      </div>
+
+    </div>
+
+    <hr>
+    <div class="collapse mt-2 row  " id="collapseExample">
+
+      <div class="mb-2">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="" placeholder="">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-dark btn-sm rounded-pill">Update</button>
+      </div>
+    </div>
+    <!-- <div class="row p-1 bg-light border mb-2  rounded-2  " style="cursor: pointer; display: flex;">
       
        
       
@@ -69,33 +103,27 @@
       
       </div>
 
-      
-      <div class="collapse row bg-light border rounded-2 " id="collapseExample">
-   
-          <div class="mb-2">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="" placeholder="" >
-          </div>     
-          <div class="mb-3">
-          <button class="btn btn-dark btn-sm rounded-pill" >Update</button>
-        </div>
-      </div>
+    
 
 
       
       
-      <div class="row position-absolute" style="bottom: 10px; ">
-        <div class="d-flex  p-2 my-1" style="align-items: center; border-top: 1px rgb(221, 221, 221) solid;">
-           <a class="m-0 text-dark" href="/" style="text-decoration: none;" ><i class="fa-solid ico fa-right-from-bracket me-3"></i> Logout</a>
+     -->
+      <div class="row position-absolute " style="bottom: 10px; width: 100%; ">
+        <div class="d-flex  p-2 my-1" style="border-top: #888 1px solid;">
+          <a class="m-0 text-dark" href="/home/logout" style="text-decoration: none;">
+            <i class="fa-solid ico fa-right-from-bracket me-3"></i> Logout</a>
+
         </div>
-      
       </div>
-      
-      </div>
-      
-      
-       
+          
     </div>
-  </body>
+
+  </div>
+
+
+
+
+</body>
 
 </html>

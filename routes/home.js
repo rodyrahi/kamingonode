@@ -32,12 +32,16 @@ router.get("/", async(req, res) => {
     );
     
 
+    console.log(userfav);
     
     let favarray = [];
-    if (userfav[0].fav) {
-      const favString = userfav[0].fav.toString();
-      favarray = favString.split(",");
+    if (userfav.length > 0) {
+      if ( userfav[0].fav) {
+        const favString = userfav[0].fav.toString();
+        favarray = favString.split(",");
+      }
     }
+
 
     res.render("home", {
       data: result,
@@ -318,6 +322,17 @@ router.get("/services/:name", async (req, res) => {
 
 
     res.render('settings')
+  });
+
+  router.get("/logout", async (req, res) => {
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+    });
+
+    res.redirect('/')
   });
 
 
