@@ -31,7 +31,7 @@ router.get("/", async(req, res) => {
       `SELECT * FROM userprofiles  WHERE id='${req.session.phoneNumber}'`
     );
     
-    console.log(userfav[0].fav);
+
     
     let favarray = [];
     if (userfav[0].fav) {
