@@ -7,10 +7,10 @@
     <div class="container bg-light mt-2 border rounded-2 p-2">
       <div class="row align-items-center px-1">
         <label for="service" class="col-sm-2 col-form-label text-muted">
-          <i class="fas fa-cogs"></i> Service
+         Service
         </label>
         <div class="col-sm-10">
-          <select class="form-select"  name="service" id="service" >
+          <select class="form-select form-select-sm"  name="service" id="service" >
             <% data.filter((value, index, self) => {
               return self.findIndex((t) => t.service === value.service) === index;
             }).forEach((element) => { %>
@@ -24,15 +24,41 @@
       </div>
 
       <div class="row align-items-center px-1 mt-1">
-        <label for="pincode" class="col-sm-2 col-form-label text-muted">
-           Pincode
-        </label>
-        <div class="col-sm-10">
+        <div class="col-6">
+          <label for="pincode" class=" col-form-label text-muted">
+            City
+          </label>
           <div class="input-group">
-            <input class="form-control" type="text" id="pincode" value="<%= userdata.pincode %>" name="pincode" placeholder="Enter pincode">
-            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+            <input class="form-control form-control-sm" type="text" id="city" value="<%= userdata.city %>" name="city" placeholder="Enter a city">
+          </div>
+          <label for="pincode" class=" col-form-label text-muted">
+            Area
+          </label>
+          <div class="input-group">
+            <input class="form-control form-control-sm" type="text" id="pincode" value="<%= userdata.area %>" name="area" placeholder="Enter area">
           </div>
         </div>
+
+        <div class="col-6">
+          <label for="pincode" class=" col-form-label text-muted">
+            Pincode
+          </label>
+          <div class="input-group">
+            <input class="form-control form-control-sm" type="text" id="pincode" value="<%= userdata.pincode %>" name="pincode" placeholder="Enter pincode">
+          </div>
+          <label for="pincode" class=" col-form-label text-muted">
+            Ratings
+          </label>
+          <select class="form-select form-select-sm" aria-label="Default select example">
+            <option value="" selected>All</option>
+            <option value="Top">Top Rated</option>
+            <option value="Low">Low Rated</option>
+
+          </select>
+
+        </div>
+
+    
 
       </div>
       <button class="btn btn-primary btn-sm rounded-pill mt-2 ms-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
@@ -46,16 +72,16 @@
 
 
 <script>
-  <!-- document.addEventListener("DOMContentLoaded", function() {
-    // Get the form element
-    var form = document.getElementById("filter");
+  // document.addEventListener("DOMContentLoaded", function() {
+  //   // Get the form element
+  //   var form = document.getElementById("filter");
 
-    // Add event listener to form elements
-    var elements = form.elements;
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].addEventListener("change", function() {
-        form.submit();
-      });
-    }
-  }); -->
+  //   // Add event listener to form elements
+  //   var elements = form.elements;
+  //   for (var i = 0; i < elements.length; i++) {
+  //     elements[i].addEventListener("change", function() {
+  //       form.submit();
+  //     });
+  //   }
+  // }); 
 </script>
