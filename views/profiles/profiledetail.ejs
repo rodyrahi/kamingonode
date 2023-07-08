@@ -71,8 +71,8 @@
              
 
               <a class="btn-sm btn btn-success me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" href= "https://wa.me/91<%= data["contact"] %>" type="submit"> <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"> </i> <%= data["contact"] %> </a>
-            <button class="btn-sm btn btn-primary me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button>
-            
+            <!-- <button class="btn-sm btn btn-primary me-2 p-2 py-1" style="border-radius: 2rem; font-size: 1rem;" type="submit"><i class="fa-sharp fa-solid fa-share-nodes"></i> Share </button> -->
+            <a href="tel:+91<%= data.contact %>" class="btn btn-primary btn-sm rounded-pill" > <i class="fa-solid fa-phone"></i> Phone</a>
       
             <%- include('../partials/like.ejs' , {userfav:userfav , data:data , index:0}) %>
 
