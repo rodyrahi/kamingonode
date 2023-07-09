@@ -436,13 +436,29 @@ router.get("/favourite", async (req, res) => {
       result = await executeQuery(`SELECT * FROM profiles WHERE contact IN (${fav[0].fav}'null');`)
 
     }
+
+    const userfav = await executeQuery(
+      `SELECT * FROM userprofiles  WHERE id='${req.session.phoneNumber}'`
+    );
+    
+    console.log(userfav[0].fav);
+    
+    let favarray = [];
+    if (userfav[0].fav) {
+      const favString = userfav[0].fav.toString();
+      favarray = favString.split(",");
+    }
   
     const comments = await executeQuery(`SELECT * FROM profiles`)
     
     res.render("profiles/favourite", {
       data: result ? result:[] ,
+      userfav: favarray ? favarray:[], 
       rating: comments,
+
+
      })
+
   });
 
 
