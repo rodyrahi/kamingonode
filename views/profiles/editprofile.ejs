@@ -39,7 +39,12 @@
           <div class=" justify-content-center d-flex p-3  ">
             <input type="hidden"  name="image" value="<%= userdata["image"] %> ">
 
-            <img class="rounded-circle"  src="/uploads/profiles/<%= userdata["image"] %>"   alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
+            <img  style="
+            height: auto;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            max-width: 12rem;
+            object-fit: cover;"  class="rounded-circle"  src="/uploads/profiles/<%= userdata["image"] %>"   alt="" id="previewImage" srcset="" width="200rem" onclick="getfile()">
           
           </div>
         </div>

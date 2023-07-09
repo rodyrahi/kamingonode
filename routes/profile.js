@@ -356,7 +356,7 @@ router.post("/createuserprofile", async (req, res) => {
       const outputFilePath = "public/uploads/profiles/" + file.name;
 
       sharp("public/uploads/profiles/" + "raw-" + file.name)
-        .png({ quality: 50 })
+        .png({ quality: 20 })
         .toFile(outputFilePath)
         .then(() => {
           console.log("Image compressed successfully!");
