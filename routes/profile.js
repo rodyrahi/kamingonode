@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 var router = express.Router();
 var con = require("../database.js");
+const { encode, preprocessOptions, encodeOptions } = require('@squoosh/lib');
+
 
 
 function executeQuery(query) {
@@ -114,7 +116,7 @@ router.post("/editprofile", async (req, res) => {
       const outputFilePath = "public/uploads/profiles/" + file.name;
 
       sharp("public/uploads/profiles/" + "raw-" + file.name)
-        .png({ quality: 60 })
+        .png({ quality: 5 })
         .toFile(outputFilePath)
         .then(() => {
           console.log("Image compressed successfully!");
@@ -201,7 +203,7 @@ router.post("/createprofile", async (req, res) => {
       const outputFilePath = "public/uploads/profiles/" + file.name;
 
       sharp("public/uploads/profiles/" + "raw-" + file.name)
-        .png({ quality: 50 })
+        .png({ quality: 5 })
         .toFile(outputFilePath)
         .then(() => {
           console.log("Image compressed successfully!");
@@ -356,7 +358,7 @@ router.post("/createuserprofile", async (req, res) => {
       const outputFilePath = "public/uploads/profiles/" + file.name;
 
       sharp("public/uploads/profiles/" + "raw-" + file.name)
-        .png({ quality: 20 })
+        .png({ quality: 1 })
         .toFile(outputFilePath)
         .then(() => {
           console.log("Image compressed successfully!");
@@ -403,6 +405,14 @@ router.post("/createuserprofile", async (req, res) => {
 
   res.redirect("/home");
 });
+
+
+
+
+
+
+
+
 
 router.post("/addfav", async (req, res) => {
   console.log(req.body);
