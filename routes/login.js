@@ -2,9 +2,8 @@ const express = require("express");
 const app = express();
 var router = express.Router();
 const session = require('express-session');
-
+const fetch = require('node-fetch');
 var con = require("../database.js");
-var client = require("../whatsapp.js");
 
 
 
@@ -38,6 +37,7 @@ async function sendmessage(number, message) {
       console.log("API Response:", responseData);
     } else {
       console.error("API Error:", response.status);
+      console.log(response);
       // Send a JSON response with status 'error'
     }
   } catch (error) {
@@ -45,11 +45,15 @@ async function sendmessage(number, message) {
   }
 }
 
+
+
+
+
 router.post('/', async (req, res) => {
     const { phoneNumber } = req.body;
     req.session.phoneNumber = req.body.phoneNumber
 
-    const number = '+91' + phoneNumber;
+    const number =  phoneNumber;
   
     const generateRandomCode = () => {
       const codeLength = 5;
@@ -68,22 +72,23 @@ router.post('/', async (req, res) => {
 
   sendmessage(number, message)
     .then(() => {
-      console.log("Message sent successfully");
-      const result = executeQuery(
-        `SELECT * FROM chats WHERE number='${phonenumber}'`
-      );
-
-      if (result.length < 1) {
-        executeQuery(`INSERT INTO chats (number) VALUES ('${phonenumber}')`);
-      }
-
-      res.render("logins/typecode", { number: phonenumber});
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.error("Error sending message:", error);
       res.sendStatus(500); // Send an error response to the client
     });
+
+
+
+
   });
+
+
+
+
+
+
 router.post('/code', async (req, res) => {
   
   const result = await executeQuery(`SELECT * FROM userprofiles WHERE id='${req.session.phoneNumber}'`);

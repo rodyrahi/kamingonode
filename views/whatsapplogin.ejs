@@ -81,7 +81,7 @@
     const phone = formData.get("phone");
     try {
       // Send POST request using fetch
-      const response = await fetch('/sendcode', {
+      const response = await fetch('sendcode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -95,7 +95,7 @@
         document.getElementById('another-form1').style.display = 'block';
 
       } else {
-        console.error('Request failed');
+        console.log(response.body)
 
         // Handle the error
       }
