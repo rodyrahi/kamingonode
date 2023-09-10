@@ -20,6 +20,31 @@ function executeQuery(query) {
   });
 }
 
+
+async function sendmessage(number, message) {
+  try {
+    const apiUrl = "https://wapi.kamingo.in/send-message"; // Replace with the actual API URL
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ number: number, message: message }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log("API Response:", responseData);
+    } else {
+      console.error("API Error:", response.status);
+      // Send a JSON response with status 'error'
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 router.post('/', async (req, res) => {
     const { phoneNumber } = req.body;
     req.session.phoneNumber = req.body.phoneNumber
@@ -37,11 +62,27 @@ router.post('/', async (req, res) => {
   
     randomCode = generateRandomCode();
   
-    console.log(number);
-    client
-      .sendMessage(`${+number}@c.us`, randomCode)
-      .then(async () =>  res.sendStatus(200))
-      .catch((error) => res.sendStatus(500));
+    const message =
+    "Your Kamingo Authentication Code is : " + "*" + randomCode + "*";
+
+
+  sendmessage(number, message)
+    .then(() => {
+      console.log("Message sent successfully");
+      const result = executeQuery(
+        `SELECT * FROM chats WHERE number='${phonenumber}'`
+      );
+
+      if (result.length < 1) {
+        executeQuery(`INSERT INTO chats (number) VALUES ('${phonenumber}')`);
+      }
+
+      res.render("logins/typecode", { number: phonenumber});
+    })
+    .catch((error) => {
+      console.error("Error sending message:", error);
+      res.sendStatus(500); // Send an error response to the client
+    });
   });
 router.post('/code', async (req, res) => {
   
